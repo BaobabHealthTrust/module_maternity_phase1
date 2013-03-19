@@ -1,0 +1,46 @@
+<script type='text/javascript' language='javascript'>
+<!--
+	tt_cancel_show = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	tt_cancel_destination = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	</script>
+
+<form method='post' action='/encounters/create'>
+	<input type='hidden' name='program' value='MATERNITY PROGRAM' />
+	<input type='hidden' name='encounter_type' value='UPDATE HIV STATUS ' />
+	<input type='hidden' name='patient_id' value='<%= @patient.id %>' />
+	<input type='hidden' name='user_id' value='<%= @user.id %>' />
+	<table>
+		<tr>
+			<td>
+				HIV Status 
+			</td>
+			<td>
+<select id='1.1.1' name='concept[HIV STATUS]' helpText='HIV Status ' pos='0' >
+<option></option>
+<option value='Negative'>Negative</option>
+ <option value='Positive'>Positive</option>
+ </select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				HIV Test Visit 
+			</td>
+			<td>
+<select id='1.1.2' name='concept[HIV TEST VISIT]' helpText='HIV Test Visit ' pos='1' >
+<option></option>
+<option value='Previous Visit'>Previous Visit</option>
+ <option value='Current Visit'>Current Visit</option>
+ </select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				HIV Test Date 
+			</td>
+			<td>
+<input type='text' id='1.1.3'  name='concept[HIV TEST DATE]' helpText='HIV Test Date '  tt_onUnLoad='checkHIVTestDate("1.1.3")'  field_type='date'  pos='2' />
+			</td>
+		</tr>
+	</table>
+</form>

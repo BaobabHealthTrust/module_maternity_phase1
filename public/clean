@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require "rubygems"
+
+controller = "#{File.expand_path('../../app/controllers', __FILE__)}/protocol_patients_controller.rb"
+
+File.delete(controller) if File.exists?(controller)
+
+taskflow = "#{File.expand_path('../../config', __FILE__)}/protocol_task_flow.yml"
+
+File.delete(taskflow) if File.exists?(taskflow)
+
+folder = "#{File.expand_path('../../app/views', __FILE__)}/protocol_patients"
+
+if File.exists?(folder)
+
+  Dir.foreach(folder) { |filename|
+
+    File.delete("#{folder}/#{filename}") if filename != ".." and filename != "."
+
+  }
+
+end
+
+Dir.delete(folder) if File.exists?(folder)

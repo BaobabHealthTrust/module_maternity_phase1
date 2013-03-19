@@ -1,0 +1,142 @@
+<script type='text/javascript' language='javascript'>
+<!--
+	tt_cancel_show = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	tt_cancel_destination = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	</script>
+
+<form method='post' action='/encounters/create'>
+	<input type='hidden' name='program' value='MATERNITY PROGRAM' />
+	<input type='hidden' name='encounter_type' value='Update Outcome ' />
+	<input type='hidden' name='patient_id' value='<%= @patient.id %>' />
+	<input type='hidden' name='user_id' value='<%= @user.id %>' />
+	<table>
+		<tr>
+			<td>
+				Procedure Done 
+			</td>
+			<td>
+<input type='text' id='1.1.1'   helpText='Procedure Done '  field_type='text'  pos='0'  ajaxURL='/encounters/concept_set_options?set=procedure_done&search_string='  optional='true'  name='concept[Procedure Done]' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reason For Procedure 
+			</td>
+			<td>
+<input type='text' id='1.1.2'   helpText='Reason For Procedure '  field_type='text'  pos='1'  ajaxURL='/encounters/procedure_diagnoses?procedure=hysterectomy&search_string='  name='concept[HYSTERECTOMY DIAGNOSIS][]'  condition='__$("1.1.1").value.trim().toUpperCase() == "HYSTERECTOMY"' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reason For Procedure 
+			</td>
+			<td>
+<input type='text' id='1.1.3'   helpText='Reason For Procedure '  field_type='text'  pos='2'  ajaxURL='/encounters/procedure_diagnoses?procedure=biopsy&search_string='  name='concept[BIOPSY DIAGNOSIS][]'  condition='__$("1.1.1").value.trim().toUpperCase() == "BIOPSY"' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reason For Procedure 
+			</td>
+			<td>
+<input type='text' id='1.1.4'   helpText='Reason For Procedure '  field_type='text'  pos='3'  ajaxURL='/encounters/procedure_diagnoses?procedure=bilateral_tubal_ligation&search_string='  name='concept[BILATERAL TUBAL LIGATION DIAGNOSIS][]'  condition='__$("1.1.1").value.trim().toUpperCase() == "BILATERAL TUBAL LIGATION"' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reason For Procedure 
+			</td>
+			<td>
+<input type='text' id='1.1.5'   helpText='Reason For Procedure '  field_type='text'  pos='4'  ajaxURL='/encounters/procedure_diagnoses?procedure=myomectomy&search_string='  name='concept[MYOMECTOMY DIAGNOSIS][]'  condition='__$("1.1.1").value.trim().toUpperCase() == "MYOMECTOMY"' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reason For Procedure 
+			</td>
+			<td>
+<input type='text' id='1.1.6'   helpText='Reason For Procedure '  field_type='text'  pos='5'  ajaxURL='/encounters/procedure_diagnoses?procedure=ceclage&search_string='  name='concept[CECLAGE DIAGNOSIS][]'  condition='__$("1.1.1").value.trim().toUpperCase() == "CECLAGE"' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reason For Procedure 
+			</td>
+			<td>
+<input type='text' id='1.1.7'   helpText='Reason For Procedure '  field_type='text'  pos='6'  ajaxURL='/encounters/procedure_diagnoses?procedure=cystectomy&search_string='  name='concept[CYSTECTOMY DIAGNOSIS][]'  condition='__$("1.1.1").value.trim().toUpperCase() == "CYSTECTOMY"' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reason For Procedure 
+			</td>
+			<td>
+<input type='text' id='1.1.8'   helpText='Reason For Procedure '  field_type='text'  pos='7'  ajaxURL='/encounters/procedure_diagnoses?procedure=malsupilisation&search_string='  name='concept[MALSUPILISATION DIAGNOSIS][]'  condition='__$("1.1.1").value.trim().toUpperCase() == "MALSUPILISATION"' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reason For Procedure 
+			</td>
+			<td>
+<input type='text' id='1.1.9'   helpText='Reason For Procedure '  field_type='text'  pos='8'  ajaxURL='/encounters/procedure_diagnoses?procedure=excision&search_string='  name='concept[EXCISION DIAGNOSIS][]'  condition='__$("1.1.1").value.trim().toUpperCase() == "EXCISION"' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reason For Procedure 
+			</td>
+			<td>
+<input type='text' id='1.1.10'   helpText='Reason For Procedure '  field_type='text'  pos='9'  ajaxURL='/encounters/procedure_diagnoses?procedure=incision_and_drainage&search_string='  name='concept[INCISION AND DRAINAGE DIAGNOSIS][]'  condition='__$("1.1.1").value.trim().toUpperCase() == "INCISION AND DRAINAGE"' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reason For Procedure 
+			</td>
+			<td>
+<input type='text' id='1.1.11'   helpText='Reason For Procedure '  field_type='text'  pos='10'  ajaxURL='/encounters/procedure_diagnoses?procedure=caesarean_section&search_string='  name='concept[CAESAREAN SECTION DIAGNOSIS][]'  condition='__$("1.1.1").value.trim().toUpperCase() == "CAESAREAN SECTION"' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reason For Procedure 
+			</td>
+			<td>
+<input type='text' id='1.1.12'   helpText='Reason For Procedure '  field_type='text'  pos='11'  ajaxURL='/encounters/procedure_diagnoses?procedure=exam_under_anaesthesia&search_string='  name='concept[EXAM UNDER ANAESTHESIA DIAGNOSIS][]'  condition='__$("1.1.1").value.trim().toUpperCase() == "EXAM UNDER ANAESTHESIA"' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reason For Procedure 
+			</td>
+			<td>
+<input type='text' id='1.1.13'   helpText='Reason For Procedure '  field_type='text'  pos='12'  ajaxURL='/encounters/procedure_diagnoses?procedure=evacuation&search_string='  name='concept[EVACUATION/MVA DIAGNOSIS][]'  condition='__$("1.1.1").value.trim().toUpperCase() == "EVACUATION/MANUAL VACUUM ASPIRATION"' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reason For Procedure 
+			</td>
+			<td>
+<input type='text' id='1.1.14'   helpText='Reason For Procedure '  field_type='text'  pos='13'  ajaxURL='/encounters/procedure_diagnoses?procedure=dilation_and_curettage&search_string='  name='concept[DILATION AND CURETTAGE DIAGNOSIS][]'  condition='__$("1.1.1").value.trim().toUpperCase() == "DILATION AND CURETTAGE"' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reason For Procedure 
+			</td>
+			<td>
+<input type='text' id='1.1.15'   helpText='Reason For Procedure '  field_type='text'  pos='14'  ajaxURL='/encounters/procedure_diagnoses?procedure=laparatomy&search_string='  name='concept[LAPARATOMY DIAGNOSIS DIAGNOSIS][]'  condition='__$("1.1.1").value.trim().toUpperCase() == "EXPLORATORY LAPARATOMY +/- ADNEXECTOMY"' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Next URL 
+			</td>
+			<td>
+<input  id='1.1.16'   helpText='Next URL '  type='hidden'  pos='15'  value='/protocol_patients/delivery_procedures?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>'  name='next_url' />
+			</td>
+		</tr>
+	</table>
+</form>

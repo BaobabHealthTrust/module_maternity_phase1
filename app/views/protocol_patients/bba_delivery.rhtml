@@ -1,0 +1,110 @@
+<link href='/touchscreentoolkit/lib/stylesheets/apgar.css' type='text/css' rel='stylesheet' />
+
+<script type='text/javascript' src='/touchscreentoolkit/lib/javascripts/apgar.js' ></script>
+
+<script type='text/javascript' language='javascript'>
+<!--
+	tt_cancel_show = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	tt_cancel_destination = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	</script>
+
+<form method='post' action='/encounters/create'>
+	<input type='hidden' name='program' value='MATERNITY PROGRAM' />
+	<input type='hidden' name='encounter_type' value='Baby Delivery ' />
+	<input type='hidden' name='patient_id' value='<%= @patient.id %>' />
+	<input type='hidden' name='user_id' value='<%= @user.id %>' />
+	<table>
+		<tr>
+			<td>
+				 Time of delivery 
+			</td>
+			<td>
+<input type='text' id='1.1.1'     field_type='advancedTime'  helpText='Time of delivery <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  pos='0'  name='concept[Time of delivery]' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Date of delivery 
+			</td>
+			<td>
+<input type='text' id='1.1.2'     tt_onLoad='__$("Unknown").style.display = "none"'  field_type='date'  helpText='Date of delivery <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  pos='1'  name='concept[Date of delivery]' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Presentation 
+			</td>
+			<td>
+<input type='text' id='1.1.3'     field_type='text'  helpText='Presentation <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  pos='2'  ajaxURL='/encounters/presentation?search_string='  name='concept[Presentation]' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Delivery Outcome 
+			</td>
+			<td>
+<input type='text' id='1.1.4'     field_type='text'  helpText='Delivery Outcome <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  pos='3'  ajaxURL='/encounters/concept_set_options?set=baby_outcome&search_string='  name='concept[BABY OUTCOME]' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Gender 
+			</td>
+			<td>
+<select id='1.1.5'   helpText='Gender <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  pos='4'  name='concept[Gender of contact]' >
+<option></option>
+<option value='Female'>Female</option>
+ <option value='Male'>Male</option>
+ </select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Weight (KG) 
+			</td>
+			<td>
+<input type='text' id='1.1.6'  name='concept[WEIGHT (KG)]'   tt_onLoad='weightAlert("1.1.6*1.1.5"); attribute("1.1.6*validationRule*([0-9]+\\.[0-9])|Unknown$")'  tt_onUnLoad='window.clearInterval(timedEvent)'  max='4.5'  field_type='number'  helpText='Weight <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  pos='5'  absoluteMin='0'  min='2.5'  absoluteMax='10'  tt_pageStyleClass='Numeric NumbersOnlyWithDecimal' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Height (CM) 
+			</td>
+			<td>
+<input type='text' id='1.1.7'  name='concept[HEIGHT (CM)]'   max='60.0'  field_type='number'  helpText='Height <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  pos='6'  absoluteMin='0'  min='15.0'  absoluteMax='100'  tt_pageStyleClass='Numeric NumbersOnlyWithUnknown' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				APGAR 
+			</td>
+			<td>
+<input type='text' id='1.1.8'  name='concept[Apgar]'   tt_onLoad='showApgarControl(); __$("keyboard").style.display = "none"'  max='10'  field_type='number'  helpText='APGAR <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  pos='7'  absoluteMin='0'  min='0'  absoluteMax='10'  tt_pageStyleClass='NoKeyboard' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Delivery Mode 
+			</td>
+			<td>
+<input type='text' id='1.1.9'     field_type='text'  helpText='Delivery Mode <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  pos='8'  ajaxURL='/encounters/concept_set_options?set=delivery_mode&search_string='  name='concept[Delivery Mode]' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Next URL 
+			</td>
+			<td>
+<input  id='1.1.10'   helpText='Next URL '  <%= (params["baby"].to_i >= params["baby_total"].to_i ? "disabled" : "") %>  type='hidden'  pos='9'  value='/protocol_patients/bba_delivery?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>&baby=<%= params["baby"].to_i + 1 %>&baby_total=<%= params["baby_total"]%>'  name='next_url' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Next URL 
+			</td>
+			<td>
+<input  id='1.1.11'   helpText='Next URL '  <%= (params["baby"].to_i < params["baby_total"].to_i ? "disabled" : "") %>  type='hidden'  pos='10'  value='/protocol_patients/mother_delivery_details?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>'  name='next_url' />
+			</td>
+		</tr>
+	</table>
+</form>

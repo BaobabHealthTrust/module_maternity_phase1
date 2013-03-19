@@ -1,0 +1,303 @@
+<style type="text/css">
+
+  body{
+    font-family: "Nimbus Sans L", "Arial Narrow", sans-serif;
+    overflow: hidden;
+  }
+
+  div {
+    -moz-user-select:none;
+  }
+
+  .italic {
+    font-style: italic;
+    color: #999;
+  }
+  .normal {
+    font-style: normal;
+    color: #000;
+  }
+
+  .messageBar {
+    left: 140px;
+    width: 450px;
+    position: absolute;
+    top: 1px;
+    font-size: 1.8em;
+    text-align: center;
+    background-color: tomato;
+    padding: 10px;
+    z-index: 999;
+    border: 5px outset tomato;
+    display: none;
+    border-radius: 15px;
+  }
+
+  .messageBar button {
+    font-size: 0.7em;
+    margin: 5px;
+  }
+
+  button {
+    min-height: 50px;
+    min-width: 50px;
+    margin: 0px;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+    background-color: #6281a7;
+    color: #FFF;
+    font-weight: normal;
+    border: 5px outset #000;
+    padding: 10px;
+    cursor: pointer;
+    background:url(/touchscreentoolkit/lib/images/btn_blue.png) right repeat;
+    -moz-user-select:none;
+    -moz-user-focus:disabled;
+    float: right;
+  }
+
+  button:hover {
+    background:url(/touchscreentoolkit/lib/images/btn_blue_hover.png) right repeat;
+    -moz-user-select:none;
+    -moz-user-focus:disabled;
+  }
+
+  button:active {
+    background:url(/touchscreentoolkit/lib/images/btn_yellow.png) right repeat;
+    border: 3px inset #000;
+  }
+
+
+  ul{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 0px;
+  }
+  li{
+    color: black;
+    list-style: none;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-family:"Nimbus Sans L","Arial Narrow",sans-serif;
+    font-size:1.2em;
+  }
+
+</style>
+
+<script type="text/javascript" src="/touchscreentoolkit/lib/javascripts/multiTouch.js"></script>
+
+<script type="text/javascript">
+  <!--
+
+  var editing = false;
+  
+  function __$(id){
+    return document.getElementById(id);
+  }
+
+  function hideKeyboard(){
+    if($("divMenu")){
+      document.body.removeChild($("divMenu"));
+    }
+  }
+
+  function ajaxCustomRequest(aElement1, search, aUrl) {
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function() {
+      handleCustomResult(aElement1, httpRequest);
+    };
+    try {
+      httpRequest.open('GET', aUrl + "&username=" + search, true);
+      httpRequest.send(null);
+    } catch(e){
+    }
+  }
+
+  function handleCustomResult(optionsList, aXMLHttpRequest) {
+    if (!aXMLHttpRequest) return;
+
+    if (!optionsList) return;
+
+    if (aXMLHttpRequest.readyState == 4 && (aXMLHttpRequest.status == 200 || 
+      aXMLHttpRequest.status == 304)) {
+
+      optionsList.innerHTML = "";
+
+      var result = JSON.parse(aXMLHttpRequest.responseText);
+      
+      for(var i = 0; i < result.length; i++){
+        var li = document.createElement("li");
+        li.id = "li" + i;
+        li.setAttribute("tag", i);
+        li.setAttribute("target", result[i][0]);
+        li.style.cursor = "pointer";
+
+        li.onclick = function(){
+          if(this.innerHTML.match(/unticked/)){
+            ajaxCustomRequest(__$('users'), '', 
+            '/add_to_project?user_id=<%= @user["user_id"] %>&target=' + this.getAttribute("target"))
+          } else {
+            confirmDeletion('Are you sure you want to remove <br/>this user from this project?',
+            this.getAttribute("target"));
+          }
+        }
+
+        optionsList.appendChild(li);
+
+        var tbl = document.createElement("div");
+        tbl.style.display = "table";
+        tbl.style.width = "100%";
+        tbl.style.borderBottom = "1px dotted #6281a7";
+
+        li.appendChild(tbl);
+        
+        var row = document.createElement("div");
+        row.style.display = "table-row";
+
+        tbl.appendChild(row);
+
+        var cell0 = document.createElement("div");
+        cell0.style.display = "table-cell";
+        cell0.style.width = "40px";
+        cell0.innerHTML = (i + 1) + ".";
+        cell0.style.verticalAlign = "middle";
+
+        row.appendChild(cell0);
+
+        var cell1 = document.createElement("div");
+        cell1.style.display = "table-cell";
+        cell1.style.paddingLeft = "5px";
+        cell1.style.verticalAlign = "middle";
+        cell1.innerHTML = "<b>" + result[i][4] + "</b> (" + result[i][2] + " " + result[i][3] + ")"
+        
+        row.appendChild(cell1);
+
+        var cell2 = document.createElement("div");
+        cell2.style.display = "table-cell";
+        cell2.style.width = "160px";
+        cell2.style.paddingBottom = "4px";
+        cell2.style.paddingTop = "4px";
+        cell2.style.textAlign = "center";
+
+        if(result[i][1] == null){
+          cell2.innerHTML = "<img src='/touchscreentoolkit/lib/images/unticked.jpg' alt='' height='30' />";
+        } else {
+          cell2.innerHTML = "<img src='/touchscreentoolkit/lib/images/ticked.jpg' alt='' height='30' />";
+          li.style.backgroundColor = "lightblue";
+        }
+
+        row.appendChild(cell2);
+
+      }
+
+    }
+  }
+
+  function runCmd(id){
+    ajaxCustomRequest(__$('users'), '',
+    '/remove_from_project?user_id=<%= @user["user_id"] %>&target=' + id);
+  }
+
+  function confirmDeletion(message, id) {
+    if (!tstMessageBar) {
+
+      var tstMessageBar = document.createElement("div");
+      tstMessageBar.id = "messageBar";
+      tstMessageBar.className = "messageBar";
+
+      tstMessageBar.innerHTML = message + "<br/>" +
+        "<button onmousedown=\"document.body.removeChild(document.getElementById('messageBar')); " +
+        "runCmd(" + id + ");\"><span>Yes</span></button><button onmousedown=\"document.body" +
+        ".removeChild(document.getElementById('messageBar'));\"><span>No</span></button>";
+
+      tstMessageBar.style.display = "block";
+      document.body.appendChild(tstMessageBar);
+    }
+
+    return false;
+
+  }
+
+  function checkControl(){
+    if(!editing){
+      if(__$("searchbox").value.trim().match(/^$/) ||
+        __$("searchbox").value.trim().match(/^--\sSearch\sby\susername\s--$/)){
+
+        __$("searchbox").value = '-- Search by username --';
+        __$("searchbox").className = 'italic';
+
+      } else {
+        __$("searchbox").className = 'normal';
+      }
+    } else {
+      ajaxCustomRequest(__$('users'), __$("searchbox").value, '/project_users_list?user_id=<%= @user["user_id"] %>')
+    }
+    
+    setTimeout("checkControl()", 100);
+  }
+
+  setTimeout("checkControl()", 100);
+
+  setTimeout("ajaxCustomRequest(__$('users'), '', '/project_users_list?user_id=<%= @user["user_id"] %>')", 100);
+  //-->
+</script>
+
+<table width="100%" style="margin: 0px;" border="0" cellspacing="0">  
+  <tr>
+    <td style="background-color: #fff; padding: 0px;">
+      <div id="divScroller" style="background-color: #fff; overflow: auto; padding: 1px; text-align: center;">
+
+        <table width="100%" cellspacing="0" cellpadding="5">
+          <tr>
+            <td style="vertical-align: top; padding-top: 0px; padding: 5px; font-size: 1.2em;
+                font-weight: normal; color: #6281A7; border-bottom: 1px solid #6281A7;">
+              Select Project Members
+            </td>
+            <td style="padding: 0px; border-bottom: 1px solid #6281A7; padding-bottom: 2px;">
+              <input type="text" style="float: right; font-size: 1.2em;" class="italic"
+                     id="searchbox" value="-- Search by username --"
+                     onchange="if(this.value.trim().match(/^$/) || this.value.trim().match(/^--\sSearch\sby\susername\s--$/)){
+                       this.className = 'italic';
+                     } else {this.className = 'normal'};"
+                     onclick="editing = !editing;
+                     if(editing){showKeyboard('searchbox')} else {hideKeyboard()}
+                     if(this.value.trim().match(/^--\sSearch\sby\susername\s--$/)){
+                       this.value = '';
+                       this.className = 'normal';
+                     }" />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <div style="display: table; width: 100%; font-size: 0.8em; border-bottom: 1px solid rgb(98, 129, 167);">
+                <div style="display: table-row;">
+                  <div style="display: table-cell; font-weight: bold; color: rgb(98, 129, 167);
+                       width: 40px; padding-bottom: 5px;">
+                    No.
+                  </div>
+                  <div style="display: table-cell; font-weight: bold; color: rgb(98, 129, 167); padding-left: 5px;">
+                    Username (Name)
+                  </div>
+                  <div style="display: table-cell; text-align: center; font-weight: bold;
+                       color: rgb(98, 129, 167); width: 200px;">
+                    Project Member?
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <div style="height: 200px; overflow: auto;">
+                <ul id="users">
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </td>
+  </tr>
+</table>

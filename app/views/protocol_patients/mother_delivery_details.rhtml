@@ -1,0 +1,50 @@
+<script type='text/javascript' language='javascript'>
+<!--
+	tt_cancel_show = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	tt_cancel_destination = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	</script>
+
+<form method='post' action='/encounters/create'>
+	<input type='hidden' name='program' value='MATERNITY PROGRAM' />
+	<input type='hidden' name='encounter_type' value='Update Outcome ' />
+	<input type='hidden' name='patient_id' value='<%= @patient.id %>' />
+	<input type='hidden' name='user_id' value='<%= @user.id %>' />
+	<table>
+		<tr>
+			<td>
+				Perineum 
+			</td>
+			<td>
+<select id='1.1.1' name='concept[Perineum]' helpText='Perineum ' field_type='text'  pos='0' >
+<option></option>
+<option value='Intact'>Intact</option>
+ <option value='Tear'>Tear</option>
+ <option value='Episiotomy'>Episiotomy</option>
+ <option value='Laceration'>Laceration</option>
+ </select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Tear Extent 
+			</td>
+			<td>
+<select id='1.1.2' name='concept[TEAR]' helpText='Tear Extent ' field_type='text'  pos='1'  condition='__$("1.1.1").value.trim().toUpperCase() == "TEAR"' >
+<option></option>
+<option value='1 Degree'>1 Degree</option>
+ <option value='2 Degrees'>2 Degrees</option>
+ <option value='3 Degrees'>3 Degrees</option>
+ <option value='4 Degrees'>4 Degrees</option>
+ </select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Next URL 
+			</td>
+			<td>
+<input  id='1.1.3'   helpText='Next URL '  type='hidden'  pos='2'  value='/protocol_patients/delivery_procedures?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>'  name='next_url' />
+			</td>
+		</tr>
+	</table>
+</form>

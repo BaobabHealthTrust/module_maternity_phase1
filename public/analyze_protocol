@@ -1,0 +1,793 @@
+#!/usr/bin/env ruby
+
+require "rubygems"
+require "json"
+
+@pages = []
+
+@subpages = {}
+
+@flow = []
+
+@questions = {"order" => {}}
+
+@scope = {}
+
+@concept = {}
+
+@except_concept = {}
+
+@drug_concept = {}
+
+@special_field = {}
+
+@label = {}
+
+def expand(obj, original)
+
+  object = obj.sort
+
+  object.each do |k, v|
+
+    if obj[k].class.to_s.downcase != "hash" and k == "text" and obj["type"].upcase == "P"
+
+      @questions[obj["root"]] = {} if @questions[obj["root"]].nil?
+
+      @questions[obj["root"]]["text"] = "#{obj["text"]}"
+      @questions[obj["root"]]["root"] = "#{obj["root"]}"
+
+      if !obj["attributes"].nil?
+
+        @questions[obj["root"]]["program"] = obj["attributes"]["program"] if !obj["attributes"]["program"].nil?
+
+        @questions[obj["root"]]["includejs"] = obj["attributes"]["includejs"] if !obj["attributes"]["includejs"].nil?
+
+        @questions[obj["root"]]["includecss"] = obj["attributes"]["includecss"] if !obj["attributes"]["includecss"].nil?
+
+        @questions[obj["root"]]["pos"] = obj["attributes"]["pos"] if !obj["attributes"]["pos"].nil?
+
+        @questions[obj["root"]]["parent"] = obj["attributes"]["parent"] if !obj["attributes"]["parent"].nil?
+
+        @questions[obj["root"]]["ignore"] = obj["attributes"]["ignore"] if !obj["attributes"]["ignore"].nil?
+
+        @questions[obj["root"]]["parent"] = obj["attributes"]["parent"] if !obj["attributes"]["parent"].nil?
+
+        @questions[obj["root"]]["scope"] = obj["attributes"]["scope"] if !obj["attributes"]["scope"].nil?
+        
+        @questions[obj["root"]]["concept"] = obj["attributes"]["concept"] if !obj["attributes"]["concept"].nil?
+
+        @questions[obj["root"]]["except_concept"] = obj["attributes"]["except_concept"] if !obj["attributes"]["except_concept"].nil?
+
+        @questions[obj["root"]]["drug_concept"] = obj["attributes"]["drug_concept"] if !obj["attributes"]["drug_concept"].nil?
+
+        @questions[obj["root"]]["special_field"] = obj["attributes"]["special_field"] if !obj["attributes"]["special_field"].nil?
+        
+        @questions[obj["root"]]["label"] = obj["attributes"]["label"] if !obj["attributes"]["label"].nil?
+        
+      end
+
+    end
+
+    if obj[k].class.to_s.downcase != "hash" and k == "text" and obj["type"].upcase == "Q"
+
+      parent = obj["root"].match(/^(\d+)/)[1] rescue nil
+
+      if parent.nil?
+        next
+      end
+
+      @questions[parent] = {} if @questions[parent].nil?
+
+      @questions[parent][obj["root"]] = {} if @questions[parent][obj["root"]].nil?
+
+      @questions[parent][obj["root"]]["question"] = obj["text"]
+
+      @questions[parent][obj["root"]]["attributes"] = obj["attributes"] if !obj["attributes"].nil?
+
+      if @questions[parent][obj["root"][0..(obj["root"].length - 3)]].nil?
+
+        pos = "#{obj["root"][0..(obj["root"].length - 3)]}".strip.split(".")
+
+        position = {}
+
+        case pos.length
+        when 1
+          position = original[pos[0]]
+        when 2
+          position = original[pos[0]][pos[1]]
+        when 3
+          position = original[pos[0]][pos[1]][pos[2]]
+        when 4
+          position = original[pos[0]][pos[1]][pos[2]][pos[3]]
+        when 5
+          position = original[pos[0]][pos[1]][pos[2]][pos[3]][pos[4]]
+        when 6
+          position = original[pos[0]][pos[1]][pos[2]][pos[3]][pos[4]][pos[5]]
+        when 7
+          position = original[pos[0]][pos[1]][pos[2]][pos[3]][pos[4]][pos[5]][pos[6]]
+        when 8
+          position = original[pos[0]][pos[1]][pos[2]][pos[3]][pos[4]][pos[5]][pos[6]][pos[7]]
+        when 9
+          position = original[pos[0]][pos[1]][pos[2]][pos[3]][pos[4]][pos[5]][pos[6]][pos[7]][pos[8]]
+        when 10
+          position = original[pos[0]][pos[1]][pos[2]][pos[3]][pos[4]][pos[5]][pos[6]][pos[7]][pos[8]][pos[9]]
+        end
+
+        if !position["type"].nil?
+
+          @questions[parent][obj["root"]]["condition"] =
+            "[#{obj["root"][0..(obj["root"].length - 5)]}] == [#{position["text"]}]" if position["type"].downcase == "o"
+
+        end
+
+      end
+
+    end
+
+    if obj[k].class.to_s.downcase != "hash" and k == "text" and obj["type"].upcase == "O"
+
+      parent = obj["root"].match(/^(\d+)/)[1] rescue nil
+
+      if !parent.nil?
+
+        @questions[parent] = {} if @questions[parent].nil?
+
+        if @questions[parent][obj["root"][0..(obj["root"].length - 3)]].nil?
+          @questions[parent][obj["root"][0..(obj["root"].length - 3)]] = {}
+        end
+
+        @questions[parent][obj["root"][0..(obj["root"].length - 3)]]["options"] = {} if @questions[parent][obj["root"][0..(obj["root"].length - 3)]]["options"].nil?
+
+        @questions[parent][obj["root"][0..(obj["root"].length - 3)]]["options"][obj["root"]] = obj["text"]
+
+      end
+
+    end
+
+    if v.class.to_s.downcase == "hash"
+
+      expand(v, original)
+
+    end
+
+  end
+
+end
+
+def build_page(obj)
+
+  order = {}
+
+  result = "<script type='text/javascript' language='javascript'>\n" + 
+    "<!--\n\t" +
+    "tt_cancel_show = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';\n\t" +
+    "tt_cancel_destination = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';\n\t" +
+    "</script>\n\n"
+
+  result = result + "<form method='post' action='/encounters/create'>\n\t<input type='hidden' " +
+    "name='program' value='#{obj["program"]}' />\n\t<input type='hidden' " +
+    "name='encounter_type' value='#{obj["text"]}' />\n\t<input type='hidden' " +
+    "name='patient_id' value='<%= @patient.id %>' />\n\t<input type='hidden' " +
+    "name='user_id' value='<%= @user.id %>' />\n\t<table>\n"
+
+  obj.each do |key, value|
+
+    unless value["attributes"].nil?
+      order[value["attributes"]["pos"].to_i] = key if !value["attributes"]["pos"].nil?
+    end
+
+  end
+
+  order = order.sort
+
+  order.each do |item|
+
+    key = item[1]
+    value = obj[item[1]]
+
+    if key.downcase != "text" and key.downcase != "root" and key.downcase != "program" and
+        key.downcase != "concept" and key.downcase != "except_concept" and key.downcase != "drug_concept" and
+        key.downcase != "special_field" and key.downcase != "label" and key.downcase != "scope"
+
+      result = result + "\t\t<tr>\n\t\t\t<td>\n"
+    
+      result = result + "\t\t\t\t#{value["question"]}\n\t\t\t</td>\n\t\t\t<td>"
+
+      if !value["options"].nil?
+        result = result + "\n<select id='#{key}' #{
+        (!value["attributes"].nil? && !value["attributes"]["name"].nil? ? "" : "name='concept[#{
+        (!value["attributes"].nil? ? (!value["attributes"]["concept"].nil? ?
+        value["attributes"]["concept"] : value["question"]) : value["question"])}]")
+        }#{(!value["attributes"].nil? ? (!value["attributes"]["multiple"].nil? ? "[]'" :
+        (!value["attributes"].nil? && !value["attributes"]["name"].nil? ? "" : "'")) : "'")
+        } #{(!value["attributes"].nil? ? (!value["attributes"]["helpText"].nil? ? "" :
+        "helpText='#{value["question"]}'" ) : "helpText='#{value["question"]}'")}"
+
+        if !value["condition"].nil? and (!value["attributes"].nil? ? (value["attributes"]["condition"].nil?) : true)
+          parts = value["condition"].to_s.match(/\[([^\]]+)\](\s)?([^\s|^\[]+)(\s)?\[([^\]]+)\]/)
+
+          if parts
+            result = result + " condition='__$(\"#{parts[1]}\").value #{parts[3]} \"#{parts[5]}\"' "
+          end
+          
+        end
+
+        if !value["attributes"].nil?
+
+          value["attributes"].each do |f, fv|
+
+            result = result + " #{f}='#{(f.downcase == "helptext" ? 
+            fv.strip.gsub(/\|/, ":") : fv.strip )}' " if f.downcase != "concept" and f.downcase != "ruby"
+
+            result = result + " #{fv.strip.gsub(/\|/, ":")} " if f.downcase == "ruby"
+
+          end
+
+        end
+
+        result = result + ">\n<option></option>\n"
+
+        if !value["options"].nil?
+
+          value["options"].each do |f, fv|
+
+            result = result + "<option value='#{fv}'>#{fv}</option>\n "
+
+          end
+
+        end
+
+        result = result + "</select>\n"
+
+      else
+        
+        result = result + "\n<input #{(!value["attributes"].nil? && 
+        !value["attributes"]["type"].nil? ? "" : "type='text'")} id='#{key}'  #{
+        (!value["attributes"].nil? && !value["attributes"]["name"].nil? ? "" : "name='concept[#{
+        (!value["attributes"].nil? ? (!value["attributes"]["concept"].nil? ?
+        value["attributes"]["concept"] : value["question"]) : value["question"])}]'")
+        } #{(!value["attributes"].nil? && !value["attributes"]["helpText"].nil? ? "" :
+        "helpText='#{value["question"]}'" )} "
+
+        if !value["condition"].nil? and (!value["attributes"].nil? ? (value["attributes"]["condition"].nil?) : true)
+          parts = value["condition"].to_s.gsub(/\[/, "").gsub(/\]/, "").strip.split(" ")
+
+          if parts.length == 3
+            result = result + " condition='__$(\"#{parts[0]}\").value #{parts[1]} \"#{parts[2]}\"' "
+          end
+
+        end
+
+        if !value["attributes"].nil?
+
+          value["attributes"].each do |f, fv|
+
+            result = result + " #{f}='#{(f.downcase == "helptext" ? 
+            fv.strip.gsub(/\|/, ":") : fv.strip )}' " if f.downcase != "concept" and f.downcase != "ruby"
+
+            result = result + " #{fv.strip.gsub(/\|/, ":")} " if f.downcase == "ruby"
+
+          end
+
+        end
+
+        result = result + "/>\n"
+
+      end
+
+      result = result + "\t\t\t</td>\n\t\t</tr>\n"
+
+    end
+
+  end
+
+  result = result + "\t</table>\n</form>\n" 
+
+end
+
+controller = "#{File.expand_path('../../app/controllers', __FILE__)}/protocol_patients_controller.rb"
+
+File.delete(controller) if File.exists?(controller)
+
+taskflow = "#{File.expand_path('../../config', __FILE__)}/protocol_task_flow.yml"
+
+File.delete(taskflow) if File.exists?(taskflow)
+
+folder = "#{File.expand_path('../../app/views', __FILE__)}/protocol_patients"
+
+if File.exists?(folder)
+  
+  Dir.foreach(folder) { |filename|
+
+    File.delete("#{folder}/#{filename}") if filename != ".." and filename != "."
+
+  }
+  
+end
+
+Dir.mkdir("#{File.expand_path('../../app/views', __FILE__)}/protocol_patients") if !File.exists?(folder)
+
+@controller_content = "\nclass ProtocolPatientsController < ApplicationController\n\n"
+
+@written = {}
+
+Dir.foreach(File.expand_path('../../spec', __FILE__)) do |filename|
+  
+  @questions = {}
+
+  if filename.match(/\.spec$/)
+
+    @result = {}
+
+    File.open(File.expand_path('../../spec', __FILE__) + "/" + filename).each_line do |line|
+
+      mline = line.strip.match(/^[C|P|Q|O]\.(\d+)\.((\d+)\.)?((\d+)\.)?((\d+)\.)?((\d+)\.)?((\d+)\.)?((\d+)\.)?((\d+)\.)?((\d+)\.)?((\d+)\.)?\s([^\[]+)(\[(.+)\])?/)
+
+      if !mline.nil?
+        (0..9).each do |pos|
+
+          case pos
+          when 0
+            if !mline[1].nil? and @result[mline[1]].nil?
+
+              @result[mline[1]] = {}
+
+              if mline[3].nil?
+                @result[mline[1]]["text"] = mline[20]
+                @result[mline[1]]["type"] = line[0,1]
+                @result[mline[1]]["root"] = "#{mline[1]}"
+
+                if !mline[22].nil?
+                  terms = mline[22].split(",")
+
+                  @result[mline[1]]["attributes"] = {}
+
+                  terms.each do |term|
+
+                    parts = term.split(":")
+
+                    @result[mline[1]]["attributes"][parts[0].strip] = parts[1].strip
+
+                  end
+                end
+
+              end
+            end
+          when 1
+            if !mline[3].nil? and @result[mline[1]][mline[3]].nil?
+
+              @result[mline[1]][mline[3]] = {}
+
+              if mline[5].nil?
+                @result[mline[1]][mline[3]]["text"] = mline[20]
+                @result[mline[1]][mline[3]]["type"] = line[0,1]
+                @result[mline[1]][mline[3]]["root"] = "#{mline[1]}.#{mline[3]}"
+
+                if !mline[22].nil?
+                  terms = mline[22].split(",")
+
+                  @result[mline[1]][mline[3]]["attributes"] = {}
+
+                  terms.each do |term|
+
+                    parts = term.split(":")
+
+                    @result[mline[1]][mline[3]]["attributes"][parts[0].strip] = parts[1].strip
+
+                  end
+                end
+
+              end
+            end
+
+          when 2
+            if !mline[5].nil? and @result[mline[1]][mline[3]][mline[5]].nil?
+
+              @result[mline[1]][mline[3]][mline[5]] = {}
+
+              if mline[7].nil?
+                @result[mline[1]][mline[3]][mline[5]]["text"] = mline[20]
+                @result[mline[1]][mline[3]][mline[5]]["type"] = line[0,1]
+                @result[mline[1]][mline[3]][mline[5]]["root"] = "#{mline[1]}.#{mline[3]}.#{mline[5]}"
+
+                if !mline[22].nil?
+                  terms = mline[22].split(",")
+
+                  @result[mline[1]][mline[3]][mline[5]]["attributes"] = {}
+
+                  terms.each do |term|
+
+                    parts = term.split(":")
+
+                    @result[mline[1]][mline[3]][mline[5]]["attributes"][parts[0].strip] = parts[1].strip
+
+                  end
+                end
+
+              end
+            end
+
+          when 3
+            if !mline[7].nil? and @result[mline[1]][mline[3]][mline[5]][mline[7]].nil?
+
+              @result[mline[1]][mline[3]][mline[5]][mline[7]] = {}
+
+              if mline[9].nil?
+                @result[mline[1]][mline[3]][mline[5]][mline[7]]["text"] = mline[20]
+                @result[mline[1]][mline[3]][mline[5]][mline[7]]["type"] = line[0,1]
+                @result[mline[1]][mline[3]][mline[5]][mline[7]]["root"] = "#{mline[1]}.#{mline[3]}.#{mline[5]}.#{mline[7]}"
+
+                if !mline[22].nil?
+                  terms = mline[22].split(",")
+
+                  @result[mline[1]][mline[3]][mline[5]][mline[7]]["attributes"] = {}
+
+                  terms.each do |term|
+
+                    parts = term.split(":")
+
+                    @result[mline[1]][mline[3]][mline[5]][mline[7]]["attributes"][parts[0].strip] = parts[1].strip rescue (raise parts.inspect)
+
+                  end
+                end
+
+              end
+            end
+
+          when 4
+            if !mline[9].nil? and @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]].nil?
+
+              @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]] = {}
+
+              if mline[11].nil?
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]]["text"] = mline[20]
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]]["type"] = line[0,1]
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]]["root"] = "#{mline[1]}.#{mline[3]}.#{mline[5]}.#{mline[7]}.#{mline[9]}"
+
+                if !mline[22].nil?
+                  terms = mline[22].split(",")
+
+                  @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]]["attributes"] = {}
+
+                  terms.each do |term|
+
+                    parts = term.split(":")
+
+                    @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]]["attributes"][parts[0].strip] = parts[1].strip
+
+                  end
+                end
+
+              end
+            end
+
+          when 5
+            if !mline[11].nil? and @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]].nil?
+
+              @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]] = {}
+
+              if mline[13].nil?
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]]["text"] = mline[20]
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]]["type"] = line[0,1]
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]]["root"] = "#{mline[1]}.#{mline[3]}.#{mline[5]}.#{mline[7]}.#{mline[9]}.#{mline[11]}"
+
+                if !mline[22].nil?
+                  terms = mline[22].split(",")
+
+                  @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]]["attributes"] = {}
+
+                  terms.each do |term|
+
+                    parts = term.split(":")
+
+                    @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]]["attributes"][parts[0].strip] = parts[1].strip
+
+                  end
+                end
+
+              end
+            end
+
+          when 6
+            if !mline[13].nil? and @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]].nil?
+
+              @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]] = {}
+
+              if mline[15].nil?
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]]["text"] = mline[20]
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]]["type"] = line[0,1]
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]]["root"] = "#{mline[1]}.#{mline[3]}.#{mline[5]}.#{mline[7]}.#{mline[9]}.#{mline[11]}.#{mline[13]}"
+
+                if !mline[22].nil?
+                  terms = mline[22].split(",")
+
+                  @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]]["attributes"] = {}
+
+                  terms.each do |term|
+
+                    parts = term.split(":")
+
+                    @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]]["attributes"][parts[0].strip] = parts[1].strip
+
+                  end
+                end
+
+              end
+            end
+
+          when 7
+            if !mline[15].nil? and @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]].nil?
+
+              @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]] = {}
+
+              if mline[17].nil?
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]]["text"] = mline[20]
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]]["type"] = line[0,1]
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]]["root"] = "#{mline[1]}.#{mline[3]}.#{mline[5]}.#{mline[7]}.#{mline[9]}.#{mline[11]}.#{mline[13]}.#{mline[15]}"
+
+                if !mline[22].nil?
+                  terms = mline[22].split(",")
+
+                  @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]]["attributes"] = {}
+
+                  terms.each do |term|
+
+                    parts = term.split(":")
+
+                    @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]]["attributes"][parts[0].strip] = parts[1].strip
+
+                  end
+                end
+
+              end
+            end
+
+          when 8
+            if !mline[17].nil? and @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]][mline[17]].nil?
+
+              @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]][mline[17]] = {}
+
+              if mline[19].nil?
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]][mline[17]]["text"] = mline[20]
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]][mline[17]]["type"] = line[0,1]
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]][mline[17]]["root"] = "#{mline[1]}.#{mline[3]}.#{mline[5]}.#{mline[7]}.#{mline[9]}.#{mline[11]}.#{mline[13]}.#{mline[15]}.#{mline[17]}"
+
+                if !mline[22].nil?
+                  terms = mline[22].split(",")
+
+                  @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]][mline[17]]["attributes"] = {}
+
+                  terms.each do |term|
+
+                    parts = term.split(":")
+
+                    @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]][mline[17]]["attributes"][parts[0].strip] = parts[1].strip
+
+                  end
+                end
+
+              end
+            end
+
+          when 9
+            if !mline[19].nil? and @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]][mline[17]][mline[19]].nil?
+
+              @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]][mline[17]][mline[19]] = {}
+
+              if mline[19].nil?
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]][mline[17]][mline[19]]["text"] = mline[20]
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]][mline[17]][mline[19]]["type"] = line[0,1]
+                @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]][mline[17]][mline[19]]["root"] = "#{mline[1]}.#{mline[3]}.#{mline[5]}.#{mline[7]}.#{mline[9]}.#{mline[11]}.#{mline[13]}.#{mline[15]}.#{mline[17]}.#{mline[19]}"
+
+                if !mline[22].nil?
+                  terms = mline[22].split(",")
+
+                  @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]][mline[17]][mline[19]]["attributes"] = {}
+
+                  terms.each do |term|
+
+                    parts = term.split(":")
+
+                    @result[mline[1]][mline[3]][mline[5]][mline[7]][mline[9]][mline[11]][mline[13]][mline[15]][mline[17]][mline[19]]["attributes"][parts[0].strip] = parts[1].strip
+
+                  end
+                end
+
+              end
+            end
+
+          end
+
+        end
+
+      end
+
+    end
+
+    expand(@result, @result)
+
+    # puts @questions.to_yaml
+
+    @questions.each do |key, value|
+
+      @flow << "#{key}" if (!value["ignore"].nil? ? (!value["ignore"].downcase == "true" ? false : true ) : true)
+
+      name = value["text"].strip.downcase.gsub(/\s/, "_").gsub(/\//, "").gsub(/\-/, "_") rescue (raise value.to_yaml)
+
+      label = value["label"] if !value["label"].nil?
+
+      @label[label] = label if !value["label"].nil?
+
+      labeltxt = label.strip.downcase.gsub(/\s/, "_").gsub(/\//, "").gsub(/\-/, "_") rescue nil
+
+      @controller_content = @controller_content + "\tdef #{(!label.nil? ? labeltxt : name)}\n\n\t" +
+        "@patient = Patient.find(params[:patient_id]) rescue nil\n\n\t" + 
+        "redirect_to '/encounters/no_patient' and return if @patient.nil?" +
+        "\n\nif params[:user_id].nil?\n\t" +
+        "redirect_to '/encounters/no_user' and return\n\tend\n\n\t@user = User.find(params[:user_id]) rescue nil?\n\n\t" +
+        "redirect_to '/encounters/no_patient' and return if @user.nil?\n\t" +
+        "\n\n\tend\n\n" if !@written["#{(!label.nil? ? labeltxt : name)}"]
+
+      @written["#{(!label.nil? ? labeltxt : name)}"] = true
+
+      @pages << [value["pos"].to_i, "#{(!label.nil? ? labeltxt : name)}"] if (value["ignore"].downcase != "true" rescue true) and
+        (value["parent"].nil?)
+
+      unless value["parent"].nil?
+        unless @subpages[value["parent"].to_i].nil?
+          @subpages[value["parent"].to_i] << [value["pos"].to_i, "#{(!label.nil? ? 
+            labeltxt : name)}"] if (value["ignore"].downcase != "true" rescue true)
+        else
+          @subpages[value["parent"].to_i] = [[value["pos"].to_i, "#{(!label.nil? ? 
+              labeltxt : name)}"]] if (value["ignore"].downcase != "true" rescue true)
+        end
+      end
+
+      @scope[(!label.nil? ? labeltxt : name)] = value["scope"] rescue "TODAY"
+
+      @concept[(!label.nil? ? labeltxt : name)] = value["concept"] if !value["concept"].nil?
+
+      @except_concept[(!label.nil? ? labeltxt : name)] = value["except_concept"] if !value["except_concept"].nil?
+
+      @drug_concept[(!label.nil? ? labeltxt : name)] = value["drug_concept"] if !value["drug_concept"].nil?
+
+      @special_field[(!label.nil? ? labeltxt : name)] = value["special_field"] if !value["special_field"].nil?
+
+      file = File.open("#{File.expand_path('../../app/views', __FILE__)}/protocol_patients/#{(!label.nil? ? labeltxt : name)}.rhtml", "w")
+
+      result = ""
+
+      unless value["includecss"].nil?
+
+        jsfiles = value["includecss"].split(";")
+
+        jsfiles.each{|c|
+          result = "#{result}<link href='/touchscreentoolkit/lib/stylesheets/#{c.strip}.css' type='text/css' rel='stylesheet' />\n\n" if !c.nil?
+        }
+
+      end
+
+      unless value["includejs"].nil?
+
+        jsfiles = value["includejs"].split(";")
+
+        jsfiles.each{|f|
+          result = "#{result}<script type='text/javascript' src='/touchscreentoolkit/lib/javascripts/#{f.strip}.js' ></script>\n\n" if !f.nil?
+        }
+        
+      end
+
+      result = result + build_page(value)
+
+      file.write(result.to_s)
+
+      file.close
+
+    end
+
+    @flow = @flow.sort
+
+    # puts @questions.inspect
+    
+  end
+
+end
+
+# @subpages.inspect
+
+# puts "\n#{@pages.inspect}\n\n"
+
+s = File.open("#{File.expand_path('../../config', __FILE__)}/protocol_task_flow.yml", "w")
+
+string = "\nproduction:\r\n" +
+  "  clinical.encounters.sequential.list: " + @pages.sort.collect{|p| 
+  unless @subpages[p[0]].nil?
+    @subpages[p[0].to_i].sort.collect{|i| i[1].gsub(/_/, " ").upcase}.join(",")
+  else
+    p[1].gsub(/_/, " ").upcase
+  end
+}.join(",") + "\r\n" +
+  "  clinical.encounters.display.list: " + @pages.sort.collect{|p|
+  unless @subpages[p[0].to_i].nil?
+    p[1].gsub(/_/, " ").upcase + "|" + @subpages[p[0]].sort.collect{|i| i[1].gsub(/_/, " ").upcase}.join(",")
+  else
+    p[1].gsub(/_/, " ").upcase
+  end
+}.join(";") + "\r\n" +
+  "  scope: " + @scope.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",") +
+  (!@concept.empty? ? "\r\n" +
+    "  concept: " + @concept.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") +
+  (!@except_concept.empty? ? "\r\n" +
+    "  except_concept: " + @except_concept.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") +
+  (!@drug_concept.empty? ? "\r\n" +
+    "  drug_concept: " + @drug_concept.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") +
+  (!@special_field.empty? ? "\r\n" +
+    "  special_field: " + @special_field.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") +
+  (!@label.empty? ? "\r\n" +
+    "  label: " + @label.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") +
+  "\r\n\r\ndevelopment:\r\n" +
+  "  clinical.encounters.sequential.list: " + @pages.sort.collect{|p|
+  unless @subpages[p[0]].nil?
+    @subpages[p[0].to_i].sort.collect{|i| i[1].gsub(/_/, " ").upcase}.join(",")
+  else
+    p[1].gsub(/_/, " ").upcase
+  end
+}.join(",") + "\r\n" +
+  "  clinical.encounters.display.list: " + @pages.sort.collect{|p|
+  unless @subpages[p[0]].nil?
+    p[1].gsub(/_/, " ").upcase + "|" + @subpages[p[0].to_i].sort.collect{|i| i[1].gsub(/_/, " ").upcase}.join(",")
+  else
+    p[1].gsub(/_/, " ").upcase
+  end
+}.join(";") + "\r\n" +
+  "  scope: " + @scope.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",") +
+  (!@concept.empty? ? "\r\n" +
+    "  concept: " + @concept.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") +
+  (!@except_concept.empty? ? "\r\n" +
+    "  except_concept: " + @except_concept.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") +
+  (!@drug_concept.empty? ? "\r\n" +
+    "  drug_concept: " + @drug_concept.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") +
+  (!@special_field.empty? ? "\r\n" +
+    "  special_field: " + @special_field.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") +
+  (!@label.empty? ? "\r\n" +
+    "  label: " + @label.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") +
+  "\r\n\r\ntest: &TEST\r\n" +
+  "  clinical.encounters.sequential.list: " + @pages.sort.collect{|p|
+  unless @subpages[p[0]].nil?
+    @subpages[p[0].to_i].sort.collect{|i| i[1].gsub(/_/, " ").upcase}.join(",")
+  else
+    p[1].gsub(/_/, " ").upcase
+  end
+}.join(",") + "\r\n" +
+  "  clinical.encounters.display.list: " + @pages.sort.collect{|p|
+  unless @subpages[p[0]].nil?
+    p[1].gsub(/_/, " ").upcase + "|" + @subpages[p[0].to_i].sort.collect{|i| i[1].gsub(/_/, " ").upcase}.join(",")
+  else
+    p[1].gsub(/_/, " ").upcase
+  end
+}.join(";") + "\r\n" +
+  "  scope: " + @scope.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",") +
+  (!@concept.empty? ? "\r\n" +
+    "  concept: " + @concept.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") +
+  (!@except_concept.empty? ? "\r\n" +
+    "  except_concept: " + @except_concept.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") +
+  (!@drug_concept.empty? ? "\r\n" +
+    "  drug_concept: " + @drug_concept.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") +
+  (!@special_field.empty? ? "\r\n" +
+    "  special_field: " + @special_field.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") +
+  (!@label.empty? ? "\r\n" +
+    "  label: " + @label.collect { |k,v| "#{k.gsub(/_/, " ").upcase}|#{v}" }.join(",")  : "") + "\r\n\r\n"
+
+s.write(string)
+
+s.close
+
+# puts string + "\n\n"
+
+@controller_content = @controller_content + "end\n"
+
+c = File.open(controller, "w")
+
+c.write(@controller_content)
+
+c.close

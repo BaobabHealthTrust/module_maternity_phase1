@@ -1,0 +1,22 @@
+--- 
+test: 
+  user.management.url: http://localhost:3004
+  patient.registration.url: http://localhost:3005
+  project.name: Maternity
+  facility.name: Test Centre
+  current_district: Lilongwe
+development: 
+  user.management.url: http://localhost:3004
+  demographic.fields: Nationality,Current District,Current Village,Current T/A,Maiden Name,Cell Phone Number
+  patient.registration.url: http://localhost:3005
+  project.name: Maternity
+  facility.name: Test Centre
+  current_district: Lilongwe
+  birth_registration_url: http://localhost:4002/people/import_baby
+production: 
+  user.management.url: http://localhost:3004
+  patient.registration.url: http://localhost:3005
+  project.name: Maternity
+  facility.name: Test Centre
+  current_district: Lilongwe
+  birth_registration_url: http://localhost:4002/people/import_baby

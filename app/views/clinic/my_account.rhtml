@@ -1,0 +1,125 @@
+<style type="text/css">
+  body {
+    -moz-user-select:none;
+  }
+
+  #stats {
+    width:98%;
+    border:1px solid #eee;
+    margin:10px;
+    margin-top: 0px;
+    background:white;
+  }
+  #stats td, #stats th {
+    text-align:center;
+  }
+  .odd {
+    background-color: #eeeef7;
+  }
+  .even {
+    background-color: #fff;
+  }
+
+  #table_div {
+    overflow:auto;
+    height: 320px;
+    background-color: white;
+    border: solid 1px #eee;
+    border-width: 1px;
+    overflow: hidden;
+  }
+
+  .btn {
+    min-height: 50px;
+    min-width: 250px;
+    margin: 0px;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+    background-color: #6281a7;
+    color: #FFF;
+    font-weight: normal;
+    border: 5px outset #000;
+    padding: 10px;
+    cursor: pointer;
+    background:url(/touchscreentoolkit/lib/images/btn_blue.png) right repeat;
+    -moz-user-select:none;
+    -moz-user-focus:disabled;
+    float: right;
+  }
+
+  .btn:hover {
+    background:url(/touchscreentoolkit/lib/images/btn_blue_hover.png) right repeat;
+    -moz-user-select:none;
+    -moz-user-focus:disabled;
+  }
+
+  .btn:active {
+    background:url(/touchscreentoolkit/lib/images/btn_yellow.png) right repeat;
+    border: 3px inset #000;
+  }
+
+</style>
+
+<div style="width: 100%; text-align: center;">
+  <table id="stats" style="margin-bottom: 8px;" cellpadding="5">
+    <tr style="color: #fff; background-color: #6281a7;">
+      <th colspan="3" style="padding: 10px;">
+        Edit Account Details
+      </th>
+    </tr>
+    <tr>
+      <td colspan="3">
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="4" >
+        <iframe height="300" src="<%= @link
+      %>/user_demographics?ext=true&user_id=<%= params[:user_id]
+              %>&location_id=<%= session[:location_id] || params[:location_id] %>"
+              style="border: 1px solid #ccc; width: 100%;">
+        </iframe>
+      </td>
+      <td style="height: 70px; width: 250px;">
+        <button class="btn" onclick="window.parent.location='/my_activities?user_id=<%= params[:user_id]
+              %>&location_id=<%= session[:location_id] || params[:location_id] %>'">
+          <span>
+            My Activities
+          </span>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td style="height: 70px;">
+        <button class="btn" onclick="window.parent.location='<%= @link
+      %>/location?ext=true&user_id=<%= params[:user_id]
+              %>&location_id=<%= session[:location_id] || params[:location_id] %>&src=<%= @host %>'">
+          <span>
+            Change Location
+          </span>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td style="height: 70px;">
+        <button class="btn" onclick="window.parent.location='<%= @link
+      %>/edit_password?ext=true&user_id=<%= params[:user_id]
+              %>&location_id=<%= session[:location_id] || params[:location_id] %>&src=<%= @host %>'">
+          <span>
+            Change Password
+          </span>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td style="height: 70px;">
+        <button class="btn" onclick="window.parent.location='<%= @link
+              %>/edit_user?ext=true&user_id=<%= params[:user_id]
+              %>&location_id=<%= session[:location_id] || params[:location_id] %>&src=<%= @host %>'">
+          <span>
+            Edit Demographics
+          </span>
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>

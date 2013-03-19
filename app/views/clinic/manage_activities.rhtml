@@ -1,0 +1,244 @@
+<style type="text/css">
+  div {
+    -moz-user-select:none;
+  }
+
+  ul{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 0px;
+  }
+  li{
+    color: black;
+    list-style: none;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-family:"Nimbus Sans L","Arial Narrow",sans-serif;
+    font-size:1.2em;
+  }
+
+</style>
+
+<script language="javascript">
+  tt_cancel_destination = '/clinic?user_id=<%= (params[:user_id] ||
+    params[:id]) %>&location_id=<%= params[:location_id] %>';
+  tt_cancel_show = '/clinic?user_id=<%= (params[:user_id] ||
+    params[:id]) %>&location_id=<%= params[:location_id] %>';
+
+  var activities = <%= @activities.to_json %>;
+  var roles = <%= @roles.to_json %>;
+
+  function __$(id){
+    return document.getElementById(id);
+  }
+
+  function ajaxCustomRequest(aElement1, aUrl, role, activity) {
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function() {
+      handleCustomResult(aElement1, httpRequest, role);
+    };
+    try {
+      httpRequest.open('GET', aUrl + "&role=" + role + (typeof(activity) !=
+        "undefined" ? "&activity=" + activity : ""), true);
+      httpRequest.send(null);
+    } catch(e){
+    }
+  }
+
+  function handleCustomResult(optionsList, aXMLHttpRequest, role) {
+    if (!aXMLHttpRequest) return;
+
+    if (!optionsList) return;
+
+    if (aXMLHttpRequest.readyState == 4 && (aXMLHttpRequest.status == 200 ||
+      aXMLHttpRequest.status == 304)) {
+
+      optionsList.innerHTML = "";
+
+      var result = JSON.parse(aXMLHttpRequest.responseText);
+
+      var j = 0;
+      for(var i in result){
+        j++;
+
+        var li = document.createElement("li");
+        li.id = "li" + j;
+        li.setAttribute("parent", optionsList.id);
+        li.setAttribute("tag", j);
+        li.setAttribute("role", role);
+        li.setAttribute("activity", i);
+        li.style.cursor = "pointer";
+
+        li.onclick = function(){
+          if(this.innerHTML.match(/unticked/)){
+            ajaxCustomRequest(__$(this.getAttribute("parent")), '/create_role_activities?user_id=<%= @user["user_id"] %>',
+            this.getAttribute("role"), this.getAttribute("activity"))
+          } else {
+            confirmDeletion('Are you sure you want to remove <br/>this activity from this role?',
+            this.getAttribute("parent"), this.getAttribute("role"), this.getAttribute("activity"));
+          }
+        }
+
+        optionsList.appendChild(li);
+
+        var tbl = document.createElement("div");
+        tbl.style.display = "table";
+        tbl.style.width = "100%";
+        tbl.style.borderBottom = "1px dotted #6281a7";
+
+        li.appendChild(tbl);
+
+        var row = document.createElement("div");
+        row.style.display = "table-row";
+
+        tbl.appendChild(row);
+
+        var cell0 = document.createElement("div");
+        cell0.style.display = "table-cell";
+        cell0.style.width = "40px";
+        cell0.innerHTML = j + ".";
+        cell0.style.verticalAlign = "middle";
+
+        row.appendChild(cell0);
+
+        var cell1 = document.createElement("div");
+        cell1.style.display = "table-cell";
+        cell1.style.paddingLeft = "5px";
+        cell1.style.verticalAlign = "middle";
+        cell1.innerHTML = i;
+
+        row.appendChild(cell1);
+
+        var cell2 = document.createElement("div");
+        cell2.style.display = "table-cell";
+        cell2.style.width = "160px";
+        cell2.style.paddingBottom = "4px";
+        cell2.style.paddingTop = "4px";
+        cell2.style.textAlign = "right";
+
+        if(result[i] == 0){
+          cell2.innerHTML = "<img src='/touchscreentoolkit/lib/images/unticked.jpg' alt='' height='30' />";
+        } else {
+          cell2.innerHTML = "<img src='/touchscreentoolkit/lib/images/ticked.jpg' alt='' height='30' />";
+          li.style.backgroundColor = "lightblue";
+        }
+
+        row.appendChild(cell2);
+
+      }
+
+    }
+  }
+
+  function populateActivities(){
+    for(var i = 1; i <= roles.length; i++){
+      ajaxCustomRequest(__$('ul' + i), '/check_role_activities?user_id=<%= @user["user_id"] %>', roles[i-1])
+    }
+  }
+
+  function runCmd(id, role, activity){
+    ajaxCustomRequest(__$(id), '/remove_role_activities?user_id=<%= @user["user_id"] %>', role, activity);
+  }
+
+  function confirmDeletion(message, id, role, activity) {
+    if (!tstMessageBar) {
+
+      var tstMessageBar = document.createElement("div");
+      tstMessageBar.id = "messageBar";
+      tstMessageBar.className = "messageBar";
+
+      tstMessageBar.innerHTML = message + "<br/>" +
+        "<button onmousedown=\"__$('content').removeChild(document.getElementById('messageBar')); " +
+        "runCmd('" + id + "', '" + role + "', '" + activity + "');\"><span>Yes</span></button><button onmousedown=\"__$('content')" +
+        ".removeChild(document.getElementById('messageBar'));\"><span>No</span></button>";
+
+      tstMessageBar.style.display = "block";
+      __$('content').appendChild(tstMessageBar);
+    }
+
+    return false;
+
+  }
+
+  setTimeout("populateActivities()", 100);
+  
+</script>
+
+<table width="100%" style="margin: 0px;" border="0" cellspacing="0">
+  <tr>
+    <td style="font-size: 2.3em; background-color: #6281A7; color: #eee; padding: 15px; text-align: center;">
+      Project Role Activities Management
+    </td>
+  </tr>
+  <tr>
+    <td style="background-color: #ccc; padding: 5px;">
+      <div style="height: 36.2em; background-color: #fff; overflow: auto; padding: 5px;">
+
+        <div style="display: table; width: 100%; border-spacing: 2px;">
+          <div style="display: table-row; background-color: #999; color: #eee;">
+            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold; width: 40px;">
+              &nbsp;
+            </div>
+            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold; width: 300px;">
+              Role
+            </div>
+            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold;">
+              Activities
+            </div>
+          </div>
+
+        </div>
+
+        <div style="height: 34em; border: 1px solid #eee; width: 100%; overflow: auto;">
+
+          <div style="display: table; width: 100%; border-spacing: 0px;">
+
+            <% i = 0 %>
+            <% @roles.each do |role| %>
+
+              <% i = i + 1 %>
+
+              <div style="display: table-row;">
+                <div style="display: table-cell; border-bottom: 1px solid #ccc;
+                     border-right: 1px solid #ccc; padding: 5px;
+                     text-align: center; font-weight: bold; width: 40px; vertical-align: top;">
+                     <%= i %>
+                </div>
+                <div style="display: table-cell; border-bottom: 1px solid #ccc;
+                     border-right: 1px solid #ccc; padding: 5px; padding: 5px;
+                     width: 300px; vertical-align: top; font-weight: bold;">
+                     <%= role %>
+                </div>
+                <div style="display: table-cell; border-bottom: 1px solid #ccc; padding: 5px; vertical-align: top; ">
+                  <ul id="ul<%= i %>">
+                  </ul>
+                </div>
+              </div>
+
+            <% end %>
+
+          </div>
+
+        </div>
+
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td style="background-color: #333;">
+      <div style="height: 4.8em;">        
+        <button class="green" style="float: right; margin: 8px; width: 150px; margin-right: 20px;"
+                onclick="window.location='/clinic?user_id=<%= params[:user_id] %>'">
+          <span>
+            Finish
+          </span>
+        </button>
+      </div>
+    </td>
+  </tr>
+</table>

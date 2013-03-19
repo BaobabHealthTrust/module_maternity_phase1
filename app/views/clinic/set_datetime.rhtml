@@ -1,0 +1,129 @@
+<style type="text/css">
+  #date,#star,#abc,#slash,#Unknown,#percent,#comma,#minus,#plus,#decimal {
+    display:none;
+  }
+
+  .abcKeyboard { display:none; }
+
+  #tt_page_month #viewport { height:530px }
+
+  #tt_page_day #viewport { display:none; }
+
+</style>
+<script type="text/javascript">
+
+  var date = new Date();
+
+function validateDate() {
+  year = parseFloat(document.getElementsByName('set_year')[0].value)
+  month = parseFloat(document.getElementsByName('set_month')[0].value)
+  day = parseFloat(document.getElementsByName('set_day')[0].value)
+  return dateDiff(year,month,day);
+}
+
+function dateDiff(year,month,day){
+  today = new Date();
+  dateStr = today.getDate();
+  monthStr = today.getMonth() + 1;
+  yearStr = today.getFullYear();
+  today = new Date(parseFloat(yearStr),parseFloat(monthStr),parseFloat(dateStr));
+  set_date = new Date(parseFloat(year),parseFloat(month),parseFloat(day));
+  return (today > set_date)
+}
+
+function setMonths(){
+  var opts = [
+    [0,"January"],
+    [1,"February"],
+    [2,"March"],
+    [3,"April"],
+    [4,"May"],
+    [5,"June"],
+    [6,"July"],
+    [7,"August"],
+    [8,"September"],
+    [9,"October"],
+    [10,"November"],
+    [11,"December"]
+  ];
+
+  __$('set_month').innerHTML = "";
+
+  for(var opt in opts){
+    if((__$("touchscreenInput" + tstCurrentPage).value == date.getFullYear() &&
+      opts[opt][0] <= date.getMonth())){
+      var option = document.createElement("option");
+      option.setAttribute("value", opts[opt][0] + 1);
+      option.innerHTML = opts[opt][1];
+
+      __$('set_month').appendChild(option);
+    } else if(__$("touchscreenInput" + tstCurrentPage).value < date.getFullYear()){
+      var option = document.createElement("option");
+      option.setAttribute("value", opts[opt][0] + 1);
+      option.innerHTML = opts[opt][1];
+
+      __$('set_month').appendChild(option);
+    }
+}
+}
+
+function setDay(){
+// return;
+for(var d = 1; d <= 31; d++){
+  if((__$("set_year").value == date.getFullYear() && d < date.getDate())){
+
+  } else if(__$("set_year").value < date.getFullYear()){
+
+  } else {
+
+    if(__$(d))
+      __$(d).style.display = "none";
+
+  }
+}
+}
+
+var tt_cancel_destination = "/clinic?user_id=<%= params[:user_id] %>&location_id=<%= params[:location_id] %>"
+</script>
+
+
+<form action = "/update_datetime" method = "post">
+
+  <%= text_field_tag(:set_year,nil,
+    {
+      :field_type => 'number',
+      :absoluteMin => "1940",
+      :absoluteMax => Time.now.year,
+      :helpText => 'Year',
+      :tt_pageStyleClass => "NumbersOnly",
+      :tt_onUnLoad => "setMonths()"
+    }) %>
+
+  <%
+  optionsString = "<option>" "" "</option>"
+  1.upto(12){ |number|
+    optionsString += "<option value = '" + number.to_s + "'>" + Date::MONTHNAMES[number] + "</option>"
+  }
+  # optionsString << "<option>" "Unknown" "</option>"
+  %>
+  <%= select_tag :set_month, optionsString,
+    {
+    :helpText => 'Month'
+  }%>
+
+  <%day=Array.new(31){|d|d + 1 }
+  unknown=Array.new
+  unknown[0]= "Unknown"
+  days_with_unknown = day
+  days = [""].concat day%>
+  <%= select_tag(:set_day, options_for_select(days),
+    :field_type => 'number',
+    :helpText => 'Day',
+    :tt_onLoad => "setDay()")  %>
+
+  <%= hidden_field_tag :user_id, params[:user_id] %>
+
+  <%= hidden_field_tag :location_id, params[:location_id] %>
+
+  <%= submit_tag "Set visit date" %>
+</form>

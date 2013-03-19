@@ -1,0 +1,52 @@
+<style>
+  #nav {
+    background-color: #333333;
+    border-top:3px solid #99AAB7;
+    color:#CADCEA;
+    height:80px;
+    width:100%;
+    bottom:0px;
+    position:absolute;
+    overflow:hidden;
+    z-index: 1000;
+  }
+  #footer {
+    background-color: #333333;
+  }
+  #main {
+    width: 99.7%;
+    height: 88.5%;
+  }
+  button{
+    margin: 5px;
+  }
+</style>
+
+<iframe id="main" src="/patients/birth_report_printable/<%= @person.id %>?patient_id=<%= @patient.id %>&user_id=<%= params[:user_id]%>"></iframe>
+
+<div id="nav">
+
+  <button onclick="window.location = '/patients/general_demographics/<%=@patient.id%>?patient_id=<%= @patient.id %>&user_id=<%=params[:user_id]%>';"
+          class="button navButton green"
+          id="nextButton" style="margin-top: 10px; margin-right: 20px;" ><span>Finish</span>
+  </button>
+  <button onclick="window.location = '/patients/print_note/<%= @person.id %>?patient_id=<%= @patient.id %>&user_id=<%= params[:user_id]%>';"
+          class="button navButton blue"
+          id="backButton" style="margin-top: 10px;" ><span>Print</span>
+  </button>
+
+ 
+    <button onclick="window.location = '/patients/send_birth_report/<%= @person.id %>?patient_id=<%= @patient.id %>&user_id=<%= params[:user_id]%>';"
+            class="button navButton blue"
+            id="backButton" style="margin-top: 10px;" ><span>Send Birth Report</span>
+    </button>
+
+  <% unless @anc_patient.get_full_attribute("Provider Name") && @anc_patient.get_full_attribute("Provider Title") %>
+  <button onclick="window.location = '/patients/provider_details/<%= @patient.id %>?patient_id=<%=params[:patient_id]%>&person_id=<%=params[:person_id]%>&user_id=<%=params[:user_id]%>';"
+          class="button navButton blue"
+          id="backButton" style="margin-top: 10px;" ><span>Provider Details</span>
+  </button>
+  <%end%>
+  
+
+</div>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style type="text/css" media="screen">
+      body {
+        font-family: helvatica;
+      }
+
+      .head {
+        font-size: 1.6em; 
+        background-color: #6281A7; 
+        color: white; 
+        padding: 10px; 
+        font-weight: normal;
+      }
+
+      .cell {
+        border: 1px dotted #ccc;
+        padding: 5px;
+        min-width: 25%;
+      }
+
+      .placard {
+        background-color: black;
+        color: white;
+        border-radius: 10px;
+        border: 1px dotted #ccc;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        width: 300px;
+        text-align: center;
+      }
+
+      .title { 
+        background-color: #6281A7; 
+        color: white; 
+        padding: 10px; 
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .num {
+        text-align: center;
+        font-size: 1.2em;
+      }
+
+      .total {
+        font-weight: bold;
+      }
+
+      .three {
+        padding-left: 40px;
+      }
+
+      .two {
+        font-weight: bold;
+      }
+
+      a:link {
+        color: #000;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: orange !important;
+        text-decoration: underline;
+      }
+
+      a:visited {
+        color: #000;
+        text-decoration: none;
+      }
+    </style>
+    <style type="text/css" media="print">
+      body {
+        font-family: helvatica;
+        font-size: 0.8em;
+      }
+
+      .head {
+        font-size: 1.6em; 
+        background-color: #fff; 
+        color: black; 
+        padding: 10px; 
+        font-weight: normal;
+        border: 1px solid #ccc;
+      }
+
+      .cell {
+        border: 1px solid #ccc;
+        padding: 5px;
+        min-width: 25%;
+      }
+
+      .placard {
+        background-color: black;
+        color: white;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        width: 220px;
+        text-align: center;
+      }
+
+      .title {
+        background-color: #fff; 
+        color: black; 
+        padding: 10px; 
+        font-weight: bold;
+        border: 1px solid #ccc;
+        text-align: center;
+      }
+
+      .num {
+        text-align: center;
+      }
+
+      .total {
+        font-weight: bold;
+      }
+
+      .three {
+        padding-left: 30px;
+      }
+
+      .two {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="report" width="100%" cellspacing="1">
+      <tr>
+        <th class="head" colspan="4">
+          Diagnoses Report
+        </th>
+      </tr>
+      <tr>
+        <td colspan="2" align="left">
+          <div class="placard">
+            <b>Start Date:</b> <%= @start_date.strftime("%d/%b/%Y %H:%M") %>
+          </div>
+        </td>
+        <td colspan="2" align="right">
+          <div class="placard">
+            <b>End Date:</b> <%= @end_date.strftime("%d/%b/%Y %H:%M") %>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="title">
+          &nbsp;
+        </td>
+        <td class="title">
+          <%= @group1_start.strftime("%H:%M") %> - <%= @group1_end.strftime("%H:%M") %>
+        </td>
+        <td class="title">
+          <%= ("#{@group2_start.strftime("%H:%M")} - " rescue "") + (" #{@group2_end.strftime("%H:%M")}" rescue "") %>
+        </td>
+        <td class="title">
+          Total
+        </td>
+      </tr>
+      <tr>
+        <td class="cell">
+          &nbsp;
+        </td>
+        <td class="cell">
+          &nbsp;
+        </td>
+        <td class="cell">
+          &nbsp;
+        </td>
+        <td class="cell">
+          &nbsp;
+        </td>
+      </tr>
+    </table>
+
+    <script type="text/javascript">
+      <!--
+      
+      var clients_collection = {};
+      
+      /*
+       *  [
+       *    Label,
+       *    Field Type, # Types: 1-normal, 2-heading, 3-sublabel 
+       *    ID,
+       *    Ajax Path, ext is for those diagnosis that will use one method for pulling
+       *    Addition Destination,
+       *    [Addition Children],  # Array
+       *  ]
+       **/
+      var fields = [
+	["<i style='color:BLACK;background:lightgray;'> DIAGNOSES<i>", 2, "heading", ""],
+        ["Premature Labour", 1, "premature_labour", "/cohort/q?field=premature_labour"],
+        
+        ["Abortions", 2, "abortions", "/cohort/q?field=none"],
+	["Complete", 3, "complete_abortion", "/cohort/q?field=complete_abortion&ext=true"],
+ 	["Incomplete", 3, "incomplete_abortion", "/cohort/q?field=incomplete_abortion&ext=true"],
+	["Recurrent/Habitual", 3, "recurrent_habitual_abortions", "/cohort/q?field=recurrent!habitual&ext=true"],
+	["Missed", 3, "missed_abortion", "/cohort/q?field=missed_abortion&ext=true"],
+	["Septic", 3, "septic_abortion", "/cohort/q?field=septic_abortion&ext=true"],
+
+	["Batholins", 1, "Batholins", "/cohort/q?field=batholins&ext=true"],
+
+	["Dysfuntional Uterine Bleeding (DUB)", 1, "dub", "/cohort/q?field=dysfunctional_uterine_bleeding&ext=true"],
+
+	["Dysmenorrhea", 1, "dysmenorrhea", "/cohort/q?field=dysmenorrhoea&ext=true"],
+
+	["Ectopic Pregnancy", 2, "ectopic_pregnancy", "/cohort/q?field=ectopic_pregnancy"],	
+	["Tubal", 3, "tubal_ectopic_pregnancy", "/cohort/q?field=tubal_ectopic_pregnancy&ext=true"],
+	["Abdominal", 3, "abdominal_ectopic_pregnancy", "/cohort/q?field=abdominal_ectopic_pregnancy&ext=true"],
+
+	["Trophoblastic Diseases", 1, "trophoblastic_diseases", "/cohort/q?field=trophoblastic_diseases&ext=true"],
+	
+	["Premenstrual Syndrome", 1, "premenstrual_syndrome", "/cohort/q?field=premenstrual_syndrome&ext=true"],	
+
+	["Malformation of Genital Tract", 1, "malformation_of_genital_tract", "/cohort/q?field=malformation_of_genital_tract&ext=true"],
+	
+	["Polycystic Ovarian Syndrome", 1, "polycystic_ovarian_syndrome", "/cohort/q?field=polycystic_ovarian_syndrome&ext=true"],
+
+	["Lower Genital Tract Infection", 1, "lower_genital_tract_infection", "/cohort/q?field=lower_genital_tract_infection&ext=true"],
+	
+	["Endometriosis", 1, "endometriosis", "/cohort/q?field=endometriosis&ext=true"],
+
+	["Utero-Vaginal Prolapse", 1, "utero-_vaginal_prolapse", "/cohort/q?field=utero-_vaginal_prolapse&ext=true"],
+
+	["Cancer Diseases", 2, "cancer_diseases", "/cohort/q?field=cancer_diseases"],	
+	["Cervical Stage 1", 3, "cervical_stage_1", "/cohort/q?field=cervical_stage_1&ext=true"],
+	["Cervical Stage 2", 3, "cervical_stage_2", "/cohort/q?field=cervical_stage_2&ext=true"],
+	["Cervical Stage 3", 3, "cervical_stage_3", "/cohort/q?field=cervical_stage_3&ext=true"],
+	["Cervical Stage 4", 3, "cervical_stage_4", "/cohort/q?field=cervical_stage_4&ext=true"],
+	["Endometrial", 3, "endometrial", "/cohort/q?field=endometrial_cancer&ext=true"],
+	["Ovarian", 3, "ovarian", "/cohort/q?field=ovarian_cancer&ext=true"],
+	["Chorio-carcinom", 3, "chorio-carcinom", "/cohort/q?field=chorio-carcinom&ext=true"],
+
+	["Benign Tumors", 2, "benign-tumors", "/cohort/q?field=benign-tumors"],
+	["Uterine Fibroids", 3, "uterine_fibroids", "/cohort/q?field=uterine_fibroids&ext=true"],
+	["Ovarian", 3, "ovarian_benign_tumors", "/cohort/q?field=ovarian_benign_tumor&ext=true"],
+	["Vulva", 3, "vulva_benign_tumors", "/cohort/q?field=vulva_benign_tumor&ext=true"],
+	["Cervical", 3, "cervical_benign_tumors", "/cohort/q?field=cervical_benign_tumor&ext=true"],
+	["Vaginal", 3, "vaginal_benign_tumors", "/cohort/q?field=vaginal_benign_tumor&ext=true"],
+
+	["Tubal Ovarian Masses/Abscess", 1, "tubal_ovarian_masses", "/cohort/q?field=tubal_ovarian_masses&ext=true"],
+
+	["Anemia in Pregnancy", 1, "anemia_in_pregnancy", "/cohort/q?field=anemia_in_pregnancy&ext=true"],
+
+	["Malaria In Pregancy", 1, "malaria_in_pregnancy", "/cohort/q?field=malaria_in_pregnancy&ext=true"],
+
+	["Hyper Emisis Gravidulum", 1, "hyper_emesis_gravidulum", "/cohort/q?field=hyper_emisis_gravidulum&ext=true"],
+
+	["Sexual Assault", 1, "sexual_assault", "/cohort/q?field=sexual_assault&ext=true"],
+
+	["HIV/AIDS", 2, "hiv_aids", "/cohort/q?field=hiv_aids"],
+
+	["On HAART", 3, "on_haart", "/cohort/q?field=on_haart&ext=true"],
+
+	["Not HAART", 3, "not_haart", "/cohort/q?field=not_haart&ext=true"],
+
+	["Vesco-Vaginal Fistula (VVF)", 1, "vesco_vaginal_fistula", "/cohort/q?field=vesco-_vaginal_fistula&ext=true"],
+
+	["Herpes Simplex Genital Infection", 1, "herpes_simplex_genital_infection", "/cohort/q?field=herpes_simplex_genital_infection&ext=true"],
+
+	["Vulva Warts", 1, "vulva_warts", "/cohort/q?field=vulva_warts&ext=true"],
+
+	["Urinary Incontinence", 1, "urinary_incontinence", "/cohort/q?field=urinary_incontinence&ext=true"],
+
+	["Cervical Stenosis", 1, "cervical_stenosis", "/cohort/q?field=cervical_stenosis&ext=true"],
+
+	["Imperforate Hymen", 1, "imperforate_hymen", "/cohort/q?field=imperforate_hymen&ext=true"],
+
+	["Vaginal Agenesis", 1, "vaginal_agenesis", "/cohort/q?field=vaginal_agenesis&ext=true"],
+
+	["Genital Mutation", 1, "genital_mutation", "/cohort/q?field=genital_mutation&ext=true"],
+
+	["Bi-cornuate Uterus", 1, "bi-_cornuate_uterus", "/cohort/q?field=bi-_cornuate_uterus&ext=true"],
+
+	["Retroverted Uterus In Pregnancy", 1, "retroverted_uterus_in_pregnancy", "/cohort/q?field=retroverted_uterus_in_pregnancy&ext=true"],
+
+	["Incompetent Cervix", 1, "incompetent_cervix", "/cohort/q?field=incompetent_cervix&ext=true"],
+
+	["Brought In Dead", 1, "brought_in_dead", "/cohort/q?field=brought_in_dead&ext=true"],
+
+	["Malpresentation", 1, "malpresentation", "/cohort/q?field=malpresentation&ext=true"],
+	
+	["Palliative Care", 1, "palliative_care", "/cohort/q?field=palliative_care&ext=true"],
+	
+	["Sickle Cell Disease", 1, "sickle_cell_disease", "/cohort/q?field=sickle_cell_disease&ext=true"],
+
+	["Hypertension", 1, "hypertension", "/cohort/q?field=hypertension&ext=true"],
+	
+	["Hyperspleenism", 1, "hyperspleenism", "/cohort/q?field=hyperspleenism&ext=true"],
+	
+	["Epilepsy", 1, "epilepsy", "/cohort/q?field=epilepsy&ext=true"],
+
+	["Diabetes", 2, "diabetes", "/cohort/q?field=diabetes"],
+
+	["Type 1 Diabetes", 3, "type_1_diabetes", "/cohort/q?field=type_1_diabetes&ext=true"],
+
+	["Type 2 Diabetes", 3, "type_2_diabetes", "/cohort/q?field=type_2_diabetes&ext=true"],
+	
+	["Type 3 Diabetes", 3, "type_3_diabetes", "/cohort/q?field=type_3_diabetes&ext=true"],
+
+	["Inspidus", 3, "inspidus", "/cohort/q?field=inspidus&ext=true"],
+	
+	["Meningitis", 2, "meningitis", "/cohort/q?field=meningitis"],        
+
+	["Cryptococcal", 3, "cryptococcus", "/cohort/q?field=cryptococcal_meningitis&ext=true"],
+
+	["Bacterial", 3, "bacterial_meningitis", "/cohort/q?field=meningitis_bacterial&ext=true"],
+
+	["TB", 3, "tb_meningitis", "/cohort/q?field=meningitis_sub-_acute_presumed_tuberculosis&ext=true"],
+
+	["Premature Rupture Of Membranes", 1, "prom", "/cohort/q?field=premature_rupture_of_membranes&ext=true"],
+
+	["Preterm Premature Rupture Of Membranes", 1, "pprom", "/cohort/q?field=pprom&ext=true"],
+
+	["Blood Transfusion", 1, "blood_transfusion", "/cohort/q?field=blood_transfusion&ext=true"],
+
+	["Urinary Tract Infection", 1, "urinary_tract_infection1", "/cohort/q?field=urinary_tract_infection&ext=true"],
+
+	["PPH", 1, "pph", "/cohort/q?field=postpartum_hemorrhage&ext=true"],
+
+	["Peral Sepsis", 1, "peral_sepsis", "/cohort/q?field=peral_sepsis&ext=true"],
+
+	["Ticemia", 1, "ticemia", "/cohort/q?field=ticemia&ext=true"],
+
+	["Pelvic Inflammatory Disease", 1, "p_disease", "/cohort/q?field=pelvic_inflammatory_disease&ext=true"],
+
+	["Endometriosis", 1, "endometritis", "/cohort/q?field=endometriosis&ext=true"],
+
+	["Infected Episiotomy", 1, "infected_episiotomy", "/cohort/q?field=infected_episiotomy&ext=true"],
+
+	["Puerperal Psychosis", 1, "puerperal_psychosis", "/cohort/q?field=puerperal_psychosis&ext=true"],
+
+	["Bilateral Tubal Ligation", 1, "bi_lateral_tubal_ligation", "/cohort/q?field=bi_lateral_tubal_ligation&ext=true"],
+
+	["Burst Abdomen", 1, "burst_abdomen", "/cohort/q?field=burst_abdomen&ext=true"],
+
+	["Undefined Diagnosis", 1, "undefined_diagnosis", "/cohort/q?field=undefined_diagnosis&ext=true"],
+
+	["Intestinal Obstruction", 1, "intestinal_obstruction", "/cohort/q?field=intestinal_obstruction&ext=true"],	
+
+	["Infections In Pregnancy", 2, "infections_in_pregnancy", "/cohort/q?field=infections_in_pregnancy"],
+
+	["Urinary Tract Infection", 3, "urinary_tract_infection", "/cohort/q?field=urinary_tract_infection&ext=true"],
+
+	["Syphilis Positive", 3, "syphilis_positive", "/cohort/q?field=syphilis_in_pregnancy&ext=true"],
+
+	["Abnormal Vaginal Discharges", 3, "abnormal_vaginal_discharges", "/cohort/q?field=abnormal_vaginal_discharges&ext=true"],
+
+	["Warts", 3, "warts", "/cohort/q?field=warts&ext=true&like=true"],
+	
+	
+	["Pre-existing HTN", 1, "pre_existing_htn", "/cohort/q?field=pre-_existing_htn&ext=true"],
+
+	["Pre-Eclampsia With Complications", 1, "pre_eclampsia_with_complications", "/cohort/q?field=pre_eclampsia_with_complications&ext=true"],
+
+	["Cardiac Disease In Pregnancy", 1, "cardiac_disease_in_pregnancy", "/cohort/q?field=cardiac_disease_in_pregnancy&ext=true"],
+
+	["Respiratory Disease In Pregnacy-labor", 1, "respiratory_disease_in_pregnacy-_labor", "/cohort/q?field=respiratory_disease_in_pregnancy-_labor&ext=true"],
+
+	["Placenta Previa", 1, "placenta_previa", "/cohort/q?field=placenta_previa&ext=true"],
+
+	["Abruption Placenta", 1, "abruption_placenta", "/cohort/q?field=abruption_placenta&ext=true"],
+
+	["Diabetes In Pregnancy", 1, "diabetes_in_pregnancy", "/cohort/q?field=diabetes_in_pregnancy&ext=true"],
+
+	["Episiotomy", 1, "episiotomy", "/cohort/q?field=episiotomy&ext=true"],
+
+	["Epilepsy In Pregnancy_in_labor", 1, "epilepsy_in_pregnancy_labor", "/cohort/q?field=Epilepsy_in_pregnancy_labor&ext=true"], 
+
+        ["Cancer of Cervix", 1, "cancer_of_cervix", "/cohort/q?field=invasive_cancer_of_cervix&ext=true&like=true"],
+        
+        ["Molar Pregnancy", 1, "molar_pregnancy", "/cohort/q?field=molar_pregnancy&ext=true"],
+        
+        ["Fibroids", 1, "fibriods", "/cohort/q?field=fibroid&ext=true&like=true"],
+        
+        ["Pelvic Inflammatory Disease", 1, "pelvic_inflamatory_disease", "/cohort/q?field=pelvic_inflamatory_disease&ext=true"],
+        
+        ["Anaemia", 1, "anaemia", "/cohort/q?field=anaemia&ext=true&like=true"],
+        
+        ["Malaria", 1, "malaria", "/cohort/q?field=malaria&ext=true&like=true"],
+        
+        ["Post Partum Haemorrhage", 1, "post_partum", "/cohort/q?field=postpartum_hemorrhage&ext=true"],       
+        
+        ["Ante Partum Haemorrhage", 1, "ante_partum", "/cohort/q?field=antepartum_hemorrhage&ext=true"],
+        
+        ["Pre-Eclampsia", 1, "pre_eclampsia", "/cohort/q?field=preeclampsia&ext=true&like=true"],
+        
+        ["Eclampsia", 1, "eclampsia", "/cohort/q?field=eclampsia&ext=true"],
+        
+        ["Premature Membranes Rapture", 1, "premature_membranes_rapture", "/cohort/q?field=premature_membranes_rapture&ext=true"],
+        
+        ["Laparatomy", 1, "laparatomy", "/cohort/q?field=laparatomy&ext=true"],
+        
+        ["Ruptured Uterus", 1, "ruptured_uterus", "/cohort/q?field=ruptured_uterus&ext=true"],
+
+	["", 2, "blank_line", "/cohort/q?field=none"],
+	
+	["<i style='color:BLACK;background:lightgray;'> PROCEDURES<i>", 2, "heading", ""],
+	
+	["Hysterectomy", 2, "Hysterectomy", "/cohort/q?field=Hysterectomy&proc=true"],
+	["Fibroid", 3, "fibroid", "/cohort/q?field=fibroid&pro=true&parent=hysterectomy"],
+	["Multiple Fibroids", 3, "multiple_fibroids", "/cohort/q?field=multiple_fibroids&pro=true&parent=hysterectomy"],
+	["Ruptured Uterus", 3, "ruptured_uterus_hys", "/cohort/q?field=ruptured_uterus&pro=true&parent=hysterectomy"],
+	["Nectronic Uterus", 3, "nectronic_uterus", "/cohort/q?field=nectronic_uterus&pro=true&parent=hysterectomy"],
+	["Ovarian Cancer", 3, "ovarian_cancer", "/cohort/q?field=ovarian_cancer&pro=true&parent=hysterectomy"],
+	["Endometrial Cancer", 3, "endometrial_cancer", "/cohort/q?field=endometrial_cancer&pro=true&parent=hysterectomy"],
+	["Dysfunctional Uterine Bleeding", 3, "dysfunctional_uterine_bleeding", "/cohort/q?field=dysfunctional_uterine_bleeding&pro=true&parent=hysterectomy"],
+	["Perforation", 3, "perforation", "/cohort/q?field=perforation&pro=true&parent=hysterectomy"],
+	["Disseminated Intravascular Coagulation", 3, "disseminatedd_intravascular_coagulation", "/cohort/q?field=disseminatedd_intravascular_coagulation&pro=true&parent=hysterectomy"],
+	["PostPartum Hemorrhage", 3, "postpartum_hemorrhage", "/cohort/q?field=postpartum_hemorrhage&pro=true&parent=hysterectomy"],
+	["Other", 3, "otherhyst", "/cohort/q?field=other&pro=true&parent=hysterectomy"],	
+	
+	["Laparatomy/Exprolaparatomy", 2, "laparatomy", "/cohort/q?field=laparatomy&proc=true"],
+	["Peritonitis", 3, "peritonitis", "/cohort/q?field=peritonitis&pro=true&parent=laparatomy"],
+	["Ectopic Pregnancy", 3, "ectopic_pregnancy_la", "/cohort/q?field=ectopic_pregnancy&pro=true&parent=laparatomy"],
+	["Tubal Ovarian Mass", 3, "tubal_ovarian_mass", "/cohort/q?field=tubal_ovarian_mass&pro=true&parent=laparatomy"],
+	["Foreign Body", 3, "foreign_body", "/cohort/q?field=foreign_body&pro=true&parent=laparatomy"],
+	["Torsion Of Ovarian Cyst", 3, "torsion_of_ovarian_cyst", "/cohort/q?field=torsion_of_ovarian_cyst&pro=true&parent=laparatomy"],
+	["Appendicitis", 3, "appendicitis", "/cohort/q?field=appendicitis&pro=true&parent=laparatomy"],
+	["Tubal Ligation", 3, "tubal_ligation", "/cohort/q?field=tubal_ligation&pro=true&parent=laparatomy"],
+	["Pelvis Abscess", 3, "pelvis_abscess", "/cohort/q?field=pelvis_abscess&pro=true&parent=laparatomy"],
+	["Intestinal Obstruction", 3, "intestinal_obstruction_la", "/cohort/q?field=intestinal_obstruction&pro=true&parent=laparatomy"],
+	["Other", 3, "otherlap", "/cohort/q?field=other&pro=true&parent=laparatomy"],
+
+
+
+	["Dilation And Curretage", 2, "laparatomy", "/cohort/q?field=dilation_and_curettage&proc=true"],
+	["Incomplete Abortion", 3, "incomplete_abortion_di", "/cohort/q?field=incomplete_abortion&pro=true&parent=dilation_and_curettage"],
+	["Biopsy", 3, "biopsy", "/cohort/q?field=biopsy&pro=true&parent=dilation_and_curettage"],
+	["Dysfunctional Uterine Bleeding", 3, "dysfunctional_uterine_bleeding_di", "/cohort/q?field=dysfunctional_uterine_bleeding&pro=true&parent=dilation_and_curettage"],
+	["Infertility", 3, "infertility", "/cohort/q?field=infertility&pro=true&parent=dilation_and_curettage"],
+	["Intrauterine Device", 3, "intrauterine_device", "/cohort/q?field=intrauterine_device&pro=true&parent=dilation_and_curettage"],
+	["Other", 3, "otherdil", "/cohort/q?field=other&pro=true&parent=dilation_and_curettage"],
+
+
+	["Evacuation/MVA", 2, "evacuation", "/cohort/q?field=evacuation&proc=true"],
+	//["ROPC", 3, "ropc", "/cohort/q?field=ropc&pro=true&parent=evacuation"],
+	["Incomplete Abortion", 3, "incomplete_abortion_eva", "/cohort/q?field=incomplete_abortion&parent=evacuation"],
+	["Other", 3, "othereva", "/cohort/q?field=other&pro=true&parent=evacuation"],
+	
+	["Examination Under Anesthesia (EUA)", 2, "exam_under_anesthesia", "/cohort/q?field=exam_under_anaesthesia&proc=true"],
+	["Cervical Tears", 3, "tear_cervical", "/cohort/q?field=tear_cervical&pro=true&parent=exam_under_anesthesia"],
+	["Vaginal Tears", 3, "tear_vaginal", "/cohort/q?field=tear_vaginal&pro=true&parent=exam_under_anesthesia"],
+	["Other", 3, "otherexam", "/cohort/q?field=other&pro=true&parent=exam_under_anesthesia"],
+
+
+	["Caesarean Section", 2, "ceasarean_section", "/cohort/q?field=caesarean_section&proc=true"],
+	["Fetal Distress", 3, "fetal_distress", "/cohort/q?field=fetal_distress&pro=true&parent=caesarean_section"],
+	["Malpresentation", 3, "malpresentation_cae", "/cohort/q?field=malpresentation&pro=true&parent=caesarean_section"],
+	["Previous Caesarean Section", 3, "previous_caesarean_section", "/cohort/q?field=previous_caesarean_section&pro=true&parent=caesarean_section"],
+	["Obstructed Labor", 3, "obstructed_laber", "/cohort/q?field=obstructed_labor&pro=true&parent=caesarean_section"],
+	["Prolonged Labor", 3, "prolonged_labor", "/cohort/q?field=prolonged_labor&pro=true&parent=caesarean_section"],
+	["Eclampsia", 3, "eclampsia_cae", "/cohort/q?field=eclampsia&pro=true&parent=caesarean_section"],
+	["Severe Preeclampsia", 3, "severe_preeclampsia", "/cohort/q?field=severe_preeclampsia&pro=true&parent=caesarean_section"],
+	["Breech In Prim", 3, "breech_in_prim", "/cohort/q?field=breech_in_prim&pro=true&parent=caesarean_section"],
+	["Maternal Distress", 3, "maternal_distress", "/cohort/q?field=maternal_distress&pro=true&parent=caesarean_section"],
+	["Other", 3, "othercae", "/cohort/q?field=other&pro=true&parent=caesarean_section"],
+
+
+	["Incision And Drainage", 2, "incision_and_drainage", "/cohort/q?field=incision_and_drainage&proc=true"],
+	["Batholins Abscess", 3, "batholins_abscess", "/cohort/q?field=batholins_abscess&pro=true&parent=incision_and_drainage"],
+	["Vulva Abscess", 3, "vulva_abscess", "/cohort/q?field=vulva_abscess&pro=true&parent=incision_and_drainage"],
+	["Vaginal Abscess", 3, "vaginal_abscess", "/cohort/q?field=vaginal_abscess&pro=true&parent=incision_and_drainage"],
+	["Pelvic Abscess", 3, "pelvic_abscess", "/cohort/q?field=pelvic_abscess&pro=true&parent=incision_and_drainage"],
+	["Anal Abscess", 3, "anal_abscess", "/cohort/q?field=anal_abscess&pro=true&parent=incision_and_drainage"],
+	["Other", 3, "otherinci", "/cohort/q?field=other&pro=true&parent=incision_and_drainage"],
+
+	["Biopsy", 2, "biopsy", "/cohort/q?field=biopsy&proc=true"],
+	["Cancer of Cervix", 3, "cancer_of_cervix_bio", "/cohort/q?field=cancer_of_cervix&pro=true&parent=biopsy"],
+	["Cancer of Polyps", 3, "cancer_of_polyps", "/cohort/q?field=cancer_of_polyps&pro=true&parent=biopsy"],
+	["Endometrial Cancer", 3, "endometrial_cancer_bio", "/cohort/q?field=endometrial_cancer&pro=true&parent=biopsy"],
+	["Other", 3, "otherbio", "/cohort/q?field=other&pro=true&parent=biopsy"],
+
+
+	["Excision", 2, "excision", "/cohort/q?field=excision&proc=true"],
+	["Vulva Lipoma", 3, "vulva_lipoma", "/cohort/q?field=vulva_lipoma&pro=true&parent=excision"],
+	["Vagina Lipoma", 3, "vagina_lipoma", "/cohort/q?field=vagina_lipoma&pro=true&parent=excision"],	
+	["Cervical Polyp", 3, "cervical_polyp", "/cohort/q?field=cervical_polyp&pro=true&parent=excision"],
+	["Vulva Polyp", 3, "vulva_polyp", "/cohort/q?field=vulva_polyp&pro=true&parent=excision"],
+	["Vagina Polyp", 3, "vagina_polyp", "/cohort/q?field=vagina_polyp&pro=true&parent=excision"],
+	["Other", 3, "otherexc", "/cohort/q?field=other&pro=true&parent=excision"],
+
+
+	["Malsupilisation", 2, "malsupilisation", "/cohort/q?field=malsupilisation&proc=true"],
+	["Batholins Abscess", 3, "batholins_abscess_mals", "/cohort/q?field=batholins_abscess&pro=true&parent=malsupilisation"],
+	["Other", 3, "othermals", "/cohort/q?field=other&pro=true&parent=malsupilisation"],
+
+
+	["Cystectomy", 2, "cystectomy", "/cohort/q?field=cystectomy&proc=true"],
+	["Ovarian Cyst", 3, "ovarian_cyst", "/cohort/q?field=ovarian_cyst&pro=true&parent=cystectomy"],
+	["Incompetent Cervix", 3, "incompetent_cervix_cys", "/cohort/q?field=incompetent_cervix&pro=true&parent=cystectomy"],
+	["Recurrent/Habitual", 3, "habitual_cys", "/cohort/q?field=recurrent!habitual&pro=true&parent=cystectomy"],
+	["Myoma", 3, "myoma_cys", "/cohort/q?field=myoma&pro=true&parent=cystectomy"],
+	["Other", 3, "othercys", "/cohort/q?field=other&pro=true&parent=cystectomy"],
+
+	["Ceclage", 2, "ceclage", "/cohort/q?field=ceclage&proc=true"],
+	["Ovarian Cyst", 3, "ovarian_cyst_cec", "/cohort/q?field=ovarian_cyst&pro=true&parent=ceclage"],
+	["Incompetent Cervix", 3, "incompetent_cervix_cec", "/cohort/q?field=incompetent_cervix&pro=true&parent=ceclage"],
+	["Recurrent/Habitual", 3, "habitual_cec", "/cohort/q?field=recurrent!habitual&pro=true&parent=ceclage"],
+	["Myoma", 3, "myoma_cec", "/cohort/q?field=myoma&pro=true&parent=ceclage"],
+	["Other", 3, "othercec", "/cohort/q?field=other&pro=true&parent=ceclage"],
+
+	["Myomectomy", 2, "myomectomy", "/cohort/q?field=myomectomy&proc=true"],
+	["Ovarian Cyst", 3, "ovarian_cyst_my", "/cohort/q?field=ovarian_cyst&pro=true&parent=myomectomy"],
+	["Incompetent Cervix", 3, "incompetent_cervix_my", "/cohort/q?field=incompetent_cervix&pro=true&parent=myomectomy"],
+	["Recurrent/Habitual", 3, "habitual_my", "/cohort/q?field=recurrent!habitual&pro=true&parent=myomectomy"],
+	["Myoma", 3, "myoma_my", "/cohort/q?field=myoma&pro=true&parent=myomectomy"],
+	["Other", 3, "othermy", "/cohort/q?field=other&pro=true&parent=myomectomy"],
+
+	["Bilateral Tubal Ligation", 2, "bilateral_tubal_ligation", "/cohort/q?field=bilateral_tubal_ligation&proc=true"],
+	["Family Planning", 3, "family_planning", "/cohort/q?field=family_planning&pro=true&parent=bilateral_tubal_ligation"],
+	["Medical", 3, "medical", "/cohort/q?field=medical&pro=true&parent=bilateral_tubal_ligation"],
+	["Other", 3, "otherbi", "/cohort/q?field=other&pro=true&parent=bilateral_tubal_ligation"]
+      ];
+      
+      function __$(id){
+        return document.getElementById(id);
+      }
+            
+      function createTable(){                
+        for(var i = 0; i < fields.length; i++){
+          var row = document.createElement("tr");                    
+                        
+          __$("report").getElementsByTagName("tbody")[0].appendChild(row);
+                                               
+          var cell0 = document.createElement("td");
+          cell0.innerHTML = fields[i][0];
+          cell0.className = "cell " + (fields[i][1] == 2 ? "two" : (fields[i][1] == 3 ? "three" : ""));
+          
+          row.appendChild(cell0);   
+          
+          var cell1 = document.createElement("td");
+          cell1.innerHTML = "&nbsp;";
+          cell1.className = "cell num";
+          
+          if(typeof(fields[i][2]) != "undefined"){
+            cell1.id = fields[i][2] + "_1";
+            cell1.setAttribute("base", fields[i][2]);
+          }
+          
+          row.appendChild(cell1); 
+          
+          var cell2 = document.createElement("td");
+          cell2.innerHTML = "&nbsp;";
+          cell2.className = "cell num";
+          
+          if(typeof(fields[i][2]) != "undefined"){
+            cell2.id = fields[i][2] + "_2";
+            cell2.setAttribute("base", fields[i][2]);
+          }
+          
+          row.appendChild(cell2); 
+          
+          var cell3 = document.createElement("td");
+          cell3.innerHTML = "&nbsp;";
+          cell3.className = "cell num total";
+          
+          if(typeof(fields[i][2]) != "undefined"){
+            cell3.id = fields[i][2] + "_total";
+            cell3.setAttribute("base", fields[i][2]);
+          }
+          
+          row.appendChild(cell3);
+        }
+        
+        var row = document.createElement("tr");                    
+                        
+        __$("report").getElementsByTagName("tbody")[0].appendChild(row);
+                                               
+        var cell0 = document.createElement("td");
+        cell0.innerHTML = "&nbsp;";
+        cell0.className = "cell";
+          
+        row.appendChild(cell0);   
+          
+        var cell1 = document.createElement("td");
+        cell1.innerHTML = "&nbsp;";
+        cell1.className = "cell";
+          
+        row.appendChild(cell1); 
+          
+        var cell2 = document.createElement("td");
+        cell2.innerHTML = "&nbsp;";
+        cell2.className = "cell";
+          
+        row.appendChild(cell2); 
+          
+        var cell3 = document.createElement("td");
+        cell3.innerHTML = "&nbsp;";
+        cell3.className = "cell";
+          
+        row.appendChild(cell3);
+      }
+            
+      function ajaxRequest(aElement, aUrl, base) {
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = function() {
+          handleResult(aElement, httpRequest, base);
+        };
+        try {
+          httpRequest.open('GET', aUrl, true);
+          httpRequest.send(null);
+        } catch(e){
+        }
+      }
+
+      function handleResult(element, aXMLHttpRequest, base) {
+        if (!aXMLHttpRequest) return;
+
+        if (!element) return;
+        
+        if (aXMLHttpRequest.readyState == 4 && aXMLHttpRequest.status == 200) {
+          var result = aXMLHttpRequest.responseText;                
+        
+          if(__$(element)){
+            var clients = JSON.parse(result);
+            
+            clients_collection[element] = clients;
+            
+            if(clients_collection[element].length > 0){
+            
+              __$(element).innerHTML = "<form id='frm" + element + "' method='post' target='_parent' action='decompose'>" +
+                "<input type='hidden' value='" + clients_collection[element] + "' name='patients' />" + 
+                "<a href=\"javascript:document.getElementById('frm" + element + "').submit()\">" + 
+                clients_collection[element].length + "</a></form>";
+              
+            } else {
+              
+              __$(element).innerHTML = clients_collection[element].length; 
+              
+            }
+            
+            if(__$(base + "_total")){
+		 col1 = __$("frm" + base + "_1")? eval(__$("frm" + base + "_1").getElementsByTagName("a")[0].innerHTML) : 0
+		 col2 = __$("frm" + base + "_2")? eval(__$("frm" + base + "_2").getElementsByTagName("a")[0].innerHTML) : 0
+		
+              __$(base + "_total").innerHTML = col1 + col2
+            }
+          }
+        }
+      }            
+      
+      function loadFields(){
+        
+        for(var i = 0; i < fields.length; i++){
+          if(typeof(fields[i][3]) != "undefined"){
+            ajaxRequest(fields[i][2] + "_1", fields[i][3] + "&group=1&start_date=" + 
+              "<%= @group1_start.strftime('%Y-%m-%d+%H:%M') %>&end_date=<%= @group1_end.strftime('%Y-%m-%d+%H:%M') %>", fields[i][2]);
+
+<% if !@group2_start.nil? && !@group2_end.nil? %>
+
+          ajaxRequest(fields[i][2] + "_2", fields[i][3] + "&group=2&start_date=" + 
+            "<%= @group2_start.strftime('%Y-%m-%d+%H:%M') %>&end_date=<%= @group2_end.strftime('%Y-%m-%d+%H:%M') %>", fields[i][2]);
+	
+<% end %>
+
+	
+  
+      }
+    }
+  }
+            
+  createTable();
+  loadFields();
+
+
+      
+  //-->
+    </script>
+  </body>
+</html>

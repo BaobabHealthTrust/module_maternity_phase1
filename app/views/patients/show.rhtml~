@@ -1,0 +1,153 @@
+<script type='text/javascript' language='javascript'>
+  <!--
+  tt_cancel_show = '/clinic?user_id=<%= params[:user_id] %>';
+  tt_cancel_destination = '/clinic?user_id=<%= params[:user_id] %>';
+
+<%
+
+next_task = @task.encounter_type.gsub('_',' ') rescue nil
+
+%>
+
+  function showNexttask(){
+    if(__$("patient-dashboard-application") == null){
+      setTimeout("showNexttask()", 500);
+      return;
+    }
+
+    if(!__$("nextTask")){
+      var pos = checkCtrl(__$("patient-dashboard-applicationname"));
+      // [w, h, t, l]
+
+      var nextTask = document.createElement("div");
+      nextTask.id = "nextTask";
+      // nextTask.style.position = "absolute";
+      // nextTask.style.left = (pos[3] + (pos[0]/2) - (270/2)) + "px";
+      // nextTask.style.top = (pos[1] + 40) + "px";
+
+      __$("patient-dashboard-application").appendChild(nextTask);
+    }
+
+    __$("nextTask").innerHTML = "<b>Next Task:</b><br /><i><%= next_task.titleize %></i>";
+  }
+
+<% if !next_task.nil? %>
+    setTimeout("showNexttask()", 500);
+<% end %>
+
+</script>
+
+<style type="text/css">
+  .table {
+    display: table;
+  }
+  .row {
+    display: table-row;
+  }
+
+  .cell {
+    display: table-cell;
+  }
+
+  #timeCtrl {
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    width: 180px;
+    height: 60px;
+    font-size: 36px;
+    background-color: rgb(153, 238, 153);
+    color: rgb(0, 0, 0);
+    opacity: 0.95;
+    z-index: 100;
+    text-align: center;
+    -moz-user-select: none;
+  }
+
+  #nextTask {
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    width: 260px;
+    height: 50px;
+    font-size: 18px;
+    /*background-color: #efc;*/
+    background-color: rgb(153, 238, 153);
+    color: rgb(0, 0, 0);
+    opacity: 0.95;
+    z-index: 100;
+    text-align: center;
+    -moz-user-select: none;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+
+<div id='contented'>
+  <div id='description' style='color:#777;position:absolute;margin-top:-70px;'>
+    <form id = 'dashboard' action='home.html'>
+      <div>Patient Dashboard</div>
+      <div id='project_name'>
+        <div style="margin-top: 0px; color: #6281A7; font-size: 0.55em;">
+          <%= @project.split(" ").join("<br />") %>
+        </div>
+      </div>
+      <span id='patient_name'>
+        <%= "#{@patient.name}" %>
+      </span>
+      <span id='patient_id'><%= "#{@patient.national_id}" %></span>
+      <span id='patient_residence'><%= "#{@patient.address}" %></span>
+      <span id='patient_age'><%= "#{(@patient.age > 0 ? @patient.age : "#{@patient.age_in_months} months")}" %></span>
+      <span id='patient_gender'><%= "#{@patient.gender}" %></span>
+      <select id="tabs">
+        <option value='/patients/current_visit/<%= @patient.id %>?user_id=<%= @user.id %>'>Current Visit</option>
+        <option value='/patients/visit_history/<%= @patient.id %>?user_id=<%= @user.id %>'>Visit History</option>
+      </select>
+      <select id="links">
+
+        <% @links.each do |encounter, link| %>
+
+          <% unless @links[encounter].class.to_s.upcase == "HASH" %>
+
+            <optgroup value='<%= link %>' label="<%= (!@task.labels[encounter.downcase].nil? ?
+                          @task.labels[encounter.downcase] : encounter) %>" >
+            </optgroup>
+
+          <% else %>
+
+            <optgroup label="<%= (!@task.labels[encounter.downcase].nil? ?
+                          @task.labels[encounter.downcase] : encounter) %>" >
+
+              <% link.each do |label, path| %>
+
+                          <option value="<%= path %>">
+                            <%= label %>
+                          </option>
+
+              <% end %>
+
+            </optgroup>
+
+          <% end %>
+
+        <% end %>
+
+      </select>
+
+      <select id="navigation_links">
+
+        <% if !@demographics_url.nil? %>
+          <option link="/patients/general_demographics/<%=params[:id]%>?user_id=<%=params[:user_id]%>" ttSize = "160px">
+            Demographics
+          </option>
+        <% end %>
+
+        <% if @task.url != "/patients/show/#{@patient.id}?user_id=#{@user.id}" %>
+          <option link="<%= @task.url  %>" ttSize = "160px">Continue</option>
+        <% end %>
+
+      </select>
+
+      <input type='submit' value='Finish' />
+    </form>
+    <</div>
+</div>

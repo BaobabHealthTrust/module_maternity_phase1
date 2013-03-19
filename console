@@ -1,0 +1,460 @@
+Script started on Tue 18 Dec 2012 11:31:08 AM CAT
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ ./build_code.rb results_mod_spec.txt [Kscript/console 
+Loading development environment (Rails 2.3.5)
+>> [H[2J>> File.expand_path '[K[K()')').').')/').').')/')c')o')n')f')i')g')/')b')o')o')[1P')[1P')[1P')[1P')[1P')[1P')[1P')[1P')[1P')[1P')[C,) )_)_)F)I)L)E)_)_)[C
+=> "/var/www/components"
+>> exit
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/console [22@./build_code.rb results_mod_spec.txt[C[22Pscript/console[C[Kscript/s[Kbuild_code 
+script/build_code:223: --- /var/www/components/core_protocol_engine/spec (RuntimeError)
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/build_code 
+..
+simple.spec
+.
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/console 
+Loading development environment (Rails 2.3.5)
+>> [H[2J>> Dir.gold[K[K[Klob()")").")[C[C
+=> ["."]
+>> [H[2J>> Dir.glob(".")[1P)[1P)[1P)F)i)l)e).)e)x)p)a)n)d)_)p)a)t)h)()').).)/).).)/)s)p)e)c)'),) )_)_)F)I)L)E)_)_)[C)[C
+=> []
+>> [H[2J>> Dir.glob(File.expand_path('../../spec', __FILE__))[1@/[1@*[1@.[1@s[1@p[1@e[1@c[C[C[C[C[C[C[C[C[C[C[C[C[C
+=> []
+>> [H[2J>> Dir.glob(File.expand_path('../../spec/*.spec', __FILE__))[1P[1@"[C[1P[1@"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1P[1P[1P[1P[1@"[1@#[1@{[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C})")[C
+=> []
+>> [H[2J>> Dir.glob("#{File.expand_path("../../spec", __FILE__)}")/")*")[C[C
+=> []
+>> [H[2J>> Dir.glob("#{File.expand_path("../../spec", __FILE__)}/*")."){")}")s}")p}")e}")c}")[C[C[C
+=> []
+>> [H[2J>> exit
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/console [3@build_cod[C[C[3Pconsol[C[C[3@build_cod[C[C
+simple.spec
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/build_code [K[K[K[K[K[K[K[K[K[K[Kanalyze_protocol 
+simple.spec
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+spec.spec
+simple.spec
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ s[Kird[Kb
+1.8.7-p370 :001 > [H[2J1.8.7-p370 :001 > Dir
+ => Dir 
+1.8.7-p370 :002 > [H[2J1.8.7-p370 :002 > Dir.glob()")").")[C[C
+ => ["."] 
+1.8.7-p370 :003 > [H[2J1.8.7-p370 :003 > exit
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ irb
+1.8.7-p370 :001 > 
+1.8.7-p370 :002 >   [H[2J1.8.7-p370 :002 >   Dir.glob('*').select {|f| File.directory? f}
+ => ["doc", "lib", "script", "tmp", "db", "spec", "nbproject", "log", "test", "vendor", "public", "config", "app"] 
+1.8.7-p370 :003 > [H[2J1.8.7-p370 :003 > Dir.glob("#{File.expand_path('../../app/views', __FILE__)}/*").select {|f| File.directory? f}
+ => [] 
+1.8.7-p370 :004 > Dir.glob("#{File.expand_path('../../app/views', __FILE__)}/*").select {|f| File.directory? f}[1P[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+ => [] 
+1.8.7-p370 :005 > Dir.glob("#{File.expand_path('../../app/views', __FILE__)}").select {|f| File.directory? f}[1@*[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+ => [] 
+1.8.7-p370 :006 > [H[2J1.8.7-p370 :006 > exit
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ cd script/
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_engine/scriptchimwemwe@kachaje:/var/www/components/core_protocol_engine/script$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_engine/scriptchimwemwe@kachaje:/var/www/components/core_protocol_engine/script$ ls
+[0m[01;32mabout[0m  [01;32manalyze_protocol[0m  [01;32mconsole[0m  [01;32mdbconsole[0m  [01;32mdestroy[0m  [01;32mgenerate[0m  [01;34mperformance[0m  [01;32mplugin[0m  [01;32mrunner[0m  [01;32mserver[0m
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_engine/scriptchimwemwe@kachaje:/var/www/components/core_protocol_engine/script$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_engine/scriptchimwemwe@kachaje:/var/www/components/core_protocol_engine/script$ lscd script/irb[Kcd script/irb[K
+1.8.7-p370 :001 > [H[2J1.8.7-p370 :001 > exitDir.glob("#{File.expand_path('../../app/views', __FILE__)}*").select {|f| File.directory? f}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+ => ["/var/www/components/core_protocol_engine/app/views"] 
+1.8.7-p370 :002 > Dir.glob("#{File.expand_path('../../app/views', __FILE__)}*").select {|f| File.directory? f}[1@/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+ => ["/var/www/components/core_protocol_engine/app/views/layouts"] 
+1.8.7-p370 :003 > [H[2J1.8.7-p370 :003 > Dir.glob("#{File.expand_path('../../app/views', __FILE__)}/*").select {|f| File.directory? f}
+ => ["/var/www/components/core_protocol_engine/app/views/layouts", "/var/www/components/core_protocol_engine/app/views/test"] 
+1.8.7-p370 :004 > [H[2J1.8.7-p370 :004 > Dir.glob("#{File.expand_path('../../app/views', __FILE__)}/*").select {|f| File.directory? f}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@d[1@ [1@=[1@ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+ => ["/var/www/components/core_protocol_engine/app/views/layouts", "/var/www/components/core_protocol_engine/app/views/test"] 
+1.8.7-p370 :005 > [H[2J1.8.7-p370 :005 > d
+ => ["/var/www/components/core_protocol_engine/app/views/layouts", "/var/www/components/core_protocol_engine/app/views/test"] 
+1.8.7-p370 :006 > d[]0][C
+ => "/var/www/components/core_protocol_engine/app/views/layouts" 
+1.8.7-p370 :007 > d[0] == [K[K[K[K.match()/)/)\/)[C/)l/)a/)y/)o/)u/)t/)s/)$/)[C[C
+ => #<MatchData "/layouts"> 
+1.8.7-p370 :008 > d[0].match(/\/layouts$/)[1P].match(/\/layouts$/)1].match(/\/layouts$/)[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+ => nil 
+1.8.7-p370 :009 > Dir.rm_rf()d)[)1)])[C
+NoMethodError: undefined method `rm_rf' for Dir:Class
+	from (irb):9
+1.8.7-p370 :010 > [H[2J1.8.7-p370 :010 > Dir.rm_rf(d[1])[1P.rm_rf(d[1])[1P.rm_rf(d[1])[1P.rm_rf(d[1])F.rm_rf(d[1])i.rm_rf(d[1])l.rm_rf(d[1])e.rm_rf(d[1])U.rm_rf(d[1])t.rm_rf(d[1])i.rm_rf(d[1])l.rm_rf(d[1])s.rm_rf(d[1])[C[C[C[C[C[C[C[C[C[C[C[C
+NameError: uninitialized constant FileUtils
+	from (irb):10
+1.8.7-p370 :011 > Dir.delete(d[1])
+ => 0 
+1.8.7-p370 :012 > [H[2J1.8.7-p370 :012 > Dir.delete(d[1])FileUtils.rm_rf(d[1])[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[6PDir.rm_rf(d[1])d[1].match(/\/layouts$/)[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C0].match(/\/layouts$/)[K[K = Dir.glob("#{File.expand_path('../../app/views', __FILE__)}/*").select {|f| File.directory? f}
+ => ["/var/www/components/core_protocol_engine/app/views/layouts", "/var/www/components/core_protocol_engine/app/views/test"] 
+1.8.7-p370 :013 > [H[2J1.8.7-p370 :013 > d = Dir.glob("#{File.expand_path('../../app/views', __FILE__)}/*").select {|f| File.directory? f}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CDir.delete(d[1])[K
+Errno::ENOTEMPTY: Directory not empty - /var/www/components/core_protocol_engine/app/views/test
+	from (irb):13:in `delete'
+	from (irb):13
+1.8.7-p370 :014 > Dir.delete(d[1]),) )t)r)u)e)[C
+ArgumentError: wrong number of arguments (2 for 1)
+	from (irb):14:in `delete'
+	from (irb):14
+1.8.7-p370 :015 > [H[2J1.8.7-p370 :015 > Dir.class
+ => Class 
+1.8.7-p370 :016 > [H[2J1.8.7-p370 :016 > Dir.class[K[K[K[K[Kmethos[Kds
+ => ["private_class_method", "inspect", "name", "unlink", "tap", "clone", "public_methods", "__send__", "object_id", "method_defined?", "instance_variable_defined?", "equal?", "freeze", "delete", "extend", "mkdir", "send", "const_defined?", "methods", "instance_method", "ancestors", "module_eval", "hash", "autoload?", "dup", "instance_variables", "instance_methods", "to_enum", "public_method_defined?", "chdir", "class_variable_defined?", "eql?", "constants", "id", "instance_eval", "rmdir", "singleton_methods", "module_exec", "const_missing", "taint", "instance_variable_get", "frozen?", "enum_for", "private_method_defined?", "public_instance_methods", "display", "instance_of?", "superclass", "getwd", "method", "to_a", "included_modules", "open", "const_get", "instance_exec", "type", "glob", "<", "foreach", "protected_methods", "<=>", "class_eval", "==", "class_variables", ">", "===", "instance_variable_set", "protected_instance_methods", "protected_method_defined?", "respond_to?", "kind_of?", "pwd", ">=", "public_class_method", "to_s", "<=", "const_set", "allocate", "class", "new", "private_methods", "=~", "tainted?", "__id__", "class_exec", "autoload", "untaint", "nil?", "entries", "private_instance_methods", "include?", "is_a?", "[]", "chroot"] 
+1.8.7-p370 :017 > Dir.methods[2Pclassdelete(d[1], true))[K[1P(d[1])[1P(d[1])[1P(d[1])[1P(d[1])[1P(d[1])[1P(d[1])r(d[1])m(d[1])d(d[1])i(d[1])r(d[1])[C[C[C[C[C[C
+Errno::ENOTEMPTY: Directory not empty - /var/www/components/core_protocol_engine/app/views/test
+	from (irb):17:in `rmdir'
+	from (irb):17
+1.8.7-p370 :018 > [H[2J1.8.7-p370 :018 > Dir.rmdir(d[1])[4Pmethods[2Pclassmethods
+ => ["private_class_method", "inspect", "name", "unlink", "tap", "clone", "public_methods", "__send__", "object_id", "method_defined?", "instance_variable_defined?", "equal?", "freeze", "delete", "extend", "mkdir", "send", "const_defined?", "methods", "instance_method", "ancestors", "module_eval", "hash", "autoload?", "dup", "instance_variables", "instance_methods", "to_enum", "public_method_defined?", "chdir", "class_variable_defined?", "eql?", "constants", "id", "instance_eval", "rmdir", "singleton_methods", "module_exec", "const_missing", "taint", "instance_variable_get", "frozen?", "enum_for", "private_method_defined?", "public_instance_methods", "display", "instance_of?", "superclass", "getwd", "method", "to_a", "included_modules", "open", "const_get", "instance_exec", "type", "glob", "<", "foreach", "protected_methods", "<=>", "class_eval", "==", "class_variables", ">", "===", "instance_variable_set", "protected_instance_methods", "protected_method_defined?", "respond_to?", "kind_of?", "pwd", ">=", "public_class_method", "to_s", "<=", "const_set", "allocate", "class", "new", "private_methods", "=~", "tainted?", "__id__", "class_exec", "autoload", "untaint", "nil?", "entries", "private_instance_methods", "include?", "is_a?", "[]", "chroot"] 
+1.8.7-p370 :019 > Dir.methods.sort
+ => ["<", "<=", "<=>", "==", "===", "=~", ">", ">=", "[]", "__id__", "__send__", "allocate", "ancestors", "autoload", "autoload?", "chdir", "chroot", "class", "class_eval", "class_exec", "class_variable_defined?", "class_variables", "clone", "const_defined?", "const_get", "const_missing", "const_set", "constants", "delete", "display", "dup", "entries", "enum_for", "eql?", "equal?", "extend", "foreach", "freeze", "frozen?", "getwd", "glob", "hash", "id", "include?", "included_modules", "inspect", "instance_eval", "instance_exec", "instance_method", "instance_methods", "instance_of?", "instance_variable_defined?", "instance_variable_get", "instance_variable_set", "instance_variables", "is_a?", "kind_of?", "method", "method_defined?", "methods", "mkdir", "module_eval", "module_exec", "name", "new", "nil?", "object_id", "open", "private_class_method", "private_instance_methods", "private_method_defined?", "private_methods", "protected_instance_methods", "protected_method_defined?", "protected_methods", "public_class_method", "public_instance_methods", "public_method_defined?", "public_methods", "pwd", "respond_to?", "rmdir", "send", "singleton_methods", "superclass", "taint", "tainted?", "tap", "to_a", "to_enum", "to_s", "type", "unlink", "untaint"] 
+1.8.7-p370 :020 > [H[2J1.8.7-p370 :020 > Dir.methods.sort
+ => ["<", "<=", "<=>", "==", "===", "=~", ">", ">=", "[]", "__id__", "__send__", "allocate", "ancestors", "autoload", "autoload?", "chdir", "chroot", "class", "class_eval", "class_exec", "class_variable_defined?", "class_variables", "clone", "const_defined?", "const_get", "const_missing", "const_set", "constants", "delete", "display", "dup", "entries", "enum_for", "eql?", "equal?", "extend", "foreach", "freeze", "frozen?", "getwd", "glob", "hash", "id", "include?", "included_modules", "inspect", "instance_eval", "instance_exec", "instance_method", "instance_methods", "instance_of?", "instance_variable_defined?", "instance_variable_get", "instance_variable_set", "instance_variables", "is_a?", "kind_of?", "method", "method_defined?", "methods", "mkdir", "module_eval", "module_exec", "name", "new", "nil?", "object_id", "open", "private_class_method", "private_instance_methods", "private_method_defined?", "private_methods", "protected_instance_methods", "protected_method_defined?", "protected_methods", "public_class_method", "public_instance_methods", "public_method_defined?", "public_methods", "pwd", "respond_to?", "rmdir", "send", "singleton_methods", "superclass", "taint", "tainted?", "tap", "to_a", "to_enum", "to_s", "type", "unlink", "untaint"] 
+1.8.7-p370 :021 > [H[2J1.8.7-p370 :021 > [H[2J1.8.7-p370 :021 > exit
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_engine/scriptchimwemwe@kachaje:/var/www/components/core_protocol_engine/script$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_engine/scriptchimwemwe@kachaje:/var/www/components/core_protocol_engine/script$ cd ..
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+script/analyze_protocol:230:in `delete': No such file or directory - file.txt (Errno::ENOENT)
+	from script/analyze_protocol:230
+	from script/analyze_protocol:228:in `foreach'
+	from script/analyze_protocol:228
+	from script/analyze_protocol:225:in `each'
+	from script/analyze_protocol:225
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+spec.spec
+script/analyze_protocol:244:in `initialize': No such file or directory - spec.spec (Errno::ENOENT)
+	from script/analyze_protocol:244:in `open'
+	from script/analyze_protocol:244
+	from script/analyze_protocol:237:in `foreach'
+	from script/analyze_protocol:237
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+spec.spec
+script/analyze_protocol:244:in `initialize': No such file or directory - /var/www/components/core_protocol_engine/specspec.spec (Errno::ENOENT)
+	from script/analyze_protocol:244:in `open'
+	from script/analyze_protocol:244
+	from script/analyze_protocol:237:in `foreach'
+	from script/analyze_protocol:237
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+spec.spec
+script/analyze_protocol:529:in `+': can't convert nil into String (TypeError)
+	from script/analyze_protocol:529
+	from script/analyze_protocol:237:in `foreach'
+	from script/analyze_protocol:237
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+spec.spec
+script/analyze_protocol:547:in `initialize': No such file or directory - /var/www/components/core_protocol_engine/spec/pages/patient_surgical_history.html (Errno::ENOENT)
+	from script/analyze_protocol:547:in `open'
+	from script/analyze_protocol:547
+	from script/analyze_protocol:537:in `each'
+	from script/analyze_protocol:537
+	from script/analyze_protocol:237:in `foreach'
+	from script/analyze_protocol:237
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+spec.spec
+script/analyze_protocol:550:in `initialize': No such file or directory - /var/www/components/core_protocol_engine/app/views/pages/patient_surgical_history.html (Errno::ENOENT)
+	from script/analyze_protocol:550:in `open'
+	from script/analyze_protocol:550
+	from script/analyze_protocol:540:in `each'
+	from script/analyze_protocol:540
+	from script/analyze_protocol:240:in `foreach'
+	from script/analyze_protocol:240
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ ird[Kb
+1.8.7-p370 :001 > [H[2J1.8.7-p370 :001 > Dir.methods
+ => ["private_class_method", "inspect", "name", "unlink", "tap", "clone", "public_methods", "__send__", "object_id", "method_defined?", "instance_variable_defined?", "equal?", "freeze", "delete", "extend", "mkdir", "send", "const_defined?", "methods", "instance_method", "ancestors", "module_eval", "hash", "autoload?", "dup", "instance_variables", "instance_methods", "to_enum", "public_method_defined?", "chdir", "class_variable_defined?", "eql?", "constants", "id", "instance_eval", "rmdir", "singleton_methods", "module_exec", "const_missing", "taint", "instance_variable_get", "frozen?", "enum_for", "private_method_defined?", "public_instance_methods", "display", "instance_of?", "superclass", "getwd", "method", "to_a", "included_modules", "open", "const_get", "instance_exec", "type", "glob", "<", "foreach", "protected_methods", "<=>", "class_eval", "==", "class_variables", ">", "===", "instance_variable_set", "protected_instance_methods", "protected_method_defined?", "respond_to?", "kind_of?", "pwd", ">=", "public_class_method", "to_s", "<=", "const_set", "allocate", "class", "new", "private_methods", "=~", "tainted?", "__id__", "class_exec", "autoload", "untaint", "nil?", "entries", "private_instance_methods", "include?", "is_a?", "[]", "chroot"] 
+1.8.7-p370 :002 > Dir.methods.sort
+ => ["<", "<=", "<=>", "==", "===", "=~", ">", ">=", "[]", "__id__", "__send__", "allocate", "ancestors", "autoload", "autoload?", "chdir", "chroot", "class", "class_eval", "class_exec", "class_variable_defined?", "class_variables", "clone", "const_defined?", "const_get", "const_missing", "const_set", "constants", "delete", "display", "dup", "entries", "enum_for", "eql?", "equal?", "extend", "foreach", "freeze", "frozen?", "getwd", "glob", "hash", "id", "include?", "included_modules", "inspect", "instance_eval", "instance_exec", "instance_method", "instance_methods", "instance_of?", "instance_variable_defined?", "instance_variable_get", "instance_variable_set", "instance_variables", "is_a?", "kind_of?", "method", "method_defined?", "methods", "mkdir", "module_eval", "module_exec", "name", "new", "nil?", "object_id", "open", "private_class_method", "private_instance_methods", "private_method_defined?", "private_methods", "protected_instance_methods", "protected_method_defined?", "protected_methods", "public_class_method", "public_instance_methods", "public_method_defined?", "public_methods", "pwd", "respond_to?", "rmdir", "send", "singleton_methods", "superclass", "taint", "tainted?", "tap", "to_a", "to_enum", "to_s", "type", "unlink", "untaint"] 
+1.8.7-p370 :003 > [H[2J1.8.7-p370 :003 > Dir.methods.sort
+ => ["<", "<=", "<=>", "==", "===", "=~", ">", ">=", "[]", "__id__", "__send__", "allocate", "ancestors", "autoload", "autoload?", "chdir", "chroot", "class", "class_eval", "class_exec", "class_variable_defined?", "class_variables", "clone", "const_defined?", "const_get", "const_missing", "const_set", "constants", "delete", "display", "dup", "entries", "enum_for", "eql?", "equal?", "extend", "foreach", "freeze", "frozen?", "getwd", "glob", "hash", "id", "include?", "included_modules", "inspect", "instance_eval", "instance_exec", "instance_method", "instance_methods", "instance_of?", "instance_variable_defined?", "instance_variable_get", "instance_variable_set", "instance_variables", "is_a?", "kind_of?", "method", "method_defined?", "methods", "mkdir", "module_eval", "module_exec", "name", "new", "nil?", "object_id", "open", "private_class_method", "private_instance_methods", "private_method_defined?", "private_methods", "protected_instance_methods", "protected_method_defined?", "protected_methods", "public_class_method", "public_instance_methods", "public_method_defined?", "public_methods", "pwd", "respond_to?", "rmdir", "send", "singleton_methods", "superclass", "taint", "tainted?", "tap", "to_a", "to_enum", "to_s", "type", "unlink", "untaint"] 
+1.8.7-p370 :004 > exit[Kst
+NameError: undefined local variable or method `exist' for #<Object:0x7f4b673312b0>
+	from (irb):4
+1.8.7-p370 :005 > [H[2J1.8.7-p370 :005 > exit
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ irbscript/analyze_protocol 
+spec.spec
+{"1"=>{"file"=>"another_patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "2"]
+results_spec.spec
+{"1"=>{"file"=>"another_patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "2", "2"]
+..
+simple.spec
+{"1"=>{"file"=>"patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "1", "2", "2", "2"]
+.
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+spec.spec
+{"1"=>{"file"=>"another_patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "2"]
+results_spec.spec
+{"1"=>{"file"=>"another_patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "2", "2"]
+..
+simple.spec
+{"1"=>{"file"=>"patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "1", "2", "2", "2"]
+.
+results_simple.spec
+{"1"=>{"file"=>"patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "1", "1", "2", "2", "2", "2"]
+results_results_spec.spec
+{"1"=>{"file"=>"patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "1", "1", "1", "2", "2", "2", "2", "2"]
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+results_results_simple.spec
+{}
+[]
+spec.spec
+{"1"=>{"pos"=>"1", "file"=>"another_patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "2"]
+results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"another_patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "2", "2"]
+..
+simple.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "2", "2", "2"]
+.
+results_results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "2", "2", "2", "2"]
+results_simple.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "2", "2", "2", "2", "2"]
+results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2"]
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+results_results_simple.spec
+{}
+[]
+spec.spec
+{"1"=>{"pos"=>"1", "file"=>"another_patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "2"]
+results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"another_patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "2", "2"]
+..
+simple.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "2", "2", "2"]
+results_results_results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "2", "2", "2", "2"]
+.
+results_results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "2", "2", "2", "2", "2"]
+results_simple.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2"]
+results_results_results_simple.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2"]
+results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2"]
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+results_results_simple.spec
+{}
+[]
+spec.spec
+{"1"=>{"pos"=>"1", "file"=>"another_patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "2"]
+results_results_results_results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"another_patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "2", "2"]
+results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"another_patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "2", "2", "2"]
+..
+simple.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "2", "2", "2", "2"]
+results_results_results_results_simple.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "2", "2", "2", "2", "2"]
+results_results_results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2"]
+.
+results_results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2"]
+results_simple.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2"]
+results_results_results_simple.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2"]
+results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"]
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+results_results_simple.spec
+{}
+[]
+results_results_results_results_results_simple.spec
+{}
+[]
+spec.spec
+script/analyze_protocol:139:in `build_page': undefined method `+' for nil:NilClass (NoMethodError)
+	from script/analyze_protocol:582
+	from script/analyze_protocol:566:in `each'
+	from script/analyze_protocol:566
+	from script/analyze_protocol:266:in `foreach'
+	from script/analyze_protocol:266
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+results_results_simple.spec
+{}
+[]
+results_results_results_results_results_simple.spec
+{}
+[]
+spec.spec
+{"1"=>{"file"=>"another_patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "2"]
+results_results_results_results_results_spec.spec
+{"1"=>{"file"=>"another_patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "2", "2"]
+results_spec.spec
+{"1"=>{"file"=>"another_patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "1", "2", "2", "2"]
+..
+simple.spec
+{"1"=>{"file"=>"patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "1", "1", "2", "2", "2", "2"]
+results_results_results_results_simple.spec
+{"1"=>{"file"=>"patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "1", "1", "1", "2", "2", "2", "2", "2"]
+results_results_results_results_spec.spec
+{"1"=>{"file"=>"patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2"]
+results_results_results_results_results_results_simple.spec
+{"1"=>{"file"=>"patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2"]
+.
+results_results_results_spec.spec
+{"1"=>{"file"=>"patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2"]
+results_simple.spec
+{"1"=>{"file"=>"patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2"]
+results_results_results_simple.spec
+{"1"=>{"file"=>"patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"]
+results_results_results_results_results_results_spec.spec
+{"1"=>{"file"=>"patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"]
+results_results_spec.spec
+{"1"=>{"file"=>"patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"]
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+results_results_simple.spec
+{}
+[]
+results_results_results_results_results_simple.spec
+{}
+[]
+results_results_results_results_results_results_results_simple.spec
+{}
+[]
+spec.spec
+{"1"=>{"pos"=>"1", "file"=>"another_patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "2"]
+results_results_results_results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"another_patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "2", "2"]
+results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"another_patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "2", "2", "2"]
+..
+simple.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "2", "2", "2", "2"]
+results_results_results_results_simple.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "2", "2", "2", "2", "2"]
+results_results_results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2"]
+results_results_results_results_results_results_simple.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2"]
+.
+results_results_results_results_results_results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2"]
+results_results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2"]
+results_simple.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"]
+results_results_results_simple.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"]
+results_results_results_results_results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"]
+results_results_spec.spec
+{"1"=>{"pos"=>"1", "file"=>"patient_medical_history.html"}, "2"=>{"pos"=>"2", "file"=>"patient_surgical_history.html"}}
+["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"]
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+
+spec.spec
+{"1"=>{"file"=>"another_patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "2"]
+..
+simple.spec
+{"1"=>{"file"=>"patient_medical_history.html", "pos"=>"1"}, "2"=>{"file"=>"patient_surgical_history.html", "pos"=>"2"}}
+["1", "1", "2"]
+.
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ 
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+spec.spec
+results_spec.spec
+..
+simple.spec
+.
+results_simple.spec
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/clean 
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/clean 
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/clean [11@analyze_protocol[C
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol [11Pclean[C
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/clean [11@analyze_protocol[C
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script [K/s[Kconsole 
+Loading development environment (Rails 2.3.5)
+>> [H[2J>> Patient.find(27)
+NameError: uninitialized constant Patient::Relationship
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:105:in `const_missing'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activerecord-2.3.5/lib/active_record/base.rb:2199:in `compute_type'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activesupport-2.3.5/lib/active_support/core_ext/kernel/reporting.rb:11:in `silence_warnings'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activerecord-2.3.5/lib/active_record/base.rb:2195:in `compute_type'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activerecord-2.3.5/lib/active_record/reflection.rb:156:in `send'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activerecord-2.3.5/lib/active_record/reflection.rb:156:in `klass'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activerecord-2.3.5/lib/active_record/reflection.rb:187:in `quoted_table_name'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activerecord-2.3.5/lib/active_record/associations.rb:1416:in `configure_dependency_for_has_many'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activerecord-2.3.5/lib/active_record/associations.rb:824:in `has_many'
+	from (eval):3:in `has_many'
+	from /var/www/components/core_protocol_engine/app/models/patient.rb:10
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_without_new_constant_marking'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_file'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:425:in `load_missing_constant'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:80:in `const_missing'
+	from /home/chimwemwe/.rvm/gems/ruby-1.8.7-p370/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:92:in `const_missing'
+	from (irb):1>> [H[2J>> reload!
+Reloading...
+=> true
+>> [H[2J>> reload![C[C[CPatient.find(27)
+=> #<Patient patient_id: 27, tribe: nil, creator: 1, date_created: "2012-12-11 10:09:05", changed_by: 1, date_changed: "2012-12-11 10:09:05", voided: 0, voided_by: nil, date_voided: nil, void_reason: nil>
+>> [H[2J>> ""2"[C.class
+=> String
+>> [H[2J>> "2".class[K[K[K[K[Kmatch()/)/)[C ".match(//)[C[C[C[C[C[C[C[C.match(//)[C[C[C[C[C[C[C[Cs.match(//)t.match(//)r.match(//)i.match(//)p.match(//)[C[C[C[C[C[C[C[C^/)\/)d/)+/)$/)[C[C
+=> #<MatchData "2">
+>> "2 ".strip.match(/^\d+$/)s ".strip.match(/^\d+$/)[C[C[C[C[C[Ct ".strip.match(/^\d+$/)[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+=> nil
+>> [H[2J>> exit
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/console [9@analyze_protocol[C
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ [H[2J]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/components/core_protocol_engine$ script/analyze_protocol 
+]0;chimwemwe@kachaje: /var/www/components/core_protocol_enginechimwemwe@kachaje:/var/www/compo

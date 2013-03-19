@@ -1,0 +1,7 @@
+log/
+tmp/
+nbproject/
+*.swap
+*.yml
+script/analyze_protocol
+script/clean

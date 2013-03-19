@@ -1,0 +1,102 @@
+<script type='text/javascript' language='javascript'>
+<!--
+	tt_cancel_show = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	tt_cancel_destination = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	</script>
+
+<form method='post' action='/encounters/create'>
+	<input type='hidden' name='program' value='MATERNITY PROGRAM' />
+	<input type='hidden' name='encounter_type' value='Observations ' />
+	<input type='hidden' name='patient_id' value='<%= @patient.id %>' />
+	<input type='hidden' name='user_id' value='<%= @user.id %>' />
+	<table>
+		<tr>
+			<td>
+				Admission Date 
+			</td>
+			<td>
+<input type='text' id='1.1.1'  name='concept[Admission date]' helpText='Admission Date '  field_type='date'  pos='0' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Admission Time 
+			</td>
+			<td>
+<input type='text' id='1.1.2'  name='concept[Admission Time]' helpText='Admission Time '  field_type='advancedTime'  pos='1' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Admission Diagnosis 
+			</td>
+			<td>
+<input type='text' id='1.1.3'   helpText='Admission Diagnosis '  field_type='text'  pos='2'  allowFreeText='true'  ajaxURL='/encounters/diagnoses?search_string='  name='concept[Diagnosis][]' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Select Next Admission Diagnosis 
+			</td>
+			<td>
+<input type='text' id='1.1.4'   helpText='Select Next Admission Diagnosis '  field_type='text'  pos='3'  allowFreeText='true'  ajaxURL='/encounters/diagnoses?search_string='  optional='true'  name='concept[Diagnosis][]'  condition='__$("1.1.3").value.trim() != ""' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Select Next Admission Diagnosis 
+			</td>
+			<td>
+<input type='text' id='1.1.5'   helpText='Select Next Admission Diagnosis '  field_type='text'  pos='4'  allowFreeText='true'  ajaxURL='/encounters/diagnoses?search_string='  optional='true'  name='concept[Diagnosis][]'  condition='__$("1.1.4").value.trim() != ""' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Select Next Admission Diagnosis 
+			</td>
+			<td>
+<input type='text' id='1.1.6'   helpText='Select Next Admission Diagnosis '  field_type='text'  pos='5'  allowFreeText='true'  ajaxURL='/encounters/diagnoses?search_string='  optional='true'  name='concept[Diagnosis][]'  condition='__$("1.1.5").value.trim() != ""' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Select Next Admission Diagnosis 
+			</td>
+			<td>
+<input type='text' id='1.1.7'   helpText='Select Next Admission Diagnosis '  field_type='text'  pos='6'  allowFreeText='true'  ajaxURL='/encounters/diagnoses?search_string='  optional='true'  name='concept[Diagnosis][]'  condition='__$("1.1.6").value.trim() != ""' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Select Next Admission Diagnosis 
+			</td>
+			<td>
+<input type='text' id='1.1.8'   helpText='Select Next Admission Diagnosis '  field_type='text'  pos='7'  allowFreeText='true'  ajaxURL='/encounters/diagnoses?search_string='  optional='true'  name='concept[Diagnosis][]'  condition='__$("1.1.7").value.trim() != ""' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Select Next Admission Diagnosis 
+			</td>
+			<td>
+<input type='text' id='1.1.9'   helpText='Select Next Admission Diagnosis '  field_type='text'  pos='8'  allowFreeText='true'  ajaxURL='/encounters/diagnoses?search_string='  optional='true'  name='concept[Diagnosis][]'  condition='__$("1.1.8").value.trim() != ""' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Select Next Admission Diagnosis 
+			</td>
+			<td>
+<input type='text' id='1.1.10'   helpText='Select Next Admission Diagnosis '  field_type='text'  pos='9'  allowFreeText='true'  ajaxURL='/encounters/diagnoses?search_string='  optional='true'  name='concept[Diagnosis][]'  condition='__$("1.1.9").value.trim() != ""' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Select Next Admission Diagnosis 
+			</td>
+			<td>
+<input type='text' id='1.1.11'   helpText='Select Next Admission Diagnosis '  field_type='text'  pos='10'  allowFreeText='true'  ajaxURL='/encounters/diagnoses?search_string='  optional='true'  name='concept[Diagnosis][]'  condition='__$("1.1.10").value.trim() != ""' />
+			</td>
+		</tr>
+	</table>
+</form>

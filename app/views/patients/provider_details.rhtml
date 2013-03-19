@@ -1,0 +1,53 @@
+<script type="text/javascript" language="javascript">
+  var name  = "<%= @name%>";
+  var facility = "<%= @facility%>"
+  var district = "<%= @district %>" 
+ 
+  <!--
+  tt_cancel_show = "/patients/birth_report?person_id=<%= @person.id%>&patient_id=<%= @patient.id%>"
+  tt_cancel_destination = "/patients/birth_report?person_id=<%= @person.id%>&patient_id=<%= @patient.id%>"
+
+  function set_ajaxURL_for_suggestions(url, filter_value) {
+    $('touchscreenInput'+tstCurrentPage).setAttribute('ajaxURL', url + filter_value + "&search_string=");
+    listSuggestions(tstCurrentPage);
+  }  
+
+  //-->
+
+ 
+</script>
+
+<% form_tag :controller => "patients", :action => "create_provider" do %>
+raise params.to_yaml
+  <%= hidden_field_tag "patient_id", @patient.id%>
+  <%= hidden_field_tag "person_id", @person.id %>
+  <%= hidden_field_tag "user_id", params[:user_id]%>
+
+
+  <%= text_field_tag "ProviderName", nil,
+    {
+    :helptext => "Provider Name",
+    :field_type => "password",
+    :tt_onLoad => "$('touchscreenInput'+tstCurrentPage).value = name",
+  } %>
+
+  <%= select_tag "ProviderTitle", options_for_select(["","Dr","Mr","Mrs","Ms","Miss"]),
+    {
+    :helptext => "Provider Title"
+  } %>
+
+  <%= text_field_tag "Hospital", nil,
+    {
+    :helptext => "Hospital Name",
+    :allowFreeText => true,
+    :ajaxURL => "/encounters/static_locations?search_string=",
+    :tt_onLoad => "$('nextButton').style.display = 'block';  $('touchscreenInput'+tstCurrentPage).value = facility; "
+  } %>
+
+  <%= text_field_tag "HospitalDate", nil,
+    {
+    :helptext => "HospitalDate",
+    :field_type => "date"
+  } %>
+
+<% end %>

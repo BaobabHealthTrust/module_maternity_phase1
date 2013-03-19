@@ -1,0 +1,447 @@
+<html>
+  <head>
+    <title>Current Visit</title>
+    <style type="text/css">
+      body {
+        font-family: "Nimbus Sans L", "Arial Narrow", sans-serif;
+        -moz-user-select:none;
+      }
+
+      #stats {
+        width:98%;
+        border:1px solid #eee;
+        margin:10px;
+        margin-top: 0px;
+        background:white;
+      }
+      #stats td, #stats th {
+        text-align:center;
+      }
+      .odd {
+        background-color: #eeeef7;
+      }
+      .even {
+        background-color: #fff;
+      }
+
+      #table_div {
+        overflow:auto;
+        height: 320px;
+        background-color: white;
+        border: solid 1px #eee;
+        border-width: 1px;
+        overflow: hidden;
+      }
+
+      .btn {
+        min-height: 50px;
+        margin: 0px;
+        margin-bottom: 5px;
+        font-size: 1.2em;
+        background-color: #6281a7;
+        color: #FFF;
+        font-weight: normal;
+        border: 5px outset #000;
+        padding: 10px;
+        cursor: pointer;
+        background:url(../images/btn_blue.png) right repeat;
+        -moz-user-select:none;
+        -moz-user-focus:disabled;
+      }
+
+      .btn:hover {
+        background:url(../images/btn_blue_hover.png) right repeat;
+        -moz-user-select:none;
+        -moz-user-focus:disabled;
+      }
+
+      .btn:active {
+        background:url(../images/btn_yellow.png) right repeat;
+        border: 3px inset #000;
+      }
+
+      ul{
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding-left: 0px;
+      }
+      li{
+        color: black;
+        list-style: none;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-family:"Nimbus Sans L","Arial Narrow",sans-serif;
+      }
+
+      .messageBar {
+        left: 140px;
+        width: 450px;
+        position: absolute;
+        top: 1px;
+        font-size: 1.8em;
+        text-align: center;
+        background-color: tomato;
+        padding: 10px;
+        z-index: 999;
+        border: 5px outset tomato;
+        display: none;
+        border-radius: 15px;
+      }
+
+      .messageBar button {
+        font-size: 0.7em;
+        margin: 5px;
+      }
+
+      button {
+        min-height: 50px;
+        min-width: 50px;
+        margin: 0px;
+        margin-bottom: 5px;
+        font-size: 1.2em;
+        background-color: #6281a7;
+        color: #FFF;
+        font-weight: normal;
+        border: 5px outset #000;
+        padding: 10px;
+        cursor: pointer;
+        background:url(/touchscreentoolkit/lib/images/btn_blue.png) right repeat;
+        -moz-user-select:none;
+        -moz-user-focus:disabled;
+        float: right;
+      }
+
+      button:hover {
+        background:url(/touchscreentoolkit/lib/images/btn_blue_hover.png) right repeat;
+        -moz-user-select:none;
+        -moz-user-focus:disabled;
+      }
+
+      button:active {
+        background:url(/touchscreentoolkit/lib/images/btn_yellow.png) right repeat;
+        border: 3px inset #000;
+      }
+
+    </style>
+
+  </head>
+  <body>
+    <div id="content" style="background-color: #fff; border-top: 1px #fff solid; margin-top: 0px;">
+
+      <h2 style="color: #6281a7; margin-top: -2px; margin-bottom: 0px; padding-left: 10px;">
+        Current Visit Summary
+      </h2>
+
+      <table id="stats" style="margin-bottom: 8px;" cellpadding="5">
+        <tr style="color: #fff; background-color: #6281a7;">
+          <th style="text-align:left; width: 20.5%;">Category</th>
+          <th style="width: 29.5%;">Interaction Type</th>
+          <th style="">Details</th>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <div style="height: 235px; overflow: hidden; border: 1px solid #ccc;">
+              <table width="100%" cellpadding="5">
+                <tr>
+                  <td style="width: 20%; text-align: left;
+                      vertical-align: top; font-size: 1.5em; color: #1f3b5e;">
+
+                    <div style="width: 100%; height: 220px; overflow: auto;">
+
+                      <% controls = [] %>
+                      <% (0..(@programs.length - 1)).each do |e| %>
+
+                        <% controls << "program#{@programs[e][0]}" %>
+
+                        <div style="width: 100%; display: table; border-spacing: 0px;">
+
+                          <div id="<%= "parent_program#{@programs[e][0]}" %>" style="display: table-row;"
+                               onclick="__$('obs').innerHTML = '';checkRadio('program<%= @programs[e][0] %>', controlsSet1);
+                                 ajaxCustomRequest(__$('encounters'), '/list_encounters?user_id=<%= params[:user_id]
+                             %>&program_id=<%= @programs[e][0] %>', 'program')">
+
+                            <div style="display: table-cell; vertical-align: middle; cursor: pointer;
+                            <%= (e == 0 ? " border-top: 1px dotted #6281a7; " : "") %>
+                                 width: 40px; text-align: center; border-bottom: 1px dotted #6281a7;">
+
+                              <img id="program<%= @programs[e][0] %>"
+                                   src="/touchscreentoolkit/lib/images/unchecked.png" height="30"
+                                   alt="O" />
+
+                            </div>
+                            <div style="display: table-cell; vertical-align: middle; cursor: pointer;
+                            <%= (e == 0 ? " border-top: 1px dotted #6281a7; " : "") %>
+                                 border-bottom: 1px dotted #6281a7; padding: 5px; ">
+
+                              <%= @programs[e][1] %>
+
+                              <!--div style="font-size: 0.5em; font-style: italic;
+                                   vertical-align: middle;">
+                                (<%= @programs[e][3] %>)
+                              </div-->
+
+                            </div>
+                          </div>
+
+                        </div>
+                      <% end %>
+
+                    </div>
+
+                  </td>
+                  <td style="width: 30%; border-left: 1px dotted #ccc; vertical-align: top;">
+                    <div style="width: 100%; height: 220px; overflow: auto;">
+                      <ul id="encounters" style="width: 100%;"></ul>
+                    </div>
+                  </td>
+                  <td style="border-left: 1px dotted #ccc;">
+                    <div style="width: 100%; height: 220px; overflow: auto;">
+                      <ul id="obs" style="width: 100%;"></ul>
+                    </div>
+                  </td>
+                </tr>
+
+              </table>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <script type="text/javascript">
+      <!--
+
+      var controlsSet1 = <%= (controls rescue []).to_json %>;
+
+      var controlsSet2 = [];
+
+      function __$(id){
+        return document.getElementById(id);
+      }
+
+      function checkRadio(id, controls){
+        for(var i = 0; i < controls.length; i++){
+          if(__$(controls[i])){
+            __$(controls[i]).src = "/touchscreentoolkit/lib/images/unchecked.png";
+            __$("parent_" + controls[i].trim()).style.backgroundColor = "white";
+          }
+        }
+
+        __$(id).src = "/touchscreentoolkit/lib/images/checked.png";
+        __$("parent_" + id).style.backgroundColor = "lightblue";
+      }
+
+      function ajaxCustomRequest(aElement1, aUrl, cat) {
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = function() {
+          handleCustomResult(aElement1, httpRequest, cat);
+        };
+        try {
+          httpRequest.open('GET', aUrl, true);
+          httpRequest.send(null);
+        } catch(e){
+        }
+      }
+
+      function handleCustomResult(optionsList, aXMLHttpRequest, cat) {
+        if (!aXMLHttpRequest) return;
+
+        if (!optionsList) return;
+
+        if (aXMLHttpRequest.readyState == 4 && (aXMLHttpRequest.status == 200 ||
+          aXMLHttpRequest.status == 304)) {
+
+          optionsList.innerHTML = "";
+
+          var result = JSON.parse(aXMLHttpRequest.responseText);
+
+          if(cat == "program"){
+
+            controlsSet2 = [];
+
+            for(var i = 0; i < result.length; i++){
+
+              controlsSet2.push("encounter" + result[i][0]);
+
+              var li = document.createElement("li");
+              li.id = "tblEncounter" + result[i][0];
+
+              optionsList.appendChild(li);
+
+              var tbl = document.createElement("div");
+              tbl.style.display = "table";
+              tbl.style.width = "100%";
+              tbl.style.borderBottom = "1px dotted #6281a7";
+
+              li.appendChild(tbl);
+
+              var row = document.createElement("div");
+              row.style.display = "table-row";
+
+              tbl.appendChild(row);
+
+              var cell0 = document.createElement("div");
+              cell0.style.display = "table-cell";
+              cell0.style.width = "40px";
+              cell0.style.fontWeight = "bold";
+              cell0.style.color = "#1f3b5e";
+              cell0.style.padding = "5px";
+              cell0.style.fontStyle = "italic";
+              cell0.innerHTML = result[i][2];
+              cell0.style.verticalAlign = "middle";
+
+              row.appendChild(cell0);
+
+              var cell1 = document.createElement("div");
+              cell1.style.display = "table-cell";
+              cell1.id = "parent_encounter" + result[i][0];
+              cell1.style.padding = "5px";
+              cell1.style.textAlign = "left";
+              cell1.style.margin = "5px";
+              cell1.style.cursor = "pointer";
+              cell1.style.color = "#1f3b5e";
+              cell1.setAttribute("encounter_id", result[i][0]);
+              cell1.style.verticalAlign = "middle";
+              cell1.onclick = function(){
+                checkRadio('encounter' + this.getAttribute('encounter_id'), controlsSet2);
+                ajaxCustomRequest(__$('obs'), '/list_observations?user_id=<%= params[:user_id] %>&encounter_id=' +
+                  this.getAttribute("encounter_id"));
+              }
+
+              row.appendChild(cell1);
+
+              var textcell = document.createElement("div");
+              textcell.style.cssFloat = "left";
+              textcell.style.margin = "5px";
+              textcell.style.color = "#1f3b5e";
+              textcell.innerHTML = result[i][1].trim().split(":")[0];
+
+              cell1.appendChild(textcell);
+
+              var imgRadio = document.createElement("img");
+              imgRadio.src = "/touchscreentoolkit/lib/images/unchecked.png";
+              imgRadio.alt = "O";
+              imgRadio.id = "";
+              imgRadio.height = "30";
+              imgRadio.style.cssFloat = "right";
+              imgRadio.setAttribute("encounter_id", result[i][0]);
+              imgRadio.id = "encounter" + result[i][0];
+              imgRadio.onclick = function(){
+                ajaxCustomRequest(__$('obs'), '/list_observations?user_id=<%= params[:user_id] %>&encounter_id=' +
+                  this.getAttribute("encounter_id"));
+              }
+
+              cell1.appendChild(imgRadio);
+
+              var cell2 = document.createElement("div");
+              cell2.style.display = "table-cell";
+              cell2.style.padding = "5px";
+              cell2.style.width = "30px";
+              cell2.style.textAlign = "right";
+              cell2.style.cursor = "pointer";
+              cell2.style.verticalAlign = "middle";
+
+              row.appendChild(cell2);
+
+              var imgDel = document.createElement("img");
+              imgDel.src = "/touchscreentoolkit/lib/images/cancel_flat_small_red.png";
+              imgDel.alt = "X";
+              imgDel.setAttribute("encounter_id", result[i][0]);
+              imgDel.onclick = function(){
+                confirmDeletion('Do you really want to delete this encounter?', this.getAttribute("encounter_id"));
+              }
+
+              cell2.appendChild(imgDel);
+
+            }
+
+          } else {
+
+            for(var i = 0; i < result.length; i++){
+
+              var li = document.createElement("li");
+
+              optionsList.appendChild(li);
+
+              var tbl = document.createElement("div");
+              tbl.style.display = "table";
+              tbl.style.width = "100%";
+              tbl.style.borderBottom = "1px dotted #6281a7";
+
+              li.appendChild(tbl);
+
+              var row = document.createElement("div");
+              row.style.display = "table-row";
+
+              tbl.appendChild(row);
+
+              var cell0 = document.createElement("div");
+              cell0.style.display = "table-cell";
+              cell0.style.width = "40px";
+              cell0.style.fontWeight = "bold";
+              cell0.style.color = "#1f3b5e";
+              cell0.style.fontStyle = "italic";
+              cell0.innerHTML = (i + 1) + ".";
+              cell0.style.verticalAlign = "top";
+
+              row.appendChild(cell0);
+
+              var cell1 = document.createElement("div");
+              cell1.style.display = "table-cell";
+              cell1.style.paddingLeft = "5px";
+              cell1.style.textAlign = "left";
+              cell1.style.width = "200px";
+              cell1.style.color = "#1f3b5e";
+              cell1.style.verticalAlign = "top";
+              cell1.innerHTML = result[i][1].trim().split("|")[0];
+
+              row.appendChild(cell1);
+
+              var cell2 = document.createElement("div");
+              cell2.style.display = "table-cell";
+              cell2.style.paddingBottom = "4px";
+              cell2.style.paddingTop = "4px";
+              cell2.style.textAlign = "left";
+              cell2.style.color = "green";
+              cell2.style.verticalAlign = "top";
+              cell2.innerHTML = result[i][1].trim().split("|")[1];
+
+              row.appendChild(cell2);
+
+            }
+          }
+        }
+      }
+
+      function runCmd(id){
+        ajaxCustomRequest(__$('obs'), '/void?user_id=<%= @user["user_id"] %>&encounter_id=' + id);
+
+        __$("encounters").removeChild(__$("tblEncounter" + id));
+      }
+
+      function confirmDeletion(message, id) {
+        if (!tstMessageBar) {
+
+          var tstMessageBar = document.createElement("div");
+          tstMessageBar.id = "messageBar";
+          tstMessageBar.className = "messageBar";
+
+          tstMessageBar.innerHTML = message + "<br/>" +
+            "<button onmousedown=\"__$('content').removeChild(document.getElementById('messageBar')); " +
+            "runCmd('" + id + "');\"><span>Yes</span></button><button onmousedown=\"__$('content')" +
+            ".removeChild(document.getElementById('messageBar'));\"><span>No</span></button>";
+
+          tstMessageBar.style.display = "block";
+          __$('content').appendChild(tstMessageBar);
+        }
+
+        return false;
+
+      }
+
+      //-->
+    </script>
+  </body>
+</html>

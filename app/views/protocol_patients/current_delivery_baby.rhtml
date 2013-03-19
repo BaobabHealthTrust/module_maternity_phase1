@@ -1,0 +1,76 @@
+<script type='text/javascript' language='javascript'>
+<!--
+	tt_cancel_show = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	tt_cancel_destination = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	</script>
+
+<form method='post' action='/encounters/create'>
+	<input type='hidden' name='program' value='MATERNITY PROGRAM' />
+	<input type='hidden' name='encounter_type' value='Current bba delivery ' />
+	<input type='hidden' name='patient_id' value='<%= @patient.id %>' />
+	<input type='hidden' name='user_id' value='<%= @user.id %>' />
+	<table>
+		<tr>
+			<td>
+				Status of Baby 
+			</td>
+			<td>
+<select id='1.1.1'   field_type='text'  helpText='Status <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  pos='0'  name='concept[Status of Baby]' >
+<option></option>
+<option value='Cried'>Cried</option>
+ <option value='No Cry'>No Cry</option>
+ </select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Date of delivery 
+			</td>
+			<td>
+<input type='text' id='1.1.2'     field_type='date'  helpText='Date of delivery <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  pos='1'  name='concept[Date of delivery]' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Time of delivery 
+			</td>
+			<td>
+<input type='text' id='1.1.3'     field_type='advancedTime'  helpText='Time of delivery <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  pos='2'  name='concept[Time of delivery]' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Gender of Contact 
+			</td>
+			<td>
+<select id='1.1.4'   helpText='Gender <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  pos='3'  name='concept[Gender of contact]' >
+<option></option>
+<option value='Female'>Female</option>
+ <option value='Male'>Male</option>
+ </select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Delivery mode 
+			</td>
+			<td>
+<select id='1.1.5'   helpText='Delivery mode <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  pos='4'  name='concept[Delivery mode]' >
+<option></option>
+<option value='Caesarean section'>Caesarean section</option>
+ <option value='Breech delivery'>Breech delivery</option>
+ <option value='Vacuum extraction delivery'>Vacuum extraction delivery</option>
+ <option value='Spontaneous vaginal delivery'>Spontaneous vaginal delivery</option>
+ </select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Next URL 
+			</td>
+			<td>
+<input  id='1.1.10'   helpText='Next URL '  <%= (params["baby"].to_i >= params["baby_total"].to_i ? "disabled" : "") %>  type='hidden'  pos='5'  value='/protocol_patients/current_delivery_baby?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>&baby=<%= params["baby"].to_i + 1 %>&baby_total=<%= params["baby_total"]%>'  name='next_url' />
+			</td>
+		</tr>
+	</table>
+</form>

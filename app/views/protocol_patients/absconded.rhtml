@@ -1,0 +1,30 @@
+<script type='text/javascript' language='javascript'>
+<!--
+	tt_cancel_show = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	tt_cancel_destination = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	</script>
+
+<form method='post' action='/encounters/create'>
+	<input type='hidden' name='program' value='MATERNITY PROGRAM' />
+	<input type='hidden' name='encounter_type' value='Update Outcome ' />
+	<input type='hidden' name='patient_id' value='<%= @patient.id %>' />
+	<input type='hidden' name='user_id' value='<%= @user.id %>' />
+	<table>
+		<tr>
+			<td>
+				Absconded 
+			</td>
+			<td>
+<input  id='1.1.1'   helpText='Absconded '  type='hidden'  pos='0'  value='Absconded'  name='concept[Outcome]' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Next URL 
+			</td>
+			<td>
+<input  id='1.1.2'   helpText='Next URL '  type='hidden'  pos='1'  value='/clinic?user_id=<%= @user.id %>'  name='next_url' />
+			</td>
+		</tr>
+	</table>
+</form>

@@ -1,0 +1,38 @@
+<script type='text/javascript' language='javascript'>
+<!--
+	tt_cancel_show = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	tt_cancel_destination = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	</script>
+
+<form method='post' action='/encounters/create'>
+	<input type='hidden' name='program' value='MATERNITY PROGRAM' />
+	<input type='hidden' name='encounter_type' value='Abdominal Examination ' />
+	<input type='hidden' name='patient_id' value='<%= @patient.id %>' />
+	<input type='hidden' name='user_id' value='<%= @user.id %>' />
+	<table>
+		<tr>
+			<td>
+				Status of Uterus 
+			</td>
+			<td>
+<select id='1.1.1' name='concept[STATUS OF UTERUS]' helpText='Status of Uterus ' field_type='text'  pos='0'  tt_pageStyleClass='LongSelectList' >
+<option></option>
+<option value='Well Contracted'>Well Contracted</option>
+ <option value='Not Contracted (boggy)'>Not Contracted (boggy)</option>
+ </select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Status of Placenta 
+			</td>
+			<td>
+<select id='1.1.2' name='concept[STATUS OF PLACENTA]' helpText='Status of Placenta ' field_type='text'  pos='1'  tt_pageStyleClass='LongSelectList' >
+<option></option>
+<option value='Delivered'>Delivered</option>
+ <option value='Not Delivered'>Not Delivered</option>
+ </select>
+			</td>
+		</tr>
+	</table>
+</form>

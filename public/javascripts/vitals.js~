@@ -1,0 +1,13 @@
+/*
+ * Custom javascript code for vitals.
+ *
+ **/
+
+function attribute(str){
+	alert(str)
+    id = str.split("*")[0]
+    atr = str.split("*")[1]
+	val = str.split("*")[2]
+	__$(id).setAttribute(atr, val)
+  }
+

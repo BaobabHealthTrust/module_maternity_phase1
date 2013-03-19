@@ -1,0 +1,62 @@
+<script language="javascript">
+  tstUsername = "";
+  tt_cancel_destination = '/user_logout/<%= params[:user_id] %>?location_id=<%= session[:location_id] || params[:location_id] %>';
+  tt_cancel_show = '<%= @patient_registration %>/scan?user_id=<%= params[:user_id]
+%>&ext=true&location_id=<%= session[:location_id] || params[:location_id] %>';
+</script>
+<div id="home">
+  <div id="project_name">
+    <div style="margin-top: 0px; color: #6281A7; font-size: 0.4em;">
+      <%= @project %>
+    </div>
+  </div>
+  <select id="tabs">
+    <option value="/overview?user_id=<%= params[:user_id] %>&location_id=<%= session[:location_id] || params[:location_id] %>">
+      Overview
+    </option>
+    <option value="/reports?user_id=<%= params[:user_id] %>&location_id=<%= session[:location_id] || params[:location_id] %>">
+      Reports
+    </option>
+
+    <option value="/my_account?user_id=<%= params[:user_id] %>&location_id=<%= session[:location_id] || params[:location_id] %>">
+      My Account
+    </option>
+
+    <% if !@user["roles"].map{|role| role.downcase if role.downcase == "program manager" ||
+          role.downcase == "superuser"}.compact.empty? %>
+
+      <option value="/administration?user_id=<%= params[:user_id] %>&location_id=<%= session[:location_id] || params[:location_id] %>">
+        Administration
+      </option>
+
+    <% end %>
+
+  </select>
+
+  <div id="facility"><%= @facility rescue "&nbsp;" %></div>
+  <div id="location"><%= @location.name rescue "&nbsp;" %></div>
+
+  <div id="date">
+    <%= (!session[:datetime].nil? ? session[:datetime].to_date : Date.today).strftime("%Y-%m-%d") %>
+  </div>
+  <div id="user"><%= @user["name"] rescue "&nbsp;" %></div>
+
+  <select id="links">
+    <option value='' link='/logout?user_id=<%= params[:user_id] %>'>Logout</option>
+    <option value='javascript:document.forms[0].submit()' ttSize="290px">
+      Find / Register Patient
+    </option>    
+  </select>
+
+  <form id="register" action="<%= @patient_registration %>/search?user_id=<%= params[:user_id] 
+      %>&ext=true&location_id=<%= session[:location_id] || params[:location_id] %>" method="post">
+
+    <% @selected.each do |item| %>
+
+    <%= hidden_field_tag "#{item}", true %>
+
+    <% end %>
+
+  </form>
+
+</div>
