@@ -14,7 +14,7 @@ Q.1.1.5. Gender [pos: 4, name: concept[Gender of contact], concept: Gender of co
 O.1.1.5.1. Male
 O.1.1.5.2. Female
 
-Q.1.1.6. Weight (KG) [concept: WEIGHT (KG), field_type: number, tt_onLoad: weightAlert("1.1.6*1.1.5"); attribute("1.1.6*validationRule*([0-9]+\\.[0-9])|Unknown$"), tt_onUnLoad: window.clearInterval(timedEvent), min: 2.5, max: 4.5, tt_pageStyleClass: Numeric NumbersOnlyWithDecimal, pos: 5, absoluteMin: 0, absoluteMax: 10, helpText: Weight <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" | ((params["baby"].to_i == 2) ? "<sup>nd</sup>" | ((params["baby"].to_i == 3) ? "<sup>rd</sup>" | "<sup>th</sup>" ))) %> baby]
+Q.1.1.6. Weight (KG) [concept: Birth weight, field_type: number, tt_onLoad: weightAlert("1.1.6*1.1.5"); attribute("1.1.6*validationRule*([0-9]+\\.[0-9])|Unknown$"), tt_onUnLoad: window.clearInterval(timedEvent), min: 2500, max: 4500, tt_pageStyleClass: Numeric NumbersOnlyWithDecimal, pos: 5, absoluteMin: 0, absoluteMax: 10000, helpText: Weight <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" | ((params["baby"].to_i == 2) ? "<sup>nd</sup>" | ((params["baby"].to_i == 3) ? "<sup>rd</sup>" | "<sup>th</sup>" ))) %> baby]
 
 Q.1.1.7. Height (CM) [concept: HEIGHT (CM), field_type: number, min: 15.0, max: 60.0, tt_pageStyleClass: Numeric NumbersOnlyWithUnknown, pos: 6, absoluteMin: 0, absoluteMax: 100, helpText: Height <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" | ((params["baby"].to_i == 2) ? "<sup>nd</sup>" | ((params["baby"].to_i == 3) ? "<sup>rd</sup>" | "<sup>th</sup>" ))) %> baby]
 
