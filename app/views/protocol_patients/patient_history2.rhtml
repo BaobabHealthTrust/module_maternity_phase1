@@ -17,7 +17,7 @@
 				Gravida 
 			</td>
 			<td>
-<input type='text' id='1.1.1'  name='concept[GRAVIDA]' helpText='Gravida '  tt_onUnLoad='count = 1'  tt_pageStyleClass='NumbersOnly'  Max='15'  absoluteMin='1'  field_type='number'  pos='0' />
+<input type='text' id='1.1.1'  name='concept[GRAVIDA]' helpText='Gravida '  tt_onUnLoad='count = 1'  absoluteMin='1'  tt_pageStyleClass='NumbersOnly'  pos='0'  field_type='number'  Max='15' />
 			</td>
 		</tr>
 		<tr>
@@ -25,7 +25,7 @@
 				Multiple Gestation 
 			</td>
 			<td>
-<select id='1.1.2' name='concept[MULTIPLE GESTATION]' helpText='Multiple Gestation ' condition='__$("1.1.1").value.trim().toUpperCase() > 1'  field_type='text'  pos='1' >
+<select id='1.1.2' name='concept[MULTIPLE GESTATION]' helpText='Multiple Gestation ' condition='__$("1.1.1").value.trim().toUpperCase() > 1'  pos='1'  field_type='text' >
 <option></option>
 <option value='Yes'>Yes</option>
  <option value='No'>No</option>
@@ -37,7 +37,7 @@
 				Number of Deliveries 
 			</td>
 			<td>
-<input type='text' id='1.1.3'  name='concept[PARITY]' helpText='Number of Deliveries '  tt_onUnLoad='if (__$("1.1.2").value.trim().toLowerCase()=="no"){attribute("1.1.3*validationRule*[" + (parseInt(__$("1.1.1").value) - parseInt(__$("1.1.3").value) -1) ); attribute("1.1.4*validationMessage*Expected value is " + (parseInt(__$("1.1.1").value) - parseInt(__$("1.1.3").value) -1))}'  condition='__$("1.1.1").value > 1'  Max='15'  absoluteMin='0'  tt_pageStyleClass='NumbersOnly'  field_type='number'  pos='2'  tt_onLoad='if (__$("1.1.2").value.trim().toLowerCase()=="no"){attribute("1.1.3*AbsoluteMax*" +  (__$("1.1.1").value - 1))}' />
+<input type='text' id='1.1.3'  name='concept[PARITY]' helpText='Number of Deliveries '  tt_onUnLoad='if (__$("1.1.2").value.trim().toLowerCase()=="no"){attribute("1.1.3*validationRule*[" + (parseInt(__$("1.1.1").value) - parseInt(__$("1.1.3").value) -1) ); attribute("1.1.4*validationMessage*Expected value is " + (parseInt(__$("1.1.1").value) - parseInt(__$("1.1.3").value) -1))}'  absoluteMin='0'  condition='__$("1.1.1").value > 1'  tt_pageStyleClass='NumbersOnly'  pos='2'  field_type='number'  tt_onLoad='if (__$("1.1.2").value.trim().toLowerCase()=="no"){attribute("1.1.3*AbsoluteMax*" +  (__$("1.1.1").value - 1))}'  Max='15' />
 			</td>
 		</tr>
 		<tr>
@@ -45,7 +45,7 @@
 				Number of Abortions 
 			</td>
 			<td>
-<input type='text' id='1.1.4'  name='concept[NUMBER OF ABORTIONS]' helpText='Number of Abortions '  condition='__$("1.1.1").value > 1'  Max='5;  num_babies = __$("1.1.3").value;'  absoluteMin='0'  tt_pageStyleClass='NumbersOnly'  field_type='number'  pos='3' />
+<input type='text' id='1.1.4'  name='concept[NUMBER OF ABORTIONS]' helpText='Number of Abortions '  absoluteMin='0'  condition='__$("1.1.1").value > 1'  tt_pageStyleClass='NumbersOnly'  pos='3'  field_type='number'  Max='5;  num_babies = __$("1.1.3").value;' />
 			</td>
 		</tr>
 		<tr>
@@ -53,7 +53,7 @@
 				Delivery Mode 1<sup>st</sup> Pregnancy 
 			</td>
 			<td>
-<select id='1.1.5'  helpText='Delivery Mode 1<sup>st</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  field_type='text'  name='concept[Delivery Mode]'  pos='4'  tt_onLoad='count = count + 1;' >
+<select id='1.1.5'  helpText='Delivery Mode 1<sup>st</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  pos='4'  name='concept[Delivery Mode]'  field_type='text'  tt_onLoad='count = count + 1;' >
 <option></option>
 <option value='Spontaneous vaginal delivery'>Spontaneous vaginal delivery</option>
  <option value='Caesarean Section'>Caesarean Section</option>
@@ -67,7 +67,7 @@
 				Delivery Mode 2<sup>nd</sup> Pregnancy 
 			</td>
 			<td>
-<select id='1.1.6'  helpText='Delivery Mode 2<sup>nd</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  field_type='text'  name='concept[Delivery Mode]'  pos='5'  tt_onLoad='count = count + 1' >
+<select id='1.1.6'  helpText='Delivery Mode 2<sup>nd</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  pos='5'  name='concept[Delivery Mode]'  field_type='text'  tt_onLoad='count = count + 1' >
 <option></option>
 <option value='Spontaneous vaginal delivery'>Spontaneous vaginal delivery</option>
  <option value='Caesarean Section'>Caesarean Section</option>
@@ -81,7 +81,7 @@
 				Delivery Mode 3<sup>rd</sup> Pregnancy 
 			</td>
 			<td>
-<select id='1.1.8'  helpText='Delivery Mode 3<sup>rd</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  field_type='text'  name='concept[Delivery Mode]'  pos='6'  tt_onLoad='count = count + 1' >
+<select id='1.1.8'  helpText='Delivery Mode 3<sup>rd</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  pos='6'  name='concept[Delivery Mode]'  field_type='text'  tt_onLoad='count = count + 1' >
 <option></option>
 <option value='Spontaneous vaginal delivery'>Spontaneous vaginal delivery</option>
  <option value='Caesarean Section'>Caesarean Section</option>
@@ -95,7 +95,7 @@
 				Delivery Mode 4<sup>th</sup> Pregnancy 
 			</td>
 			<td>
-<select id='1.1.9'  helpText='Delivery Mode 4<sup>th</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  field_type='text'  name='concept[Delivery Mode]'  pos='7'  tt_onLoad='count = count + 1' >
+<select id='1.1.9'  helpText='Delivery Mode 4<sup>th</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  pos='7'  name='concept[Delivery Mode]'  field_type='text'  tt_onLoad='count = count + 1' >
 <option></option>
 <option value='Spontaneous vaginal delivery'>Spontaneous vaginal delivery</option>
  <option value='Caesarean Section'>Caesarean Section</option>
@@ -109,7 +109,7 @@
 				Delivery Mode 5<sup>th</sup> Pregnancy 
 			</td>
 			<td>
-<select id='1.1.10'  helpText='Delivery Mode 5<sup>th</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  field_type='text'  name='concept[Delivery Mode]'  pos='8'  tt_onLoad='count = count + 1' >
+<select id='1.1.10'  helpText='Delivery Mode 5<sup>th</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  pos='8'  name='concept[Delivery Mode]'  field_type='text'  tt_onLoad='count = count + 1' >
 <option></option>
 <option value='Spontaneous vaginal delivery'>Spontaneous vaginal delivery</option>
  <option value='Caesarean Section'>Caesarean Section</option>
@@ -123,7 +123,7 @@
 				Delivery Mode 6<sup>th</sup> Pregnancy 
 			</td>
 			<td>
-<select id='1.1.11'  helpText='Delivery Mode 6<sup>th</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  field_type='text'  name='concept[Delivery Mode]'  pos='9'  tt_onLoad='count = count + 1' >
+<select id='1.1.11'  helpText='Delivery Mode 6<sup>th</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  pos='9'  name='concept[Delivery Mode]'  field_type='text'  tt_onLoad='count = count + 1' >
 <option></option>
 <option value='Spontaneous vaginal delivery'>Spontaneous vaginal delivery</option>
  <option value='Caesarean Section'>Caesarean Section</option>
@@ -137,7 +137,7 @@
 				Delivery Mode 7<sup>th</sup> Pregnancy 
 			</td>
 			<td>
-<select id='1.1.12'  helpText='Delivery Mode 7<sup>th</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  field_type='text'  name='concept[Delivery Mode]'  pos='10'  tt_onLoad='count = count + 1' >
+<select id='1.1.12'  helpText='Delivery Mode 7<sup>th</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  pos='10'  name='concept[Delivery Mode]'  field_type='text'  tt_onLoad='count = count + 1' >
 <option></option>
 <option value='Spontaneous vaginal delivery'>Spontaneous vaginal delivery</option>
  <option value='Caesarean Section'>Caesarean Section</option>
@@ -151,7 +151,7 @@
 				Delivery Mode 8<sup>th</sup> Pregnancy 
 			</td>
 			<td>
-<select id='1.1.13'  helpText='Delivery Mode 8<sup>th</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  field_type='text'  name='concept[Delivery Mode]'  pos='11'  tt_onLoad='count = count + 1' >
+<select id='1.1.13'  helpText='Delivery Mode 8<sup>th</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  pos='11'  name='concept[Delivery Mode]'  field_type='text'  tt_onLoad='count = count + 1' >
 <option></option>
 <option value='Spontaneous vaginal delivery'>Spontaneous vaginal delivery</option>
  <option value='Caesarean Section'>Caesarean Section</option>
@@ -165,7 +165,7 @@
 				Delivery Mode 9<sup>th</sup> Pregnancy 
 			</td>
 			<td>
-<select id='1.1.14'  helpText='Delivery Mode 9<sup>th</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  field_type='text'  name='concept[Delivery Mode]'  pos='12'  tt_onLoad='count = count + 1' >
+<select id='1.1.14'  helpText='Delivery Mode 9<sup>th</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  pos='12'  name='concept[Delivery Mode]'  field_type='text'  tt_onLoad='count = count + 1' >
 <option></option>
 <option value='Spontaneous vaginal delivery'>Spontaneous vaginal delivery</option>
  <option value='Caesarean Section'>Caesarean Section</option>
@@ -179,7 +179,7 @@
 				Delivery Mode 10<sup>th</sup> Pregnancy 
 			</td>
 			<td>
-<select id='1.1.15'  helpText='Delivery Mode 10<sup>th</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  field_type='text'  name='concept[Delivery Mode]'  pos='13'  tt_onLoad='count = count + 1' >
+<select id='1.1.15'  helpText='Delivery Mode 10<sup>th</sup> Pregnancy ' condition='__$("1.1.3").value >= count'  pos='13'  name='concept[Delivery Mode]'  field_type='text'  tt_onLoad='count = count + 1' >
 <option></option>
 <option value='Spontaneous vaginal delivery'>Spontaneous vaginal delivery</option>
  <option value='Caesarean Section'>Caesarean Section</option>
@@ -193,7 +193,7 @@
 				TT Status 
 			</td>
 			<td>
-<input type='text' id='1.1.16'  name='concept[TT STATUS]' helpText='TT Status '  max='5'  tt_pageStyleClass='NumbersOnly'  absoluteMin='0'  field_type='number'  pos='14' />
+<input type='text' id='1.1.16'  name='concept[TT STATUS]' helpText='TT Status '  absoluteMin='0'  max='5'  tt_pageStyleClass='NumbersOnly'  pos='14'  field_type='number' />
 			</td>
 		</tr>
 		<tr>
@@ -201,7 +201,7 @@
 				Last Menstrual Period 
 			</td>
 			<td>
-<input type='text' id='1.1.17'  name='concept[LAST MENSTRUAL PERIOD]' helpText='Last Menstrual Period '  tt_onUnLoad='window.clearInterval(timedEvent)'  field_type='date'  pos='15'  tt_onLoad='calculateEDOD("1.1.17")' />
+<input type='text' id='1.1.17'  name='concept[LAST MENSTRUAL PERIOD]' helpText='Last Menstrual Period '  tt_onUnLoad='window.clearInterval(timedEvent)'  pos='15'  field_type='date'  tt_onLoad='calculateEDOD("1.1.17")' />
 			</td>
 		</tr>
 	</table>

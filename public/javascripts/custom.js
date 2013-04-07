@@ -212,11 +212,11 @@ function weightAlert(str){
 
       gender = $(gender_id).value;
       if (gender == "Male"){
-        maxi = 4.5;
-        mini = 2.5;
+        maxi = 4500;
+        mini = 2500;
       }else if (gender == "Female"){
-        maxi = 4.4;
-        mini = 2.4;
+        maxi = 4400;
+        mini = 2400;
       }
       $("inputFrame" + tstCurrentPage).appendChild(div);
 

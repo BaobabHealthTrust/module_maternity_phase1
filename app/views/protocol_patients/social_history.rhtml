@@ -15,7 +15,7 @@
 				Next Of Kin First Name 
 			</td>
 			<td>
-<input type='text' id='1.1.1'  name='concept[Guardian First Name]' helpText='Next Of Kin First Name '  field_type='text'  pos='0' />
+<input type='text' id='1.1.1'  name='concept[Guardian First Name]' helpText='Next Of Kin First Name '  pos='0'  field_type='text' />
 			</td>
 		</tr>
 		<tr>
@@ -23,7 +23,7 @@
 				Next Of Kin Last Name 
 			</td>
 			<td>
-<input type='text' id='1.1.2'  name='concept[Guardian Last Name]' helpText='Next Of Kin Last Name '  field_type='text'  pos='1' />
+<input type='text' id='1.1.2'  name='concept[Guardian Last Name]' helpText='Next Of Kin Last Name '  pos='1'  field_type='text' />
 			</td>
 		</tr>
 		<tr>
@@ -31,7 +31,7 @@
 				Next Of Kin Phone Number 
 			</td>
 			<td>
-<input type='text' id='1.1.3'  name='concept[Next of Kin Telephone]' helpText='Next Of Kin Phone Number '  validationRule='^0\\d{7}$|Unknown|Not Available|N\/A|^0\\d{9}$'  tt_pageStyleClass='nota NumbersOnlyWithUnknown'  field_type='number'  pos='3'  validationMessage='Not a valid phone number' />
+<input type='text' id='1.1.3'  name='concept[Next of Kin Telephone]' helpText='Next Of Kin Phone Number '  validationRule='^0\\d{7}$|Unknown|Not Available|N\/A|^0\\d{9}$'  pos='3'  tt_pageStyleClass='nota NumbersOnlyWithUnknown'  field_type='number'  validationMessage='Not a valid phone number' />
 			</td>
 		</tr>
 		<tr>
@@ -47,7 +47,7 @@
 				Specify Other Relation Type 
 			</td>
 			<td>
-<input type='text' id='1.1.4.1'  name='concept[OTHER RELATIVE]' helpText='Specify Other Relation Type '  condition='__$("1.1.4").value == "Other"'  field_type='text'  pos='5' />
+<input type='text' id='1.1.4.1'  name='concept[OTHER RELATIVE]' helpText='Specify Other Relation Type '  condition='__$("1.1.4").value == "Other"'  pos='5'  field_type='text' />
 			</td>
 		</tr>
 		<tr>
@@ -70,7 +70,7 @@
 				Religion 
 			</td>
 			<td>
-<input type='text' id='1.1.6'  name='concept[RELIGION]' helpText='Religion '  ajaxURL='/encounters/religion?search_string='  field_type='text'  pos='7' />
+<input type='text' id='1.1.6'  name='concept[RELIGION]' helpText='Religion '  ajaxURL='/encounters/religion?search_string='  pos='7'  field_type='text' />
 			</td>
 		</tr>
 		<tr>
@@ -78,7 +78,7 @@
 				Specify Other Religion 
 			</td>
 			<td>
-<input type='text' id='1.1.6.1'  name='concept[OTHER]' helpText='Specify Other Religion '  condition='__$("1.1.6").value == "Other"'  field_type='text'  pos='8' />
+<input type='text' id='1.1.6.1'  name='concept[OTHER]' helpText='Specify Other Religion '  condition='__$("1.1.6").value == "Other"'  pos='8'  field_type='text' />
 			</td>
 		</tr>
 	</table>

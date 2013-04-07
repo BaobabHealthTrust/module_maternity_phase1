@@ -17,7 +17,7 @@
 				Condition at Admission 
 			</td>
 			<td>
-<select id='1.1.1'   field_type='text'  name='concept[Condition of baby at admission]'  pos='0'  helpText='Condition of at admission <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby' >
+<select id='1.1.1'   name='concept[Condition of baby at admission]'  pos='0'  field_type='text'  helpText='Condition of at admission <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby' >
 <option></option>
 <option value='Stable'>Stable</option>
  <option value='Critical'>Critical</option>
@@ -30,7 +30,7 @@
 				Temperature 
 			</td>
 			<td>
-<input type='text' id='1.1.2'  name='concept[TEMPERATURE]'   condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"'  max='45'  absoluteMin='0'  tt_pageStyleClass='Numeric NumbersOnlyWithDecimal'  min='20'  field_type='number'  absoluteMax='100'  pos='1'  helpText='Temperature <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  tt_onLoad='attribute("1.1.2*validationRule*([0-9]+\\.[0-9])|Unknown$")' />
+<input type='text' id='1.1.2'  name='concept[TEMPERATURE]'   absoluteMin='0'  condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"'  max='45'  pos='1'  tt_pageStyleClass='Numeric NumbersOnlyWithDecimal'  field_type='number'  helpText='Temperature <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  absoluteMax='100'  tt_onLoad='attribute("1.1.2*validationRule*([0-9]+\\.[0-9])|Unknown$")'  min='20' />
 			</td>
 		</tr>
 		<tr>
@@ -38,7 +38,7 @@
 				Respiratory Rate 
 			</td>
 			<td>
-<input type='text' id='1.1.3'  name='concept[RESPIRATORY RATE]'   units='bpm'  condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"'  max='80'  tt_pageStyleClass='Numeric NumbersOnlyWithDecimal'  min='0'  field_type='number'  pos='2'  helpText='Respiratory Rate <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby' />
+<input type='text' id='1.1.3'  name='concept[RESPIRATORY RATE]'   condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"'  max='80'  pos='2'  tt_pageStyleClass='Numeric NumbersOnlyWithDecimal'  field_type='number'  helpText='Respiratory Rate <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  units='bpm'  min='0' />
 			</td>
 		</tr>
 		<tr>
@@ -46,7 +46,7 @@
 				Heart Rate 
 			</td>
 			<td>
-<input type='text' id='1.1.4'  name='concept[HEART RATE]'   units='bpm'  condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"'  max='200'  tt_pageStyleClass='Numeric NumbersOnlyWithDecimal'  min='0'  field_type='number'  pos='3'  helpText='Heart Rate<%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby' />
+<input type='text' id='1.1.4'  name='concept[HEART RATE]'   condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"'  max='200'  pos='3'  tt_pageStyleClass='Numeric NumbersOnlyWithDecimal'  field_type='number'  helpText='Heart Rate<%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  units='bpm'  min='0' />
 			</td>
 		</tr>
 		<tr>
@@ -54,7 +54,7 @@
 				Weight 
 			</td>
 			<td>
-<input type='text' id='1.1.5'  name='concept[WEIGHT]'   condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"'  max='5'  absoluteMin='0'  tt_pageStyleClass='Numeric NumbersOnlyWithDecimal'  min='2.5'  field_type='number'  absoluteMax='10'  pos='4'  helpText='Weight <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  tt_onLoad='attribute("1.1.5*validationRule*([0-9]+\\.[0-9])|Unknown$")' />
+<input type='text' id='1.1.5'  name='concept[WEIGHT]'   absoluteMin='0'  condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"'  max='5'  pos='4'  tt_pageStyleClass='Numeric NumbersOnlyWithDecimal'  field_type='number'  helpText='Weight <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby'  absoluteMax='10'  tt_onLoad='attribute("1.1.5*validationRule*([0-9]+\\.[0-9])|Unknown$")'  min='2.5' />
 			</td>
 		</tr>
 		<tr>
@@ -62,7 +62,7 @@
 				Abdomen 
 			</td>
 			<td>
-<select id='1.1.6' name='concept[ABDOMEN]'  condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"'  field_type='text'  pos='5'  helpText='Abdomen <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby' >
+<select id='1.1.6' name='concept[ABDOMEN]'  condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"'  pos='5'  field_type='text'  helpText='Abdomen <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby' >
 <option></option>
 <option value='Distended'>Distended</option>
  <option value='Soft'>Soft</option>
@@ -74,7 +74,7 @@
 				Cord Tied 
 			</td>
 			<td>
-<select id='1.1.7' name='concept[CORD TIED]'  condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"'  field_type='text'  pos='6'  helpText='Cord Tied <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby' >
+<select id='1.1.7' name='concept[CORD TIED]'  condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"'  pos='6'  field_type='text'  helpText='Cord Tied <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby' >
 <option></option>
 <option value='Yes'>Yes</option>
  <option value='No'>No</option>
@@ -86,7 +86,7 @@
 				Any Abnormalities 
 			</td>
 			<td>
-<select id='1.1.8' name='concept[Any abnormalities]'  condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"'  field_type='text'  pos='7'  helpText='Any Abnormalities <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby' >
+<select id='1.1.8' name='concept[Any abnormalities]'  condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"'  pos='7'  field_type='text'  helpText='Any Abnormalities <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby' >
 <option></option>
 <option value='Yes'>Yes</option>
  <option value='No'>No</option>
@@ -98,7 +98,7 @@
 				Specify Abnormalities 
 			</td>
 			<td>
-<input type='text' id='1.1.9'  name='concept[SPECIFY]'   condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"; __$("1.1.8").value.trim().toUpperCase() == "YES"'  field_type='text'  pos='8'  helpText='Specify Abnormality(s) <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby' />
+<input type='text' id='1.1.9'  name='concept[SPECIFY]'   condition='__$("1.1.1").value.trim().toUpperCase() != "DEAD"; __$("1.1.8").value.trim().toUpperCase() == "YES"'  pos='8'  field_type='text'  helpText='Specify Abnormality(s) <%= params["baby"] + ((params["baby"].to_i == 1) ? "<sup>st</sup>" : ((params["baby"].to_i == 2) ? "<sup>nd</sup>" : ((params["baby"].to_i == 3) ? "<sup>rd</sup>" : "<sup>th</sup>" ))) %> baby' />
 			</td>
 		</tr>
 		<tr>
@@ -106,7 +106,7 @@
 				Next URL 
 			</td>
 			<td>
-<input  id='1.1.10'   helpText='Next URL '  name='next_url'  type='hidden'  <%= (params["baby"].to_i >= params["baby_total"].to_i ? "disabled" : "") %>  value='/protocol_patients/baby_exam?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>&baby=<%= params["baby"].to_i + 1 %>&baby_total=<%= params["baby_total"]%>'  pos='9' />
+<input  id='1.1.10'   helpText='Next URL '  name='next_url'  pos='9'  value='/protocol_patients/baby_exam?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>&baby=<%= params["baby"].to_i + 1 %>&baby_total=<%= params["baby_total"]%>'  <%= (params["baby"].to_i >= params["baby_total"].to_i ? "disabled" : "") %>  type='hidden' />
 			</td>
 		</tr>
 	</table>

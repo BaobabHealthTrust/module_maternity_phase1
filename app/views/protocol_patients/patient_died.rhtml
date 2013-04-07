@@ -15,7 +15,7 @@
 				Patient Died 
 			</td>
 			<td>
-<input  id='1.1.1'   helpText='Patient Died '  name='concept[Outcome]'  type='hidden'  value='Patient Died'  pos='0' />
+<input  id='1.1.1'   helpText='Patient Died '  name='concept[Outcome]'  pos='0'  value='Patient Died'  type='hidden' />
 			</td>
 		</tr>
 		<tr>
@@ -23,7 +23,7 @@
 				Date of Death 
 			</td>
 			<td>
-<input type='text' id='1.1.2'  name='concept[DATE OF DEATH]' helpText='Date of Death '  field_type='date'  pos='1' />
+<input type='text' id='1.1.2'  name='concept[DATE OF DEATH]' helpText='Date of Death '  pos='1'  field_type='date' />
 			</td>
 		</tr>
 		<tr>
@@ -31,7 +31,7 @@
 				Place of Death 
 			</td>
 			<td>
-<select id='1.1.3' name='concept[PLACE OF DEATH]' helpText='Place of Death ' field_type='text'  pos='2' >
+<select id='1.1.3' name='concept[PLACE OF DEATH]' helpText='Place of Death ' pos='2'  field_type='text' >
 <option></option>
 <option value='Home'>Home</option>
  <option value='Current Health Center'>Current Health Center</option>
@@ -45,7 +45,7 @@
 				Select Reason For Death 
 			</td>
 			<td>
-<input type='text' id='1.1.4'   helpText='Select Reason For Death '  ajaxURL='/encounters/diagnoses?search_string='  fieldtype='text'  name='concept[Diagnosis]'  allowFreeText='true'  pos='3' />
+<input type='text' id='1.1.4'   helpText='Select Reason For Death '  ajaxURL='/encounters/diagnoses?search_string='  fieldtype='text'  pos='3'  name='concept[Diagnosis]'  allowFreeText='true' />
 			</td>
 		</tr>
 		<tr>
@@ -53,7 +53,7 @@
 				Select Next Reason For Death 
 			</td>
 			<td>
-<input type='text' id='1.1.5'   helpText='Select Next Reason For Death '  ajaxURL='/encounters/diagnoses?search_string='  fieldtype='text'  condition='__$("1.1.4").value != ""'  optional='true'  name='concept[Diagnosis]'  allowFreeText='true'  pos='4' />
+<input type='text' id='1.1.5'   helpText='Select Next Reason For Death '  ajaxURL='/encounters/diagnoses?search_string='  fieldtype='text'  condition='__$("1.1.4").value != ""'  optional='true'  pos='4'  name='concept[Diagnosis]'  allowFreeText='true' />
 			</td>
 		</tr>
 	</table>

@@ -15,7 +15,7 @@
 				PMTCT Status 
 			</td>
 			<td>
-<select id='1.1.1' name='concept[HIV STATUS]' helpText='PMTCT Status ' tt_pageStyleClass='LongSelectList'  field_type='text'  pos='0'  tt_BeforeUnload='checkHIVTestUnkown("1.1.1");' >
+<select id='1.1.1' name='concept[HIV STATUS]' helpText='PMTCT Status ' tt_pageStyleClass='LongSelectList'  pos='0'  field_type='text'  tt_BeforeUnload='checkHIVTestUnkown("1.1.1");' >
 <option></option>
 <option value='Unknown'>Unknown</option>
  <option value='Reactive'>Reactive</option>
@@ -28,7 +28,7 @@
 				PMTCT Test Date 
 			</td>
 			<td>
-<input type='text' id='1.1.2'  name='concept[HIV TEST DATE]' helpText='PMTCT Test Date '  tt_onUnLoad='checkHIVTestDate("1.1.2");'  condition='__$("1.1.1").value.trim().toUpperCase() != "UNKNOWN"'  field_type='date'  pos='1' />
+<input type='text' id='1.1.2'  name='concept[HIV TEST DATE]' helpText='PMTCT Test Date '  tt_onUnLoad='checkHIVTestDate("1.1.2");'  condition='__$("1.1.1").value.trim().toUpperCase() != "UNKNOWN"'  pos='1'  field_type='date' />
 			</td>
 		</tr>
 		<tr>
@@ -36,7 +36,7 @@
 				On ARVs 
 			</td>
 			<td>
-<select id='1.1.3' name='concept[ON ARVS]' helpText='On ARVs ' condition='__$("1.1.1").value.trim().toUpperCase() == "REACTIVE"'  field_type='text'  pos='2' >
+<select id='1.1.3' name='concept[ON ARVS]' helpText='On ARVs ' condition='__$("1.1.1").value.trim().toUpperCase() == "REACTIVE"'  pos='2'  field_type='text' >
 <option></option>
 <option value='Yes'>Yes</option>
  <option value='No'>No</option>
@@ -48,7 +48,7 @@
 				ARV Start Date 
 			</td>
 			<td>
-<input type='text' id='1.1.4'  name='concept[ART Start Date]' helpText='ARV Start Date '  tt_onUnLoad='window.clearInterval(timedEvent)'  condition='__$("1.1.3").value.trim().toUpperCase() == "YES"'  field_type='date'  pos='3'  tt_onLoad='showPeriodOnARVs();' />
+<input type='text' id='1.1.4'  name='concept[ART Start Date]' helpText='ARV Start Date '  tt_onUnLoad='window.clearInterval(timedEvent)'  condition='__$("1.1.3").value.trim().toUpperCase() == "YES"'  pos='3'  field_type='date'  tt_onLoad='showPeriodOnARVs();' />
 			</td>
 		</tr>
 		<tr>
@@ -56,7 +56,7 @@
 				Feeding Option 
 			</td>
 			<td>
-<select id='1.1.5' name='concept[FEEDING OPTION]' helpText='Feeding Option ' field_type='text'  pos='5' >
+<select id='1.1.5' name='concept[FEEDING OPTION]' helpText='Feeding Option ' pos='5'  field_type='text' >
 <option></option>
 <option value='Exclusive Breast Feeding'>Exclusive Breast Feeding</option>
  <option value='No Breast Feeding'>No Breast Feeding</option>

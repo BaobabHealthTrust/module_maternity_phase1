@@ -28,7 +28,7 @@
 				Which Health Facility 
 			</td>
 			<td>
-<input type='text' id='1.1.3'  name='concept[HEALTH FACILITY]' helpText='Which Health Facility '  ajaxURL='/encounters/static_locations?search_string='  fieldtype='text'  condition='__$("1.1.1").value.trim().toUpperCase() == "ANOTHER HEALTH FACILITY"'  allowFreeText='true'  pos='1' />
+<input type='text' id='1.1.3'  name='concept[HEALTH FACILITY]' helpText='Which Health Facility '  ajaxURL='/encounters/static_locations?search_string='  fieldtype='text'  condition='__$("1.1.1").value.trim().toUpperCase() == "ANOTHER HEALTH FACILITY"'  pos='1'  allowFreeText='true' />
 			</td>
 		</tr>
 		<tr>
@@ -36,7 +36,7 @@
 				Select Discharge Diagnosis 
 			</td>
 			<td>
-<input type='text' id='1.1.4'   helpText='Select Discharge Diagnosis '  ajaxURL='/encounters/diagnoses?search_string='  fieldtype='text'  name='concept[Diagnosis][]'  allowFreeText='true'  pos='2' />
+<input type='text' id='1.1.4'   helpText='Select Discharge Diagnosis '  ajaxURL='/encounters/diagnoses?search_string='  fieldtype='text'  pos='2'  name='concept[Diagnosis][]'  allowFreeText='true' />
 			</td>
 		</tr>
 		<tr>
@@ -44,7 +44,7 @@
 				Select Next Discharge Diagnosis 
 			</td>
 			<td>
-<input type='text' id='1.1.5'   helpText='Select Next Discharge Diagnosis '  ajaxURL='/encounters/diagnoses?search_string='  fieldtype='text'  condition='__$("1.1.4").value != ""'  optional='true'  name='concept[Diagnosis][]'  allowFreeText='true'  pos='3' />
+<input type='text' id='1.1.5'   helpText='Select Next Discharge Diagnosis '  ajaxURL='/encounters/diagnoses?search_string='  fieldtype='text'  condition='__$("1.1.4").value != ""'  optional='true'  pos='3'  name='concept[Diagnosis][]'  allowFreeText='true' />
 			</td>
 		</tr>
 		<tr>
@@ -52,7 +52,7 @@
 				Number of babies 
 			</td>
 			<td>
-<input type='text' id='1.1.6'  name='concept[NUMBER OF BABIES]' helpText='Number of babies '  tt_onUnLoad='__$("1.1.7").value = __$("1.1.7").value + __$("touchscreenInput" + tstCurrentPage).value'  max='5'  absoluteMin='1'  field_type='number'  tt_pageStyleClass='NumbersOnly'  absoluteMax='10'  pos='4' />
+<input type='text' id='1.1.6'  name='concept[NUMBER OF BABIES]' helpText='Number of babies '  tt_onUnLoad='__$("1.1.7").value = __$("1.1.7").value + __$("touchscreenInput" + tstCurrentPage).value'  absoluteMin='1'  max='5'  tt_pageStyleClass='NumbersOnly'  pos='4'  field_type='number'  absoluteMax='10' />
 			</td>
 		</tr>
 		<tr>
@@ -60,7 +60,7 @@
 				Next URL 
 			</td>
 			<td>
-<input  id='1.1.7'   helpText='Next URL '  name='next_url'  type='hidden'  value='/protocol_patients/delivery_mode?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>&baby=1&baby_total='  pos='5' />
+<input  id='1.1.7'   helpText='Next URL '  name='next_url'  pos='5'  value='/protocol_patients/delivery_mode?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>&baby=1&baby_total='  type='hidden' />
 			</td>
 		</tr>
 	</table>

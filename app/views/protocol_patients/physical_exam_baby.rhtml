@@ -15,7 +15,7 @@
 				Number of babies 
 			</td>
 			<td>
-<input type='text' id='1.1.1'  name='concept[NUMBER OF BABIES]' helpText='Number of babies '  tt_onUnLoad='__$("1.1.2").value = __$("1.1.2").value + __$("touchscreenInput" + tstCurrentPage).value'  max='5'  absoluteMin='1'  field_type='number'  absoluteMax='10'  tt_pageStyleclass='NumbersOnly'  pos='0' />
+<input type='text' id='1.1.1'  name='concept[NUMBER OF BABIES]' helpText='Number of babies '  tt_onUnLoad='__$("1.1.2").value = __$("1.1.2").value + __$("touchscreenInput" + tstCurrentPage).value'  absoluteMin='1'  max='5'  pos='0'  field_type='number'  absoluteMax='10'  tt_pageStyleclass='NumbersOnly' />
 			</td>
 		</tr>
 		<tr>
@@ -23,7 +23,7 @@
 				Next URL 
 			</td>
 			<td>
-<input  id='1.1.2'   helpText='Next URL '  name='next_url'  type='hidden'  value='/protocol_patients/baby_exam?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>&baby=1&baby_total='  pos='1' />
+<input  id='1.1.2'   helpText='Next URL '  name='next_url'  pos='1'  value='/protocol_patients/baby_exam?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>&baby=1&baby_total='  type='hidden' />
 			</td>
 		</tr>
 	</table>
