@@ -459,6 +459,7 @@ class EncountersController < ApplicationController
 		set = params[:set].gsub("_", " ").strip.upcase
     		@options = Concept.find_by_name(set).concept_answers.collect{|c| c.name}
     		@options = @options.collect{|rel| rel if rel.downcase.include?(search_string.downcase)}
+				@options.delete_if{|opt| opt.match(/Intrauterine death/i) and set.downcase == "baby outcome"}
     		render :text => "<li></li><li>" + @options.join("</li><li>") + "</li>"
 	end
 	def procedure_diagnoses
