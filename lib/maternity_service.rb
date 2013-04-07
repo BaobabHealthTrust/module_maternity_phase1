@@ -1,5 +1,4 @@
 module MaternityService
-  require 'patient_service'
   
   class Maternity
     

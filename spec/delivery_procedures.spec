@@ -31,3 +31,5 @@ Q.1.1.14. Reason For Procedure [name: concept[DILATION AND CURETTAGE DIAGNOSIS][
 Q.1.1.15. Reason For Procedure [name: concept[LAPARATOMY DIAGNOSIS DIAGNOSIS][], concept: LAPARATOMY DIAGNOSIS DIAGNOSIS, condition: __$("1.1.1").value.trim().toUpperCase() == "EXPLORATORY LAPARATOMY +/- ADNEXECTOMY", pos: 14, field_type: text, ajaxURL: /encounters/procedure_diagnoses?procedure=laparatomy&search_string=]
 
 Q.1.1.16. Next URL [pos: 15, name: next_url, type: hidden, value: /protocol_patients/delivery_procedures?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>]
+
+Q.1.1.17. Procedure Check [pos: 16, name: proc_check, type: hidden, value: true]

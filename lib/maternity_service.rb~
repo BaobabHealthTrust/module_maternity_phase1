@@ -1,5 +1,4 @@
 module MaternityService
-  require 'patient_service'
   
   class Maternity
     
@@ -486,7 +485,7 @@ module MaternityService
             "Health Center" => (facility),
             "Provider Title" => ((current_user.user_roles.first.role.titleize rescue nil)),
             "Hospital Date" => (Date.today.strftime("%Y-%m-%d")),
-            "Provider Name" => ((current_user.name rescue nil))
+            "Provider Name" => (current_user.name  rescue nil)
           }
         }
       else

@@ -31,7 +31,7 @@
 				Next Of Kin Phone Number 
 			</td>
 			<td>
-<input type='text' id='1.1.3'  name='concept[Next of Kin Telephone]' helpText='Next Of Kin Phone Number '  validationRule='^0\\d{7}$|Unknown|Not Available|N\/A|^0\\d{9}$'  validationMessage='Not a valid phone number'  field_type='number'  pos='3'  tt_pageStyleClass='nota NumbersOnlyWithUnknown' />
+<input type='text' id='1.1.3'  name='concept[Next of Kin Telephone]' helpText='Next Of Kin Phone Number '  validationRule='^0\\d{7}$|Unknown|Not Available|N\/A|^0\\d{9}$'  tt_pageStyleClass='nota NumbersOnlyWithUnknown'  field_type='number'  pos='3'  validationMessage='Not a valid phone number' />
 			</td>
 		</tr>
 		<tr>
@@ -39,7 +39,7 @@
 				Next Of Kin Relation Type 
 			</td>
 			<td>
-<input type='text' id='1.1.4'  name='concept[GUARDIAN RELATION]' helpText='Next Of Kin Relation Type '  pos='4'  ajaxURL='/encounters/relation_type?search_string=' />
+<input type='text' id='1.1.4'  name='concept[GUARDIAN RELATION]' helpText='Next Of Kin Relation Type '  ajaxURL='/encounters/relation_type?search_string='  pos='4' />
 			</td>
 		</tr>
 		<tr>
@@ -47,7 +47,7 @@
 				Specify Other Relation Type 
 			</td>
 			<td>
-<input type='text' id='1.1.4.1'  name='concept[OTHER RELATIVE]' helpText='Specify Other Relation Type '  field_type='text'  pos='5'  condition='__$("1.1.4").value == "Other"' />
+<input type='text' id='1.1.4.1'  name='concept[OTHER RELATIVE]' helpText='Specify Other Relation Type '  condition='__$("1.1.4").value == "Other"'  field_type='text'  pos='5' />
 			</td>
 		</tr>
 		<tr>
@@ -70,7 +70,7 @@
 				Religion 
 			</td>
 			<td>
-<input type='text' id='1.1.6'  name='concept[RELIGION]' helpText='Religion '  field_type='text'  pos='7'  ajaxURL='/encounters/religion?search_string=' />
+<input type='text' id='1.1.6'  name='concept[RELIGION]' helpText='Religion '  ajaxURL='/encounters/religion?search_string='  field_type='text'  pos='7' />
 			</td>
 		</tr>
 		<tr>
@@ -78,7 +78,7 @@
 				Specify Other Religion 
 			</td>
 			<td>
-<input type='text' id='1.1.6.1'  name='concept[OTHER]' helpText='Specify Other Religion '  field_type='text'  pos='8'  condition='__$("1.1.6").value == "Other"' />
+<input type='text' id='1.1.6.1'  name='concept[OTHER]' helpText='Specify Other Religion '  condition='__$("1.1.6").value == "Other"'  field_type='text'  pos='8' />
 			</td>
 		</tr>
 	</table>

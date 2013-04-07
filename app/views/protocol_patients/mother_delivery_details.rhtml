@@ -29,7 +29,7 @@
 				Tear Extent 
 			</td>
 			<td>
-<select id='1.1.2' name='concept[TEAR]' helpText='Tear Extent ' field_type='text'  pos='1'  condition='__$("1.1.1").value.trim().toUpperCase() == "TEAR"' >
+<select id='1.1.2' name='concept[TEAR]' helpText='Tear Extent ' condition='__$("1.1.1").value.trim().toUpperCase() == "TEAR"'  field_type='text'  pos='1' >
 <option></option>
 <option value='1 Degree'>1 Degree</option>
  <option value='2 Degrees'>2 Degrees</option>
@@ -43,7 +43,7 @@
 				Next URL 
 			</td>
 			<td>
-<input  id='1.1.3'   helpText='Next URL '  type='hidden'  pos='2'  value='/protocol_patients/delivery_procedures?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>'  name='next_url' />
+<input  id='1.1.3'   helpText='Next URL '  name='next_url'  type='hidden'  value='/protocol_patients/delivery_procedures?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>'  pos='2' />
 			</td>
 		</tr>
 	</table>
