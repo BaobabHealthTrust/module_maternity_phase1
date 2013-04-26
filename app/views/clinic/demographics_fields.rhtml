@@ -79,7 +79,7 @@
     div.style.left = (p[3] - 850) + "px";
     div.style.position = "absolute";
 
-    global_control = id;
+    global_control = id;clinic
 
     var row1 = ["Q","W","E","R","T","Y","U","I","O","P"];
     var row2 = ["A","S","D","F","G","H","J","K","L",":"];
@@ -396,7 +396,7 @@
         li.onclick = function(){
           if(this.innerHTML.match(/unticked/)){
             ajaxCustomRequest(__$('details'),
-            '/add_field?user_id=<%= @user["user_id"] %>&target=' + this.getAttribute("target"))
+            '/clinic/add_field?user_id=<%= @user["user_id"] rescue params[:user_id] %>&target=' + this.getAttribute("target"))
           } else {
             confirmDeletion('Are you sure you want to remove this user from this project?',
             this.getAttribute("target"));
@@ -457,7 +457,7 @@
 
   function runCmd(id){
     ajaxCustomRequest(__$('details'),
-    '/remove_field?user_id=<%= @user["user_id"] %>&target=' + id);
+    '/clinic/remove_field?user_id=<%= @user["user_id"] rescue params[:user_id] %>&target=' + id);
   }
 
   function confirmDeletion(message, id) {
@@ -480,7 +480,7 @@
 
   }
 
-  setTimeout("ajaxCustomRequest(__$('details'), '/show_selected_fields')", 100);
+  setTimeout("ajaxCustomRequest(__$('details'), '/clinic/show_selected_fields')", 100);
   //-->
 </script>
 

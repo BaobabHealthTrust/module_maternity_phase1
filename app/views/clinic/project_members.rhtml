@@ -392,7 +392,7 @@
         li.onclick = function(){
           if(this.innerHTML.match(/unticked/)){
             ajaxCustomRequest(__$('users'), '',
-            '/add_to_project?user_id=<%= @user["user_id"] %>&target=' + this.getAttribute("target"))
+            '/add_to_project?user_id=<%= @user["user_id"] rescue params[:user_id]%>&target=' + this.getAttribute("target"))
           } else {
             confirmDeletion('Are you sure you want to remove this user from this project?',
             this.getAttribute("target"));
@@ -453,7 +453,7 @@
 
   function runCmd(id){
     ajaxCustomRequest(__$('users'), '',
-    '/remove_from_project?user_id=<%= @user["user_id"] %>&target=' + id);
+    '/remove_from_project?user_id=<%= @user["user_id"] rescue params[:user_id]%>&target=' + id);
   }
 
   function confirmDeletion(message, id) {
@@ -488,7 +488,7 @@
         __$("searchbox").className = 'normal';
       }
     } else {
-      ajaxCustomRequest(__$('users'), __$("searchbox").value, '/project_users_list?user_id=<%= @user["user_id"] %>')
+      ajaxCustomRequest(__$('users'), __$("searchbox").value, '/project_users_list?user_id=<%= @user["user_id"] rescue params[:user_id]%>')
     }
 
     setTimeout("checkControl()", 100);
@@ -496,7 +496,7 @@
 
   setTimeout("checkControl()", 100);
 
-  setTimeout("ajaxCustomRequest(__$('users'), '', '/project_users_list?user_id=<%= @user["user_id"] %>')", 100);
+  setTimeout("ajaxCustomRequest(__$('users'), '', '/project_users_list?user_id=<%= @user["user_id"] rescue params[:user_id]%>')", 100);
   //-->
 </script>
 

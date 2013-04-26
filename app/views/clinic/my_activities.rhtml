@@ -395,7 +395,7 @@
         li.onclick = function(){
           if(this.innerHTML.match(/unticked/)){
             ajaxCustomRequest(__$('users'), '',
-            '/create_user_activity?user_id=<%= @user["user_id"] %>&activity=' + this.getAttribute("activity"))
+            '/create_user_activity?user_id=<%= @user["user_id"] rescue params[:user_id]%>&activity=' + this.getAttribute("activity"))
           } else {
             confirmDeletion('Are you sure you want to remove this activity?',
             this.getAttribute("activity"));
@@ -456,7 +456,7 @@
 
   function runCmd(activity){
     ajaxCustomRequest(__$('users'), '',
-    '/remove_user_activity?user_id=<%= @user["user_id"] %>&activity=' + activity);
+    '/remove_user_activity?user_id=<%= @user["user_id"] rescue params[:user_id]%>&activity=' + activity);
   }
 
   function confirmDeletion(message, activity) {
@@ -491,7 +491,7 @@
         __$("searchbox").className = 'normal';
       }
     } else {
-      ajaxCustomRequest(__$('users'), __$("searchbox").value, '/check_user_activities?user_id=<%= @user["user_id"] %>')
+      ajaxCustomRequest(__$('users'), __$("searchbox").value, '/check_user_activities?user_id=<%= @user["user_id"] rescue params[:user_id]%>')
     }
 
     setTimeout("checkControl()", 100);
@@ -499,7 +499,7 @@
 
   setTimeout("checkControl()", 100);
 
-  setTimeout("ajaxCustomRequest(__$('users'), '', '/check_user_activities?user_id=<%= @user["user_id"] %>')", 500);
+  setTimeout("ajaxCustomRequest(__$('users'), '', '/check_user_activities?user_id=<%= @user["user_id"] rescue params[:user_id] %>')", 500);
   //-->
 </script>
 

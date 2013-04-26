@@ -22,8 +22,17 @@
       My Account
     </option>
 
-    <% if !@user["roles"].map{|role| role.downcase if role.downcase == "program manager" ||
-          role.downcase == "superuser"}.compact.empty? %>
+    
+    <% 
+    @user_roles = @user["roles"] rescue []
+    roles = UserRole.find(:all, :conditions => ["user_id = ?", @user.id]) ||  UserRole.find(:all, 
+    		:conditions => ["user_id = ?", params[:user_id]])
+    
+    @user_roles = roles.collect{|r| r.role} rescue [] if @user_roles.blank?
+  
+    if !@user_roles.map{|role| role.downcase if role.downcase == "program manager" ||
+          role.downcase == "superuser"}.compact.empty?
+           %>
 
       <option value="/administration?user_id=<%= params[:user_id] %>&location_id=<%= session[:location_id] || params[:location_id] %>">
         Administration
@@ -45,7 +54,11 @@
     <option value='' link='/logout?user_id=<%= params[:user_id] %>'>Logout</option>
     <option value='javascript:document.forms[0].submit()' ttSize="290px">
       Find / Register Patient
-    </option>    
+    </option>
+    <option value='<%= (!session[:datetime].nil? ?
+        "/reset_datetime?user_id=#{ params[:user_id] }&location_id=#{ params[:location_id] }" :
+                "/set_datetime?user_id=#{ params[:user_id] }&location_id=#{ session[:location_id] || params[:location_id] }") %>'
+            ttSize="100px"><%= (!session[:datetime].nil? ? "Reset Date" : "Set Date") %></option>
   </select>
 
   <form id="register" action="<%= @patient_registration %>/search?user_id=<%= params[:user_id] 

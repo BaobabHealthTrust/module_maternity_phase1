@@ -73,7 +73,7 @@
 
         li.onclick = function(){
           if(this.innerHTML.match(/unticked/)){
-            ajaxCustomRequest(__$(this.getAttribute("parent")), '/create_role_activities?user_id=<%= @user["user_id"] %>',
+            ajaxCustomRequest(__$(this.getAttribute("parent")), '/create_role_activities?user_id=<%= @user["user_id"] rescue params[:user_id] %>',
             this.getAttribute("role"), this.getAttribute("activity"))
           } else {
             confirmDeletion('Are you sure you want to remove <br/>this activity from this role?',
@@ -134,12 +134,12 @@
 
   function populateActivities(){
     for(var i = 1; i <= roles.length; i++){
-      ajaxCustomRequest(__$('ul' + i), '/check_role_activities?user_id=<%= @user["user_id"] %>', roles[i-1])
+      ajaxCustomRequest(__$('ul' + i), '/check_role_activities?user_id=<%= @user["user_id"]  rescue params[:user_id]%>', roles[i-1])
     }
   }
 
   function runCmd(id, role, activity){
-    ajaxCustomRequest(__$(id), '/remove_role_activities?user_id=<%= @user["user_id"] %>', role, activity);
+    ajaxCustomRequest(__$(id), '/remove_role_activities?user_id=<%= @user["user_id"]  rescue params[:user_id] %>', role, activity);
   }
 
   function confirmDeletion(message, id, role, activity) {
