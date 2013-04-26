@@ -1,6 +1,10 @@
 
 class ClinicController < ApplicationController
 
+	before_filter :check_user, :except => [:user_login, :user_logout, :missing_program, :static_locations,
+    :missing_concept, :no_user, :no_patient, :project_users_list, :show_selected_fields, :check_role_activities,
+    :missing_encounter_type, :diagnoses]
+
   def index
 
     User.current = User.find(@user["user_id"]) rescue nil

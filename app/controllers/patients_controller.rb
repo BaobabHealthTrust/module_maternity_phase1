@@ -1,6 +1,8 @@
 
 class PatientsController < ApplicationController
 
+ 	before_filter :check_user
+
   def show
     @patient = Patient.find(params[:id] || params[:patient_id]) rescue nil
 
