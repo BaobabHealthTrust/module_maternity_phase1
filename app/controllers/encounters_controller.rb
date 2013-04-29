@@ -1,10 +1,6 @@
 
 class EncountersController < ApplicationController
 
-  before_filter :check_user, :except => [:missing_program, :static_locations,
-		  :missing_concept, :no_user, :no_patient, :check_role_activities,
-		  :missing_encounter_type]
-
   def create
 
    if params["proc_check"] && (params["concept"]["Procedure Done"].blank? || params["concept"]["Procedure Done"].downcase == "none")
@@ -475,7 +471,7 @@ class EncountersController < ApplicationController
 		set = params[:set].gsub("_", " ").strip.upcase
     		@options = Concept.find_by_name(set).concept_answers.collect{|c| c.name}
     		@options = @options.collect{|rel| rel if rel.downcase.include?(search_string.downcase)}
-				@options.delete_if{|opt| opt.match(/Intrauterine death/i) and set.downcase == "baby outcome"}
+    		@options.delete_if{|opt| opt.match(/Intrauterine death/i) and set.downcase == "baby outcome"}
     		render :text => "<li></li><li>" + @options.join("</li><li>") + "</li>"
 	end
 	def procedure_diagnoses
