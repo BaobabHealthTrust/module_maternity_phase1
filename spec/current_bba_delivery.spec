@@ -26,3 +26,5 @@ Q.1.1.10. Next URL [pos: 9, name: next_url, value: /protocol_patients/bba_delive
 
 Q.1.1.11. Next URL [pos: 10, name: next_url, value: /protocol_patients/mother_delivery_details?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>, type: hidden, ruby: <%= (params["baby"].to_i < params["baby_total"].to_i ? "disabled" | "") %>]
 
+Q.1.1.12. Baby Check [pos: 11, name: baby_check, type: hidden, value: true]
+

@@ -1,5 +1,5 @@
 module MaternityService
-  
+   
   class Maternity
     
     attr_accessor :patient, :person
@@ -277,12 +277,16 @@ module MaternityService
     end
 
     def kids
-
-      Relationship.find(:all, :order => ["date_created DESC"],
-		:conditions => ["person_b = ? AND relationship = ? AND voided = 0",
+      Relationship.find(:all, :conditions => ["person_a = ? AND relationship = ? AND voided = 0",
           self.patient.id, RelationshipType.find(:first,
-            :conditions => ["a_is_to_b = ? AND b_is_to_a = ?", "Child", "Parent"]).id])
+            :conditions => ["a_is_to_b = ? AND b_is_to_a = ?", "Parent", "Child"]).id]) rescue []
     end
+	
+		def live_kids
+			Relationship.find(:all, :conditions => ["person_a = ? AND relationship = ? AND voided = 0",
+          self.patient.id, RelationshipType.find(:first,
+            :conditions => ["a_is_to_b = ? AND b_is_to_a = ?", "Parent", "Child"]).id]).collect{|baby| baby if Person.find_by_person_id(baby.person_b).dead == false}.delete_if{|x| x.blank?}
+		end
 
     def babies_ever
       PatientReport.find(:all,
@@ -292,9 +296,22 @@ module MaternityService
     end
 
     def create_baby(params)
-      if !params["DATE OF DELIVERY"].nil? && !params["GENDER OF CONTACT"].nil? &&
-          (!params["BABY OUTCOME"].nil? && params["BABY OUTCOME"].upcase == "ALIVE")       
-      
+
+      if !params["DATE OF DELIVERY"].blank? && !params["GENDER OF CONTACT"].blank?    
+				last_name = PersonName.find_by_person_id(self.husband.person_b).family_name  rescue nil        
+   			last_name = ANCService::ANC.new(self.patient).last_name rescue nil  if last_name.blank?
+				#choose a temporary first name  for the baby
+				children = self.kids
+				first_name = "Baby-" + (children.length + 1).to_s
+				
+				#Check for duplicate names
+				child_names =PersonName.find(:all, :conditions => ["person_id IN (?)", children.collect{|child| child.person_b}]).collect{|name|
+					name.given_name rescue nil}.uniq
+				
+				if child_names.include?(first_name)
+					first_name = first_name +"_"+ Date.today.year.to_s + "/" + Date.today.month.to_s + "/" + Date.today.day.to_s
+				end
+
         baby = {
           "patient"=>{
             "identifiers"=>{
@@ -302,8 +319,8 @@ module MaternityService
             }
           },
           "names"=>{
-            "family_name"=>"Unknown",
-            "given_name"=>"Unknown"
+            "family_name"=>last_name,
+            "given_name"=> first_name
           },
           "addresses"=>{
             "city_village"=>nil,
@@ -321,30 +338,57 @@ module MaternityService
           "birth_month"=>(params["DATE OF DELIVERY"].to_date rescue Date.today).month,
           "birth_day"=>(params["DATE OF DELIVERY"].to_date rescue Date.today).day
         }
-
-        create_from_dde_server = CoreService.get_global_property_value('create.from.dde.server').to_s == "true" rescue false
+			  create_from_dde_server = CoreService.get_global_property_value('create.from.dde.server').to_s == "true" rescue false
         
         person = ANCService.create_patient_from_dde_baby(baby) if create_from_dde_server
-
         if person.blank?
           person = Person.create_from_form(baby)
         end
-        
-        id_type = PatientIdentifierType.find_by_name("Serial Number").patient_identifier_type_id
-        serial_num = SerialNumber.find(:first, :conditions => ["national_id IS NULL"])
+				
+				#Just Check in case the baby is no more
+        if params["BABY OUTCOME"].downcase == "alive"
+					person.dead = false
+				else
+					person.dead = true
+				end
+        person.save
 
-        PatientIdentifier.create(:patient_id => person.patient.patient_id,
-          :identifier => serial_num.serial_number,
-          :identifier_type => id_type) if serial_num and !person.blank?
+				#A baby with a name must be extra beautiful
+				name = PersonName.find_by_person_id(person.person_id)
+				unless name.blank?
+					name.given_name = first_name
+					name.family_name = last_name
+					name.save
+				else
+					PersonName.create(:person_id => person.person_id,
+						:given_name => first_name,
+						:family_name => last_name
+					)
+				end
+				
+				#Not these days, serial numbers just good as well
+        assign_serial_numbers = CoreService.get_global_property_value("assign_serial_numbers").to_s == "true" rescue false
+
+        if assign_serial_numbers
+          id_type = PatientIdentifierType.find_by_name("Serial Number").patient_identifier_type_id
+          serial_num = SerialNumber.find(:first, :conditions => ["national_id IS NULL"])
+
+          PatientIdentifier.create(:patient_id => person.patient.patient_id,
+            :identifier => serial_num.serial_number,
+            :identifier_type => id_type
+          ) if serial_num and !person.blank?
         
-        serial_num.national_id = person.patient.national_id
-        serial_num.date_assigned = Date.today
-        serial_num.save
+          serial_num.national_id = person.patient.national_id
+          serial_num.date_assigned = Date.today
+          serial_num.save
+
+        end
         
         person.patient.national_id_label
 
         child_type = RelationshipType.find_by_a_is_to_b("Mother").relationship_type_id
-
+				
+				#Who was born without a mother, we map this baby to its mother
         Relationship.create(
           # :creator => User.first.id,
           :person_a => self.patient.id,
@@ -377,7 +421,7 @@ module MaternityService
          
         mother = ANCService::ANC.new(self.mother.person.patient) rescue nil
         father = ANCService::ANC.new(self.father.relation.patient) rescue nil
-       {
+        {
           "birthdate_estimated" => (self.person.birthdate_estimated rescue 0),
           "gender" => (child.person.gender rescue nil),
           "birthdate" => (child.person.birthdate.strftime("%Y-%m-%d") rescue nil),
@@ -440,10 +484,10 @@ module MaternityService
             "addresses" => {
               "address1" => (mother.current_address1 rescue nil),
               "city_village" => (mother.current_address2 rescue nil),
-              "address2" => (mother.current_district rescue nil),
-              "subregion" => (mother.home_district rescue nil),
+              "state_province" => (mother.current_district rescue nil),
+              "address2" => (mother.home_district rescue nil),
               "county_district" => (mother.home_ta rescue nil),
-              "neighborhood_cell" => (mother.home_village rescue nil)
+              "neighborhood_cell" => (mother.home_village rescue nil)            
             }
           },
           "father" => {
@@ -474,8 +518,8 @@ module MaternityService
             "addresses" => {
               "address1" => (father.current_address1 rescue nil),
               "city_village" => (father.current_address2 rescue nil),
-              "address2" => (father.current_district rescue nil),
-              "subregion" => (father.home_district rescue nil),
+              "state_province" => (father.current_district rescue nil),
+              "address2" => (father.home_district rescue nil),
               "county_district" => (father.home_ta rescue nil),
               "neighborhood_cell" => (father.home_village rescue nil)
             }
@@ -483,9 +527,9 @@ module MaternityService
           "facility" => {
             "Health District" => (district),
             "Health Center" => (facility),
-            "Provider Title" => ((current_user.user_roles.first.role.titleize rescue nil)),
-            "Hospital Date" => (Date.today.strftime("%Y-%m-%d")),
-            "Provider Name" => (current_user.name  rescue nil)
+            "Provider Title" => (child.get_full_attribute("Provider Title").value rescue nil),
+            "Hospital Date" => (child.get_full_attribute("Hospital Date").value rescue nil),
+            "Provider Name" => (child.get_full_attribute("Provider Name").value rescue nil)
           }
         }
       else
@@ -522,5 +566,34 @@ module MaternityService
 
     result.delete_if{|r| r["BABY OUTCOME"].downcase != "alive"} rescue []
   end
+
+  def self.extract_baby(params)
+    babies = params["observations"].collect{|o|
+      o if ((!o["value_coded_or_text"].blank? ||
+            !o["value_datetime"].blank?) &&
+          (o["concept_name"].upcase == "BABY OUTCOME" ||
+            o["concept_name"].downcase == "gender of contact" ||
+            o["concept_name"].upcase == "DATE OF DELIVERY"))
+    }.compact
+
+    result = []
+    
+    i = 0
+
+    babies.each{|o|
+      result << {} if result[i/3].nil?
+      result[i/3][o["concept_name"].upcase] = (
+        case o["concept_name"]
+        when "DATE OF DELIVERY":
+            o["value_datetime"]
+        else
+          o["value_coded_or_text"]
+        end)
+      i += 1
+    }
+    result
+
+  end
+
 
 end

@@ -15,7 +15,7 @@
 				Fundus(weeks) 
 			</td>
 			<td>
-<input type='text' id='1.1.1'  name='concept[FUNDUS]' helpText='Fundus(weeks) '  tt_pageStyleClass='NumbersOnly na'  pos='0'  field_type='number' />
+<input type='text' id='1.1.1'  name='concept[FUNDUS]' helpText='Fundus(weeks) '  pos='0'  field_type='number'  tt_pageStyleClass='NumbersOnly na' />
 			</td>
 		</tr>
 		<tr>
@@ -23,7 +23,7 @@
 				Lie 
 			</td>
 			<td>
-<select id='1.1.2' name='concept[LIE]' helpText='Lie ' condition='__$("1.1.1").value != "N/A"'  pos='1'  field_type='text' >
+<select id='1.1.2' name='concept[LIE]' helpText='Lie ' pos='1'  field_type='text'  condition='__$("1.1.1").value != "N/A"' >
 <option></option>
 <option value='Longitudinal'>Longitudinal</option>
  <option value='Transverse'>Transverse</option>
@@ -37,7 +37,7 @@
 				Contractions 
 			</td>
 			<td>
-<select id='1.1.3' name='concept[CONTRACTIONS]' helpText='Contractions ' condition='__$("1.1.1").value != "N/A"'  pos='2'  field_type='text' >
+<select id='1.1.3' name='concept[CONTRACTIONS]' helpText='Contractions ' pos='2'  field_type='text'  condition='__$("1.1.1").value != "N/A"' >
 <option></option>
 <option value='Yes'>Yes</option>
  <option value='No'>No</option>
@@ -49,7 +49,7 @@
 				Contractions Intensity 
 			</td>
 			<td>
-<select id='1.1.4' name='concept[CONTRACTIONS INTENSITY]' helpText='Contractions Intensity ' condition='__$("1.1.3").value.trim().toUpperCase() == "YES"'  pos='3'  field_type='text' >
+<select id='1.1.4' name='concept[CONTRACTIONS INTENSITY]' helpText='Contractions Intensity ' pos='3'  field_type='text'  condition='__$("1.1.3").value.trim().toUpperCase() == "YES"' >
 <option></option>
 <option value='Mild'>Mild</option>
  <option value='Moderate'>Moderate</option>
@@ -63,7 +63,7 @@
 				Contractions Level 
 			</td>
 			<td>
-<input type='text' id='1.1.5'  name='concept[CONTRACTIONS LEVEL]' helpText='Contractions Level '  absoluteMin='1'  condition='__$("1.1.4").value.trim().toUpperCase() != "NIGGLING"'  pos='4'  tt_pageStyleClass='NumbersOnly na'  field_type='number'  tt_onLoad='changeIds()'  absoluteMax='5' />
+<input type='text' id='1.1.5'  name='concept[CONTRACTIONS LEVEL]' helpText='Contractions Level '  pos='4'  field_type='number'  absoluteMin='1'  condition='__$("1.1.4").value.trim().toUpperCase() != "NIGGLING"'  tt_pageStyleClass='NumbersOnly na'  absoluteMax='5'  tt_onLoad='changeIds()' />
 			</td>
 		</tr>
 		<tr>
@@ -71,7 +71,7 @@
 				Descent 
 			</td>
 			<td>
-<select id='1.1.6' name='concept[DESCENT]' helpText='Descent ' tt_pageStyleClass='NoKeyboard'  pos='5'  field_type='text' >
+<select id='1.1.6' name='concept[DESCENT]' helpText='Descent ' pos='5'  field_type='text'  tt_pageStyleClass='NoKeyboard' >
 <option></option>
 <option value='N/A'>N/A</option>
  <option value='5/5'>5/5</option>

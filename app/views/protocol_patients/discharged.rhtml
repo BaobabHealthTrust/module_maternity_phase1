@@ -15,7 +15,7 @@
 				Discharged to Where? 
 			</td>
 			<td>
-<select id='1.1.1' name='concept[DISCHARGED]' helpText='Discharged to Where? ' fieldtype='text'  pos='0' >
+<select id='1.1.1' name='concept[DISCHARGED]' helpText='Discharged to Where? ' pos='0'  fieldtype='text' >
 <option></option>
 <option value='Home'>Home</option>
  <option value='Home - Waiting'>Home - Waiting</option>
@@ -28,7 +28,7 @@
 				Which Health Facility 
 			</td>
 			<td>
-<input type='text' id='1.1.3'  name='concept[HEALTH FACILITY]' helpText='Which Health Facility '  ajaxURL='/encounters/static_locations?search_string='  fieldtype='text'  condition='__$("1.1.1").value.trim().toUpperCase() == "ANOTHER HEALTH FACILITY"'  pos='1'  allowFreeText='true' />
+<input type='text' id='1.1.3'  name='concept[HEALTH FACILITY]' helpText='Which Health Facility '  pos='1'  ajaxURL='/encounters/static_locations?search_string='  allowFreeText='true'  fieldtype='text'  condition='__$("1.1.1").value.trim().toUpperCase() == "ANOTHER HEALTH FACILITY"' />
 			</td>
 		</tr>
 		<tr>
@@ -36,7 +36,7 @@
 				Select Discharge Diagnosis 
 			</td>
 			<td>
-<input type='text' id='1.1.4'   helpText='Select Discharge Diagnosis '  ajaxURL='/encounters/diagnoses?search_string='  fieldtype='text'  pos='2'  name='concept[Diagnosis][]'  allowFreeText='true' />
+<input type='text' id='1.1.4'   helpText='Select Discharge Diagnosis '  pos='2'  ajaxURL='/encounters/diagnoses?search_string='  allowFreeText='true'  fieldtype='text'  name='concept[Diagnosis][]' />
 			</td>
 		</tr>
 		<tr>
@@ -44,7 +44,7 @@
 				Select Next Discharge Diagnosis 
 			</td>
 			<td>
-<input type='text' id='1.1.5'   helpText='Select Next Discharge Diagnosis '  ajaxURL='/encounters/diagnoses?search_string='  fieldtype='text'  condition='__$("1.1.4").value != ""'  optional='true'  pos='3'  name='concept[Diagnosis][]'  allowFreeText='true' />
+<input type='text' id='1.1.5'   helpText='Select Next Discharge Diagnosis '  pos='3'  ajaxURL='/encounters/diagnoses?search_string='  allowFreeText='true'  fieldtype='text'  condition='__$("1.1.4").value != ""'  optional='true'  name='concept[Diagnosis][]' />
 			</td>
 		</tr>
 		<tr>
@@ -52,7 +52,7 @@
 				Number of babies 
 			</td>
 			<td>
-<input type='text' id='1.1.6'  name='concept[NUMBER OF BABIES]' helpText='Number of babies '  tt_onUnLoad='__$("1.1.7").value = __$("1.1.7").value + __$("touchscreenInput" + tstCurrentPage).value'  absoluteMin='1'  max='5'  tt_pageStyleClass='NumbersOnly'  pos='4'  field_type='number'  absoluteMax='10' />
+<input type='text' id='1.1.6'  name='concept[NUMBER OF BABIES]' helpText='Number of babies '  tt_onUnLoad='__$("1.1.7").value = __$("1.1.7").value + __$("touchscreenInput" + tstCurrentPage).value'  max='5'  pos='4'  field_type='number'  absoluteMin='1'  tt_pageStyleClass='NumbersOnly'  absoluteMax='10' />
 			</td>
 		</tr>
 		<tr>
@@ -60,7 +60,7 @@
 				Next URL 
 			</td>
 			<td>
-<input  id='1.1.7'   helpText='Next URL '  name='next_url'  pos='5'  value='/protocol_patients/delivery_mode?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>&baby=1&baby_total='  type='hidden' />
+<input  id='1.1.7'   helpText='Next URL '  type='hidden'  pos='5'  value='/protocol_patients/delivery_mode?user_id=<%= @user.id %>&patient_id=<%= @patient.id %>&baby=1&baby_total='  name='next_url' />
 			</td>
 		</tr>
 	</table>
