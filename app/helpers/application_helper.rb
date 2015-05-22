@@ -97,6 +97,6 @@ module ApplicationHelper
   end
 
   def version
-	return '#{APP_VERSION}'
+	return APP_VERSION
   end  
 end
